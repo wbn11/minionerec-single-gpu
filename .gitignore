@@ -1,0 +1,49 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local environments and secrets
+.venv/
+.venv-a6000/
+venv/
+.env
+.env.*
+!.env.example
+
+# Packaging outputs
+build/
+dist/
+*.egg-info/
+
+# Editors and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Training and tracking outputs
+wandb/
+runs/
+outputs/
+*.log
+
+# Large model artifacts anywhere in the repository
+*.bin
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+
+# Local datasets, embeddings, checkpoints and full predictions
+artifacts/*
+!artifacts/README.md
+
+# Keep only compact, reviewable result summaries in Git
+results/predictions/
+results/checkpoints/
