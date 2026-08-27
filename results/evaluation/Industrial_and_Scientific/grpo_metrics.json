@@ -1,0 +1,47 @@
+{
+  "model_path": "results/grpo/Industrial_and_Scientific/final_model",
+  "test_file": "artifacts/data/final/amazon18/test/Industrial_and_Scientific_5_2016-10-2018-11.csv",
+  "info_file": "artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_2016-10-2018-11.txt",
+  "cuda": {
+    "logical_device": "cuda:0",
+    "name": "NVIDIA RTX A6000",
+    "total_memory_gib": 47.43,
+    "allocated_gib": 2.88,
+    "peak_gib": 7.12
+  },
+  "catalog": {
+    "item_rows": 3686,
+    "unique_sids": 3673,
+    "sid_collision_excess": 13
+  },
+  "generation": {
+    "sample_count": 4533,
+    "batch_size": 8,
+    "num_beams": 50,
+    "num_return_sequences": 50,
+    "max_new_tokens": 256,
+    "length_penalty": 0.0,
+    "do_sample": false,
+    "seed": 42,
+    "candidate_count": 226650,
+    "valid_candidates": 226650,
+    "invalid_candidates": 0,
+    "valid_candidate_rate": 1.0,
+    "elapsed_seconds": 1049.505,
+    "samples_per_second": 4.319
+  },
+  "metrics": {
+    "HR@1": 0.06176924773880432,
+    "NDCG@1": 0.06176924773880432,
+    "HR@3": 0.09331568497683654,
+    "NDCG@3": 0.07993981238615301,
+    "HR@5": 0.11074343701742775,
+    "NDCG@5": 0.08708783120520464,
+    "HR@10": 0.13964262078093978,
+    "NDCG@10": 0.09628346694116038,
+    "HR@20": 0.1813368630046327,
+    "NDCG@20": 0.10669045244371095,
+    "HR@50": 0.2402382528127068,
+    "NDCG@50": 0.11838027372948663
+  }
+}

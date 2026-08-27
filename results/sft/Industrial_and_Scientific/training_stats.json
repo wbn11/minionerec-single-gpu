@@ -1,0 +1,51 @@
+{
+  "final_model_dir": "results/sft/Industrial_and_Scientific/final_model",
+  "statistics_file": "results/sft/Industrial_and_Scientific/training_stats.json",
+  "resume_from_checkpoint": null,
+  "cuda": {
+    "logical_device": "cuda:0",
+    "name": "NVIDIA RTX A6000",
+    "total_memory_gib": 47.43
+  },
+  "datasets": {
+    "sid_prediction": 36259,
+    "item_identification": 7319,
+    "fusion_title_prediction": 36259,
+    "train_total": 79837,
+    "validation": 4532
+  },
+  "vocabulary": {
+    "original_vocabulary_size": 151665,
+    "sid_token_count": 540,
+    "added_token_count": 540,
+    "resized_vocabulary_size": 152205,
+    "item_count": 3686,
+    "tokens_per_item": 3
+  },
+  "training_parameters": {
+    "batch_size": 128,
+    "micro_batch_size": 4,
+    "gradient_accumulation_steps": 32,
+    "num_epochs": 10,
+    "learning_rate": 0.0003,
+    "max_length": 512,
+    "seed": 42,
+    "bf16": true,
+    "gradient_checkpointing": false
+  },
+  "result": {
+    "global_step": 2808,
+    "epoch": 4.500200400801603,
+    "training_loss": 0.5261008588549418,
+    "best_checkpoint": "results/sft/Industrial_and_Scientific/checkpoint-1872",
+    "best_eval_loss": 1.526702642440796,
+    "metrics": {
+      "train_runtime": 10757.0145,
+      "train_samples_per_second": 74.219,
+      "train_steps_per_second": 0.58,
+      "total_flos": 3.829865625607373e+17,
+      "train_loss": 0.5261008588549418,
+      "epoch": 4.500200400801603
+    }
+  }
+}

@@ -1,0 +1,6456 @@
+{
+  "embedding_file": "artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.emb-qwen-td.npy",
+  "embedding_shape": [
+    3686,
+    2560
+  ],
+  "embedding_dtype": "float32",
+  "config": {
+    "epochs": 10000,
+    "batch_size": 20480,
+    "num_workers": 4,
+    "eval_step": 50,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "warmup_epochs": 50,
+    "device": "cuda:0",
+    "seed": 2024,
+    "input_dim": 2560,
+    "codebook_sizes": [
+      256,
+      256,
+      256
+    ],
+    "latent_dim": 32,
+    "hidden_dims": [
+      2048,
+      1024,
+      512,
+      256,
+      128,
+      64
+    ],
+    "dropout": 0.0,
+    "batch_norm": false,
+    "quant_loss_weight": 1.0,
+    "beta": 0.25,
+    "kmeans_init": true,
+    "kmeans_iters": 100,
+    "sinkhorn_epsilons": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "sinkhorn_iters": 50
+  },
+  "records": [
+    {
+      "epoch": 50,
+      "total_loss": 1.269480586051941,
+      "reconstruction_loss": 1.0583300590515137,
+      "quantization_loss": 0.21115055680274963,
+      "training_seconds": 0.12274924572557211,
+      "item_count": 3686,
+      "unique_sid_count": 6,
+      "collision_count": 3680,
+      "collision_rate": 0.9983722192078134,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 4,
+          "total_codes": 256,
+          "utilization": 0.015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        }
+      ],
+      "evaluation_seconds": 0.10872193612158298
+    },
+    {
+      "epoch": 100,
+      "total_loss": 1.048426866531372,
+      "reconstruction_loss": 1.0254853963851929,
+      "quantization_loss": 0.022941503673791885,
+      "training_seconds": 0.13513949885964394,
+      "item_count": 3686,
+      "unique_sid_count": 9,
+      "collision_count": 3677,
+      "collision_rate": 0.99755832881172,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 4,
+          "total_codes": 256,
+          "utilization": 0.015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 6,
+          "total_codes": 256,
+          "utilization": 0.0234375
+        }
+      ],
+      "evaluation_seconds": 0.1282972851768136
+    },
+    {
+      "epoch": 150,
+      "total_loss": 1.027013897895813,
+      "reconstruction_loss": 1.0216596126556396,
+      "quantization_loss": 0.005354305729269981,
+      "training_seconds": 0.15504340268671513,
+      "item_count": 3686,
+      "unique_sid_count": 18,
+      "collision_count": 3668,
+      "collision_rate": 0.99511665762344,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 3,
+          "total_codes": 256,
+          "utilization": 0.01171875
+        },
+        {
+          "layer": 3,
+          "used_codes": 15,
+          "total_codes": 256,
+          "utilization": 0.05859375
+        }
+      ],
+      "evaluation_seconds": 0.12610525824129581
+    },
+    {
+      "epoch": 200,
+      "total_loss": 1.0227949619293213,
+      "reconstruction_loss": 1.0212677717208862,
+      "quantization_loss": 0.00152715970762074,
+      "training_seconds": 0.13392832688987255,
+      "item_count": 3686,
+      "unique_sid_count": 11,
+      "collision_count": 3675,
+      "collision_rate": 0.9970157352143245,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 1,
+          "total_codes": 256,
+          "utilization": 0.00390625
+        },
+        {
+          "layer": 2,
+          "used_codes": 3,
+          "total_codes": 256,
+          "utilization": 0.01171875
+        },
+        {
+          "layer": 3,
+          "used_codes": 8,
+          "total_codes": 256,
+          "utilization": 0.03125
+        }
+      ],
+      "evaluation_seconds": 0.1251452276483178
+    },
+    {
+      "epoch": 250,
+      "total_loss": 1.021393060684204,
+      "reconstruction_loss": 1.0206702947616577,
+      "quantization_loss": 0.0007227371679618955,
+      "training_seconds": 0.12367919087409973,
+      "item_count": 3686,
+      "unique_sid_count": 12,
+      "collision_count": 3674,
+      "collision_rate": 0.9967444384156267,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 6,
+          "total_codes": 256,
+          "utilization": 0.0234375
+        },
+        {
+          "layer": 3,
+          "used_codes": 8,
+          "total_codes": 256,
+          "utilization": 0.03125
+        }
+      ],
+      "evaluation_seconds": 0.1313481517136097
+    },
+    {
+      "epoch": 300,
+      "total_loss": 1.021036982536316,
+      "reconstruction_loss": 1.0205062627792358,
+      "quantization_loss": 0.0005306695238687098,
+      "training_seconds": 0.14541149698197842,
+      "item_count": 3686,
+      "unique_sid_count": 14,
+      "collision_count": 3672,
+      "collision_rate": 0.9962018448182312,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 4,
+          "total_codes": 256,
+          "utilization": 0.015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 7,
+          "total_codes": 256,
+          "utilization": 0.02734375
+        }
+      ],
+      "evaluation_seconds": 0.12475614622235298
+    },
+    {
+      "epoch": 350,
+      "total_loss": 1.021032691001892,
+      "reconstruction_loss": 1.0204699039459229,
+      "quantization_loss": 0.0005628160433843732,
+      "training_seconds": 0.12826783023774624,
+      "item_count": 3686,
+      "unique_sid_count": 18,
+      "collision_count": 3668,
+      "collision_rate": 0.99511665762344,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 4,
+          "total_codes": 256,
+          "utilization": 0.015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 6,
+          "total_codes": 256,
+          "utilization": 0.0234375
+        }
+      ],
+      "evaluation_seconds": 0.1385266212746501
+    },
+    {
+      "epoch": 400,
+      "total_loss": 1.0246307849884033,
+      "reconstruction_loss": 1.0223637819290161,
+      "quantization_loss": 0.002266951836645603,
+      "training_seconds": 0.13086025323718786,
+      "item_count": 3686,
+      "unique_sid_count": 85,
+      "collision_count": 3601,
+      "collision_rate": 0.976939772110689,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 10,
+          "total_codes": 256,
+          "utilization": 0.0390625
+        },
+        {
+          "layer": 3,
+          "used_codes": 20,
+          "total_codes": 256,
+          "utilization": 0.078125
+        }
+      ],
+      "evaluation_seconds": 0.11263208650052547
+    },
+    {
+      "epoch": 450,
+      "total_loss": 0.948509156703949,
+      "reconstruction_loss": 0.9395126700401306,
+      "quantization_loss": 0.008996511809527874,
+      "training_seconds": 0.13562327064573765,
+      "item_count": 3686,
+      "unique_sid_count": 186,
+      "collision_count": 3500,
+      "collision_rate": 0.9495387954422138,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 2,
+          "total_codes": 256,
+          "utilization": 0.0078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 21,
+          "total_codes": 256,
+          "utilization": 0.08203125
+        },
+        {
+          "layer": 3,
+          "used_codes": 53,
+          "total_codes": 256,
+          "utilization": 0.20703125
+        }
+      ],
+      "evaluation_seconds": 0.12115509621798992
+    },
+    {
+      "epoch": 500,
+      "total_loss": 0.9379904270172119,
+      "reconstruction_loss": 0.9287169575691223,
+      "quantization_loss": 0.009273454546928406,
+      "training_seconds": 0.1487411940470338,
+      "item_count": 3686,
+      "unique_sid_count": 212,
+      "collision_count": 3474,
+      "collision_rate": 0.9424850786760717,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 5,
+          "total_codes": 256,
+          "utilization": 0.01953125
+        },
+        {
+          "layer": 2,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 3,
+          "used_codes": 49,
+          "total_codes": 256,
+          "utilization": 0.19140625
+        }
+      ],
+      "evaluation_seconds": 0.11972995568066835
+    },
+    {
+      "epoch": 550,
+      "total_loss": 0.8985108733177185,
+      "reconstruction_loss": 0.8806277513504028,
+      "quantization_loss": 0.017883125692605972,
+      "training_seconds": 0.1270093061029911,
+      "item_count": 3686,
+      "unique_sid_count": 363,
+      "collision_count": 3323,
+      "collision_rate": 0.9015192620727075,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 8,
+          "total_codes": 256,
+          "utilization": 0.03125
+        },
+        {
+          "layer": 2,
+          "used_codes": 38,
+          "total_codes": 256,
+          "utilization": 0.1484375
+        },
+        {
+          "layer": 3,
+          "used_codes": 85,
+          "total_codes": 256,
+          "utilization": 0.33203125
+        }
+      ],
+      "evaluation_seconds": 0.13953203707933426
+    },
+    {
+      "epoch": 600,
+      "total_loss": 0.859808087348938,
+      "reconstruction_loss": 0.8285648822784424,
+      "quantization_loss": 0.031243223696947098,
+      "training_seconds": 0.13754860125482082,
+      "item_count": 3686,
+      "unique_sid_count": 957,
+      "collision_count": 2729,
+      "collision_rate": 0.740368963646229,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 10,
+          "total_codes": 256,
+          "utilization": 0.0390625
+        },
+        {
+          "layer": 2,
+          "used_codes": 60,
+          "total_codes": 256,
+          "utilization": 0.234375
+        },
+        {
+          "layer": 3,
+          "used_codes": 148,
+          "total_codes": 256,
+          "utilization": 0.578125
+        }
+      ],
+      "evaluation_seconds": 0.13097348809242249
+    },
+    {
+      "epoch": 650,
+      "total_loss": 0.8030712604522705,
+      "reconstruction_loss": 0.77292400598526,
+      "quantization_loss": 0.030147232115268707,
+      "training_seconds": 0.1417925264686346,
+      "item_count": 3686,
+      "unique_sid_count": 1647,
+      "collision_count": 2039,
+      "collision_rate": 0.553174172544764,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 14,
+          "total_codes": 256,
+          "utilization": 0.0546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 84,
+          "total_codes": 256,
+          "utilization": 0.328125
+        },
+        {
+          "layer": 3,
+          "used_codes": 186,
+          "total_codes": 256,
+          "utilization": 0.7265625
+        }
+      ],
+      "evaluation_seconds": 0.1380810458213091
+    },
+    {
+      "epoch": 700,
+      "total_loss": 0.7709260582923889,
+      "reconstruction_loss": 0.7442585825920105,
+      "quantization_loss": 0.02666744962334633,
+      "training_seconds": 0.12662317790091038,
+      "item_count": 3686,
+      "unique_sid_count": 2137,
+      "collision_count": 1549,
+      "collision_rate": 0.42023874118285404,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 14,
+          "total_codes": 256,
+          "utilization": 0.0546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 99,
+          "total_codes": 256,
+          "utilization": 0.38671875
+        },
+        {
+          "layer": 3,
+          "used_codes": 193,
+          "total_codes": 256,
+          "utilization": 0.75390625
+        }
+      ],
+      "evaluation_seconds": 0.11548103298991919
+    },
+    {
+      "epoch": 750,
+      "total_loss": 0.7201048731803894,
+      "reconstruction_loss": 0.68492591381073,
+      "quantization_loss": 0.03517896682024002,
+      "training_seconds": 0.1205570362508297,
+      "item_count": 3686,
+      "unique_sid_count": 2288,
+      "collision_count": 1398,
+      "collision_rate": 0.37927292457948997,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 15,
+          "total_codes": 256,
+          "utilization": 0.05859375
+        },
+        {
+          "layer": 2,
+          "used_codes": 112,
+          "total_codes": 256,
+          "utilization": 0.4375
+        },
+        {
+          "layer": 3,
+          "used_codes": 193,
+          "total_codes": 256,
+          "utilization": 0.75390625
+        }
+      ],
+      "evaluation_seconds": 0.15678321570158005
+    },
+    {
+      "epoch": 800,
+      "total_loss": 0.7103305459022522,
+      "reconstruction_loss": 0.6636570692062378,
+      "quantization_loss": 0.04667346179485321,
+      "training_seconds": 0.12104085925966501,
+      "item_count": 3686,
+      "unique_sid_count": 2425,
+      "collision_count": 1261,
+      "collision_rate": 0.34210526315789475,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 15,
+          "total_codes": 256,
+          "utilization": 0.05859375
+        },
+        {
+          "layer": 2,
+          "used_codes": 130,
+          "total_codes": 256,
+          "utilization": 0.5078125
+        },
+        {
+          "layer": 3,
+          "used_codes": 201,
+          "total_codes": 256,
+          "utilization": 0.78515625
+        }
+      ],
+      "evaluation_seconds": 0.12367616593837738
+    },
+    {
+      "epoch": 850,
+      "total_loss": 0.6813069581985474,
+      "reconstruction_loss": 0.6215813159942627,
+      "quantization_loss": 0.05972561240196228,
+      "training_seconds": 0.1376227606087923,
+      "item_count": 3686,
+      "unique_sid_count": 2475,
+      "collision_count": 1211,
+      "collision_rate": 0.328540423223006,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 15,
+          "total_codes": 256,
+          "utilization": 0.05859375
+        },
+        {
+          "layer": 2,
+          "used_codes": 135,
+          "total_codes": 256,
+          "utilization": 0.52734375
+        },
+        {
+          "layer": 3,
+          "used_codes": 213,
+          "total_codes": 256,
+          "utilization": 0.83203125
+        }
+      ],
+      "evaluation_seconds": 0.12028337083756924
+    },
+    {
+      "epoch": 900,
+      "total_loss": 0.6583973169326782,
+      "reconstruction_loss": 0.5912476181983948,
+      "quantization_loss": 0.06714972853660583,
+      "training_seconds": 0.13860484771430492,
+      "item_count": 3686,
+      "unique_sid_count": 2557,
+      "collision_count": 1129,
+      "collision_rate": 0.3062940857297884,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 15,
+          "total_codes": 256,
+          "utilization": 0.05859375
+        },
+        {
+          "layer": 2,
+          "used_codes": 147,
+          "total_codes": 256,
+          "utilization": 0.57421875
+        },
+        {
+          "layer": 3,
+          "used_codes": 220,
+          "total_codes": 256,
+          "utilization": 0.859375
+        }
+      ],
+      "evaluation_seconds": 0.11926739662885666
+    },
+    {
+      "epoch": 950,
+      "total_loss": 0.6295302510261536,
+      "reconstruction_loss": 0.5538345575332642,
+      "quantization_loss": 0.0756957158446312,
+      "training_seconds": 0.13479851838201284,
+      "item_count": 3686,
+      "unique_sid_count": 2631,
+      "collision_count": 1055,
+      "collision_rate": 0.28621812262615304,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 16,
+          "total_codes": 256,
+          "utilization": 0.0625
+        },
+        {
+          "layer": 2,
+          "used_codes": 158,
+          "total_codes": 256,
+          "utilization": 0.6171875
+        },
+        {
+          "layer": 3,
+          "used_codes": 221,
+          "total_codes": 256,
+          "utilization": 0.86328125
+        }
+      ],
+      "evaluation_seconds": 0.10780271701514721
+    },
+    {
+      "epoch": 1000,
+      "total_loss": 0.6141679286956787,
+      "reconstruction_loss": 0.5316137075424194,
+      "quantization_loss": 0.08255420625209808,
+      "training_seconds": 0.16682383511215448,
+      "item_count": 3686,
+      "unique_sid_count": 2648,
+      "collision_count": 1038,
+      "collision_rate": 0.2816060770482908,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 16,
+          "total_codes": 256,
+          "utilization": 0.0625
+        },
+        {
+          "layer": 2,
+          "used_codes": 166,
+          "total_codes": 256,
+          "utilization": 0.6484375
+        },
+        {
+          "layer": 3,
+          "used_codes": 230,
+          "total_codes": 256,
+          "utilization": 0.8984375
+        }
+      ],
+      "evaluation_seconds": 0.1217070622369647
+    },
+    {
+      "epoch": 1050,
+      "total_loss": 0.6198662519454956,
+      "reconstruction_loss": 0.5271266102790833,
+      "quantization_loss": 0.09273965656757355,
+      "training_seconds": 0.14984223432838917,
+      "item_count": 3686,
+      "unique_sid_count": 2688,
+      "collision_count": 998,
+      "collision_rate": 0.27075420510037984,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 16,
+          "total_codes": 256,
+          "utilization": 0.0625
+        },
+        {
+          "layer": 2,
+          "used_codes": 168,
+          "total_codes": 256,
+          "utilization": 0.65625
+        },
+        {
+          "layer": 3,
+          "used_codes": 232,
+          "total_codes": 256,
+          "utilization": 0.90625
+        }
+      ],
+      "evaluation_seconds": 0.13567190989851952
+    },
+    {
+      "epoch": 1100,
+      "total_loss": 0.5994514226913452,
+      "reconstruction_loss": 0.49547791481018066,
+      "quantization_loss": 0.10397353023290634,
+      "training_seconds": 0.14417557325214148,
+      "item_count": 3686,
+      "unique_sid_count": 2741,
+      "collision_count": 945,
+      "collision_rate": 0.2563754747693977,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 17,
+          "total_codes": 256,
+          "utilization": 0.06640625
+        },
+        {
+          "layer": 2,
+          "used_codes": 173,
+          "total_codes": 256,
+          "utilization": 0.67578125
+        },
+        {
+          "layer": 3,
+          "used_codes": 229,
+          "total_codes": 256,
+          "utilization": 0.89453125
+        }
+      ],
+      "evaluation_seconds": 0.12260004132986069
+    },
+    {
+      "epoch": 1150,
+      "total_loss": 0.5959877967834473,
+      "reconstruction_loss": 0.4831875264644623,
+      "quantization_loss": 0.11280030012130737,
+      "training_seconds": 0.14716596994549036,
+      "item_count": 3686,
+      "unique_sid_count": 2751,
+      "collision_count": 935,
+      "collision_rate": 0.25366250678241997,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 20,
+          "total_codes": 256,
+          "utilization": 0.078125
+        },
+        {
+          "layer": 2,
+          "used_codes": 189,
+          "total_codes": 256,
+          "utilization": 0.73828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 230,
+          "total_codes": 256,
+          "utilization": 0.8984375
+        }
+      ],
+      "evaluation_seconds": 0.12221936695277691
+    },
+    {
+      "epoch": 1200,
+      "total_loss": 0.5888845920562744,
+      "reconstruction_loss": 0.46970799565315247,
+      "quantization_loss": 0.11917656660079956,
+      "training_seconds": 0.13850994873791933,
+      "item_count": 3686,
+      "unique_sid_count": 2760,
+      "collision_count": 926,
+      "collision_rate": 0.25122083559414,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 21,
+          "total_codes": 256,
+          "utilization": 0.08203125
+        },
+        {
+          "layer": 2,
+          "used_codes": 193,
+          "total_codes": 256,
+          "utilization": 0.75390625
+        },
+        {
+          "layer": 3,
+          "used_codes": 231,
+          "total_codes": 256,
+          "utilization": 0.90234375
+        }
+      ],
+      "evaluation_seconds": 0.14638729020953178
+    },
+    {
+      "epoch": 1250,
+      "total_loss": 0.5794349312782288,
+      "reconstruction_loss": 0.45537590980529785,
+      "quantization_loss": 0.12405900657176971,
+      "training_seconds": 0.14103658869862556,
+      "item_count": 3686,
+      "unique_sid_count": 2789,
+      "collision_count": 897,
+      "collision_rate": 0.24335322843190452,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 21,
+          "total_codes": 256,
+          "utilization": 0.08203125
+        },
+        {
+          "layer": 2,
+          "used_codes": 190,
+          "total_codes": 256,
+          "utilization": 0.7421875
+        },
+        {
+          "layer": 3,
+          "used_codes": 235,
+          "total_codes": 256,
+          "utilization": 0.91796875
+        }
+      ],
+      "evaluation_seconds": 0.13636325858533382
+    },
+    {
+      "epoch": 1300,
+      "total_loss": 0.5686495304107666,
+      "reconstruction_loss": 0.437604159116745,
+      "quantization_loss": 0.1310453712940216,
+      "training_seconds": 0.1390524310991168,
+      "item_count": 3686,
+      "unique_sid_count": 2861,
+      "collision_count": 825,
+      "collision_rate": 0.22381985892566467,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 22,
+          "total_codes": 256,
+          "utilization": 0.0859375
+        },
+        {
+          "layer": 2,
+          "used_codes": 194,
+          "total_codes": 256,
+          "utilization": 0.7578125
+        },
+        {
+          "layer": 3,
+          "used_codes": 241,
+          "total_codes": 256,
+          "utilization": 0.94140625
+        }
+      ],
+      "evaluation_seconds": 0.14305877406150103
+    },
+    {
+      "epoch": 1350,
+      "total_loss": 0.5594865679740906,
+      "reconstruction_loss": 0.42438021302223206,
+      "quantization_loss": 0.13510636985301971,
+      "training_seconds": 0.17333341017365456,
+      "item_count": 3686,
+      "unique_sid_count": 2823,
+      "collision_count": 863,
+      "collision_rate": 0.23412913727618015,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 202,
+          "total_codes": 256,
+          "utilization": 0.7890625
+        },
+        {
+          "layer": 3,
+          "used_codes": 242,
+          "total_codes": 256,
+          "utilization": 0.9453125
+        }
+      ],
+      "evaluation_seconds": 0.1303693624213338
+    },
+    {
+      "epoch": 1400,
+      "total_loss": 0.5508540868759155,
+      "reconstruction_loss": 0.4088616967201233,
+      "quantization_loss": 0.14199236035346985,
+      "training_seconds": 0.13847150094807148,
+      "item_count": 3686,
+      "unique_sid_count": 2860,
+      "collision_count": 826,
+      "collision_rate": 0.22409115572436245,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 209,
+          "total_codes": 256,
+          "utilization": 0.81640625
+        },
+        {
+          "layer": 3,
+          "used_codes": 245,
+          "total_codes": 256,
+          "utilization": 0.95703125
+        }
+      ],
+      "evaluation_seconds": 0.12856310792267323
+    },
+    {
+      "epoch": 1450,
+      "total_loss": 0.5451905131340027,
+      "reconstruction_loss": 0.3963509202003479,
+      "quantization_loss": 0.1488395780324936,
+      "training_seconds": 0.13709386996924877,
+      "item_count": 3686,
+      "unique_sid_count": 2872,
+      "collision_count": 814,
+      "collision_rate": 0.22083559413998916,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 205,
+          "total_codes": 256,
+          "utilization": 0.80078125
+        },
+        {
+          "layer": 3,
+          "used_codes": 247,
+          "total_codes": 256,
+          "utilization": 0.96484375
+        }
+      ],
+      "evaluation_seconds": 0.13289511762559414
+    },
+    {
+      "epoch": 1500,
+      "total_loss": 0.5424190759658813,
+      "reconstruction_loss": 0.3866238296031952,
+      "quantization_loss": 0.15579521656036377,
+      "training_seconds": 0.11838638968765736,
+      "item_count": 3686,
+      "unique_sid_count": 2885,
+      "collision_count": 801,
+      "collision_rate": 0.21730873575691806,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 213,
+          "total_codes": 256,
+          "utilization": 0.83203125
+        },
+        {
+          "layer": 3,
+          "used_codes": 244,
+          "total_codes": 256,
+          "utilization": 0.953125
+        }
+      ],
+      "evaluation_seconds": 0.11487278155982494
+    },
+    {
+      "epoch": 1550,
+      "total_loss": 0.5502728223800659,
+      "reconstruction_loss": 0.38732996582984924,
+      "quantization_loss": 0.16294287145137787,
+      "training_seconds": 0.12663447204977274,
+      "item_count": 3686,
+      "unique_sid_count": 2877,
+      "collision_count": 809,
+      "collision_rate": 0.21947911014650026,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 214,
+          "total_codes": 256,
+          "utilization": 0.8359375
+        },
+        {
+          "layer": 3,
+          "used_codes": 247,
+          "total_codes": 256,
+          "utilization": 0.96484375
+        }
+      ],
+      "evaluation_seconds": 0.10962798912078142
+    },
+    {
+      "epoch": 1600,
+      "total_loss": 0.5541422367095947,
+      "reconstruction_loss": 0.38739532232284546,
+      "quantization_loss": 0.16674694418907166,
+      "training_seconds": 0.13202937319874763,
+      "item_count": 3686,
+      "unique_sid_count": 2902,
+      "collision_count": 784,
+      "collision_rate": 0.21269669017905588,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 213,
+          "total_codes": 256,
+          "utilization": 0.83203125
+        },
+        {
+          "layer": 3,
+          "used_codes": 245,
+          "total_codes": 256,
+          "utilization": 0.95703125
+        }
+      ],
+      "evaluation_seconds": 0.12021948024630547
+    },
+    {
+      "epoch": 1650,
+      "total_loss": 0.5345353484153748,
+      "reconstruction_loss": 0.36424511671066284,
+      "quantization_loss": 0.17029023170471191,
+      "training_seconds": 0.1382566411048174,
+      "item_count": 3686,
+      "unique_sid_count": 2887,
+      "collision_count": 799,
+      "collision_rate": 0.21676614215952253,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 212,
+          "total_codes": 256,
+          "utilization": 0.828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        }
+      ],
+      "evaluation_seconds": 0.1225554933771491
+    },
+    {
+      "epoch": 1700,
+      "total_loss": 0.5315658450126648,
+      "reconstruction_loss": 0.3571271002292633,
+      "quantization_loss": 0.1744387447834015,
+      "training_seconds": 0.1275822827592492,
+      "item_count": 3686,
+      "unique_sid_count": 2913,
+      "collision_count": 773,
+      "collision_rate": 0.20971242539338036,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 218,
+          "total_codes": 256,
+          "utilization": 0.8515625
+        },
+        {
+          "layer": 3,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        }
+      ],
+      "evaluation_seconds": 0.11721478030085564
+    },
+    {
+      "epoch": 1750,
+      "total_loss": 0.5380128026008606,
+      "reconstruction_loss": 0.35323023796081543,
+      "quantization_loss": 0.18478256464004517,
+      "training_seconds": 0.1406489470973611,
+      "item_count": 3686,
+      "unique_sid_count": 2928,
+      "collision_count": 758,
+      "collision_rate": 0.20564297341291374,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 216,
+          "total_codes": 256,
+          "utilization": 0.84375
+        },
+        {
+          "layer": 3,
+          "used_codes": 247,
+          "total_codes": 256,
+          "utilization": 0.96484375
+        }
+      ],
+      "evaluation_seconds": 0.14617896173149347
+    },
+    {
+      "epoch": 1800,
+      "total_loss": 0.5422891974449158,
+      "reconstruction_loss": 0.3481111228466034,
+      "quantization_loss": 0.19417808949947357,
+      "training_seconds": 0.13434650748968124,
+      "item_count": 3686,
+      "unique_sid_count": 2903,
+      "collision_count": 783,
+      "collision_rate": 0.21242539338035812,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 217,
+          "total_codes": 256,
+          "utilization": 0.84765625
+        },
+        {
+          "layer": 3,
+          "used_codes": 248,
+          "total_codes": 256,
+          "utilization": 0.96875
+        }
+      ],
+      "evaluation_seconds": 0.1443302184343338
+    },
+    {
+      "epoch": 1850,
+      "total_loss": 0.5394748449325562,
+      "reconstruction_loss": 0.343411922454834,
+      "quantization_loss": 0.19606289267539978,
+      "training_seconds": 0.1536752749234438,
+      "item_count": 3686,
+      "unique_sid_count": 2950,
+      "collision_count": 736,
+      "collision_rate": 0.19967444384156266,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 218,
+          "total_codes": 256,
+          "utilization": 0.8515625
+        },
+        {
+          "layer": 3,
+          "used_codes": 248,
+          "total_codes": 256,
+          "utilization": 0.96875
+        }
+      ],
+      "evaluation_seconds": 0.12119916826486588
+    },
+    {
+      "epoch": 1900,
+      "total_loss": 0.5256611108779907,
+      "reconstruction_loss": 0.32264018058776855,
+      "quantization_loss": 0.20302091538906097,
+      "training_seconds": 0.15745014138519764,
+      "item_count": 3686,
+      "unique_sid_count": 2952,
+      "collision_count": 734,
+      "collision_rate": 0.19913185024416713,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 23,
+          "total_codes": 256,
+          "utilization": 0.08984375
+        },
+        {
+          "layer": 2,
+          "used_codes": 222,
+          "total_codes": 256,
+          "utilization": 0.8671875
+        },
+        {
+          "layer": 3,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        }
+      ],
+      "evaluation_seconds": 0.1383026810362935
+    },
+    {
+      "epoch": 1950,
+      "total_loss": 0.5365104675292969,
+      "reconstruction_loss": 0.33288297057151794,
+      "quantization_loss": 0.20362746715545654,
+      "training_seconds": 0.1545601086691022,
+      "item_count": 3686,
+      "unique_sid_count": 2959,
+      "collision_count": 727,
+      "collision_rate": 0.19723277265328268,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 219,
+          "total_codes": 256,
+          "utilization": 0.85546875
+        },
+        {
+          "layer": 3,
+          "used_codes": 249,
+          "total_codes": 256,
+          "utilization": 0.97265625
+        }
+      ],
+      "evaluation_seconds": 0.12512431386858225
+    },
+    {
+      "epoch": 2000,
+      "total_loss": 0.5364202260971069,
+      "reconstruction_loss": 0.32582852244377136,
+      "quantization_loss": 0.21059171855449677,
+      "training_seconds": 0.1470670783892274,
+      "item_count": 3686,
+      "unique_sid_count": 2935,
+      "collision_count": 751,
+      "collision_rate": 0.20374389582202931,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 224,
+          "total_codes": 256,
+          "utilization": 0.875
+        },
+        {
+          "layer": 3,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        }
+      ],
+      "evaluation_seconds": 0.13728164602071047
+    },
+    {
+      "epoch": 2050,
+      "total_loss": 0.5251221656799316,
+      "reconstruction_loss": 0.30873024463653564,
+      "quantization_loss": 0.216391921043396,
+      "training_seconds": 0.15116738248616457,
+      "item_count": 3686,
+      "unique_sid_count": 2952,
+      "collision_count": 734,
+      "collision_rate": 0.19913185024416713,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 219,
+          "total_codes": 256,
+          "utilization": 0.85546875
+        },
+        {
+          "layer": 3,
+          "used_codes": 252,
+          "total_codes": 256,
+          "utilization": 0.984375
+        }
+      ],
+      "evaluation_seconds": 0.14318258315324783
+    },
+    {
+      "epoch": 2100,
+      "total_loss": 0.5315549373626709,
+      "reconstruction_loss": 0.3131304979324341,
+      "quantization_loss": 0.21842440962791443,
+      "training_seconds": 0.1503198454156518,
+      "item_count": 3686,
+      "unique_sid_count": 2968,
+      "collision_count": 718,
+      "collision_rate": 0.19479110146500273,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 223,
+          "total_codes": 256,
+          "utilization": 0.87109375
+        },
+        {
+          "layer": 3,
+          "used_codes": 252,
+          "total_codes": 256,
+          "utilization": 0.984375
+        }
+      ],
+      "evaluation_seconds": 0.15218110848218203
+    },
+    {
+      "epoch": 2150,
+      "total_loss": 0.5306957960128784,
+      "reconstruction_loss": 0.30401456356048584,
+      "quantization_loss": 0.2266812026500702,
+      "training_seconds": 0.16209943778812885,
+      "item_count": 3686,
+      "unique_sid_count": 2959,
+      "collision_count": 727,
+      "collision_rate": 0.19723277265328268,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 225,
+          "total_codes": 256,
+          "utilization": 0.87890625
+        },
+        {
+          "layer": 3,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        }
+      ],
+      "evaluation_seconds": 0.14484189730137587
+    },
+    {
+      "epoch": 2200,
+      "total_loss": 0.53171306848526,
+      "reconstruction_loss": 0.2967550754547119,
+      "quantization_loss": 0.2349579781293869,
+      "training_seconds": 0.1576930768787861,
+      "item_count": 3686,
+      "unique_sid_count": 2949,
+      "collision_count": 737,
+      "collision_rate": 0.19994574064026044,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 225,
+          "total_codes": 256,
+          "utilization": 0.87890625
+        },
+        {
+          "layer": 3,
+          "used_codes": 250,
+          "total_codes": 256,
+          "utilization": 0.9765625
+        }
+      ],
+      "evaluation_seconds": 0.14529021549969912
+    },
+    {
+      "epoch": 2250,
+      "total_loss": 0.5349483489990234,
+      "reconstruction_loss": 0.29390159249305725,
+      "quantization_loss": 0.24104678630828857,
+      "training_seconds": 0.16241764090955257,
+      "item_count": 3686,
+      "unique_sid_count": 2966,
+      "collision_count": 720,
+      "collision_rate": 0.19533369506239825,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 226,
+          "total_codes": 256,
+          "utilization": 0.8828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 249,
+          "total_codes": 256,
+          "utilization": 0.97265625
+        }
+      ],
+      "evaluation_seconds": 0.14558624755591154
+    },
+    {
+      "epoch": 2300,
+      "total_loss": 0.5314006805419922,
+      "reconstruction_loss": 0.28729110956192017,
+      "quantization_loss": 0.24410955607891083,
+      "training_seconds": 0.14851150289177895,
+      "item_count": 3686,
+      "unique_sid_count": 2954,
+      "collision_count": 732,
+      "collision_rate": 0.19858925664677157,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 225,
+          "total_codes": 256,
+          "utilization": 0.87890625
+        },
+        {
+          "layer": 3,
+          "used_codes": 252,
+          "total_codes": 256,
+          "utilization": 0.984375
+        }
+      ],
+      "evaluation_seconds": 0.13404950685799122
+    },
+    {
+      "epoch": 2350,
+      "total_loss": 0.5336241126060486,
+      "reconstruction_loss": 0.2876442074775696,
+      "quantization_loss": 0.245979905128479,
+      "training_seconds": 0.14237891044467688,
+      "item_count": 3686,
+      "unique_sid_count": 2966,
+      "collision_count": 720,
+      "collision_rate": 0.19533369506239825,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 226,
+          "total_codes": 256,
+          "utilization": 0.8828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        }
+      ],
+      "evaluation_seconds": 0.16377707291394472
+    },
+    {
+      "epoch": 2400,
+      "total_loss": 0.535201907157898,
+      "reconstruction_loss": 0.28313925862312317,
+      "quantization_loss": 0.2520626187324524,
+      "training_seconds": 0.13931838888674974,
+      "item_count": 3686,
+      "unique_sid_count": 2973,
+      "collision_count": 713,
+      "collision_rate": 0.19343461747151383,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 230,
+          "total_codes": 256,
+          "utilization": 0.8984375
+        },
+        {
+          "layer": 3,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        }
+      ],
+      "evaluation_seconds": 0.14060256257653236
+    },
+    {
+      "epoch": 2450,
+      "total_loss": 0.5368055105209351,
+      "reconstruction_loss": 0.28496018052101135,
+      "quantization_loss": 0.2518453598022461,
+      "training_seconds": 0.14973803609609604,
+      "item_count": 3686,
+      "unique_sid_count": 2985,
+      "collision_count": 701,
+      "collision_rate": 0.19017905588714054,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 230,
+          "total_codes": 256,
+          "utilization": 0.8984375
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.16154403891414404
+    },
+    {
+      "epoch": 2500,
+      "total_loss": 0.5435706973075867,
+      "reconstruction_loss": 0.2836459279060364,
+      "quantization_loss": 0.2599247694015503,
+      "training_seconds": 0.13626781571656466,
+      "item_count": 3686,
+      "unique_sid_count": 2989,
+      "collision_count": 697,
+      "collision_rate": 0.18909386869234943,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 231,
+          "total_codes": 256,
+          "utilization": 0.90234375
+        },
+        {
+          "layer": 3,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        }
+      ],
+      "evaluation_seconds": 0.1423576856032014
+    },
+    {
+      "epoch": 2550,
+      "total_loss": 0.5492992401123047,
+      "reconstruction_loss": 0.28336861729621887,
+      "quantization_loss": 0.2659305930137634,
+      "training_seconds": 0.15071626473218203,
+      "item_count": 3686,
+      "unique_sid_count": 3001,
+      "collision_count": 685,
+      "collision_rate": 0.18583830710797614,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 234,
+          "total_codes": 256,
+          "utilization": 0.9140625
+        },
+        {
+          "layer": 3,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        }
+      ],
+      "evaluation_seconds": 0.13087825290858746
+    },
+    {
+      "epoch": 2600,
+      "total_loss": 0.5384950041770935,
+      "reconstruction_loss": 0.2720666527748108,
+      "quantization_loss": 0.2664283514022827,
+      "training_seconds": 0.13842188473790884,
+      "item_count": 3686,
+      "unique_sid_count": 2979,
+      "collision_count": 707,
+      "collision_rate": 0.1918068366793272,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 233,
+          "total_codes": 256,
+          "utilization": 0.91015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.14061497058719397
+    },
+    {
+      "epoch": 2650,
+      "total_loss": 0.545880138874054,
+      "reconstruction_loss": 0.2703319191932678,
+      "quantization_loss": 0.27554821968078613,
+      "training_seconds": 0.1548038562759757,
+      "item_count": 3686,
+      "unique_sid_count": 2963,
+      "collision_count": 723,
+      "collision_rate": 0.1961475854584916,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 231,
+          "total_codes": 256,
+          "utilization": 0.90234375
+        },
+        {
+          "layer": 3,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        }
+      ],
+      "evaluation_seconds": 0.1471169125288725
+    },
+    {
+      "epoch": 2700,
+      "total_loss": 0.5476572513580322,
+      "reconstruction_loss": 0.27058544754981995,
+      "quantization_loss": 0.2770717740058899,
+      "training_seconds": 0.1446617254987359,
+      "item_count": 3686,
+      "unique_sid_count": 2972,
+      "collision_count": 714,
+      "collision_rate": 0.1937059142702116,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 232,
+          "total_codes": 256,
+          "utilization": 0.90625
+        },
+        {
+          "layer": 3,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        }
+      ],
+      "evaluation_seconds": 0.1558435708284378
+    },
+    {
+      "epoch": 2750,
+      "total_loss": 0.5395196676254272,
+      "reconstruction_loss": 0.26343926787376404,
+      "quantization_loss": 0.2760803699493408,
+      "training_seconds": 0.14610538817942142,
+      "item_count": 3686,
+      "unique_sid_count": 3011,
+      "collision_count": 675,
+      "collision_rate": 0.18312533912099838,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 24,
+          "total_codes": 256,
+          "utilization": 0.09375
+        },
+        {
+          "layer": 2,
+          "used_codes": 232,
+          "total_codes": 256,
+          "utilization": 0.90625
+        },
+        {
+          "layer": 3,
+          "used_codes": 252,
+          "total_codes": 256,
+          "utilization": 0.984375
+        }
+      ],
+      "evaluation_seconds": 0.1344073973596096
+    },
+    {
+      "epoch": 2800,
+      "total_loss": 0.5386309623718262,
+      "reconstruction_loss": 0.2572688162326813,
+      "quantization_loss": 0.2813621163368225,
+      "training_seconds": 0.1602555075660348,
+      "item_count": 3686,
+      "unique_sid_count": 2975,
+      "collision_count": 711,
+      "collision_rate": 0.19289202387411827,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 234,
+          "total_codes": 256,
+          "utilization": 0.9140625
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.12706835567951202
+    },
+    {
+      "epoch": 2850,
+      "total_loss": 0.5404585003852844,
+      "reconstruction_loss": 0.2557900846004486,
+      "quantization_loss": 0.2846684157848358,
+      "training_seconds": 0.17998896166682243,
+      "item_count": 3686,
+      "unique_sid_count": 2984,
+      "collision_count": 702,
+      "collision_rate": 0.19045035268583832,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 233,
+          "total_codes": 256,
+          "utilization": 0.91015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.1292361542582512
+    },
+    {
+      "epoch": 2900,
+      "total_loss": 0.5354078412055969,
+      "reconstruction_loss": 0.2461145967245102,
+      "quantization_loss": 0.2892932593822479,
+      "training_seconds": 0.14055214636027813,
+      "item_count": 3686,
+      "unique_sid_count": 2997,
+      "collision_count": 689,
+      "collision_rate": 0.18692349430276722,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 233,
+          "total_codes": 256,
+          "utilization": 0.91015625
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.13094874750822783
+    },
+    {
+      "epoch": 2950,
+      "total_loss": 0.5431511402130127,
+      "reconstruction_loss": 0.2504754960536957,
+      "quantization_loss": 0.29267561435699463,
+      "training_seconds": 0.14974932558834553,
+      "item_count": 3686,
+      "unique_sid_count": 2994,
+      "collision_count": 692,
+      "collision_rate": 0.18773738469886056,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 235,
+          "total_codes": 256,
+          "utilization": 0.91796875
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.1310862246900797
+    },
+    {
+      "epoch": 3000,
+      "total_loss": 0.5375025272369385,
+      "reconstruction_loss": 0.24235254526138306,
+      "quantization_loss": 0.2951499819755554,
+      "training_seconds": 0.14516167528927326,
+      "item_count": 3686,
+      "unique_sid_count": 3014,
+      "collision_count": 672,
+      "collision_rate": 0.18231144872490504,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 237,
+          "total_codes": 256,
+          "utilization": 0.92578125
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.13900816440582275
+    },
+    {
+      "epoch": 3050,
+      "total_loss": 0.5406399965286255,
+      "reconstruction_loss": 0.24281230568885803,
+      "quantization_loss": 0.29782766103744507,
+      "training_seconds": 0.1419286411255598,
+      "item_count": 3686,
+      "unique_sid_count": 3014,
+      "collision_count": 672,
+      "collision_rate": 0.18231144872490504,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 235,
+          "total_codes": 256,
+          "utilization": 0.91796875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1510075582191348
+    },
+    {
+      "epoch": 3100,
+      "total_loss": 0.5455620288848877,
+      "reconstruction_loss": 0.24282774329185486,
+      "quantization_loss": 0.3027343153953552,
+      "training_seconds": 0.1370860543102026,
+      "item_count": 3686,
+      "unique_sid_count": 3017,
+      "collision_count": 669,
+      "collision_rate": 0.18149755832881173,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 237,
+          "total_codes": 256,
+          "utilization": 0.92578125
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.129122044891119
+    },
+    {
+      "epoch": 3150,
+      "total_loss": 0.5399736762046814,
+      "reconstruction_loss": 0.23701494932174683,
+      "quantization_loss": 0.30295872688293457,
+      "training_seconds": 0.1413968838751316,
+      "item_count": 3686,
+      "unique_sid_count": 3031,
+      "collision_count": 655,
+      "collision_rate": 0.17769940314704286,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 241,
+          "total_codes": 256,
+          "utilization": 0.94140625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.166355119086802
+    },
+    {
+      "epoch": 3200,
+      "total_loss": 0.5394096374511719,
+      "reconstruction_loss": 0.24179376661777496,
+      "quantization_loss": 0.2976158559322357,
+      "training_seconds": 0.14059570338577032,
+      "item_count": 3686,
+      "unique_sid_count": 3031,
+      "collision_count": 655,
+      "collision_rate": 0.17769940314704286,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 25,
+          "total_codes": 256,
+          "utilization": 0.09765625
+        },
+        {
+          "layer": 2,
+          "used_codes": 238,
+          "total_codes": 256,
+          "utilization": 0.9296875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1315652271732688
+    },
+    {
+      "epoch": 3250,
+      "total_loss": 0.5345062017440796,
+      "reconstruction_loss": 0.23025920987129211,
+      "quantization_loss": 0.3042469918727875,
+      "training_seconds": 0.14837696962058544,
+      "item_count": 3686,
+      "unique_sid_count": 3023,
+      "collision_count": 663,
+      "collision_rate": 0.17986977753662506,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 235,
+          "total_codes": 256,
+          "utilization": 0.91796875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14510594587773085
+    },
+    {
+      "epoch": 3300,
+      "total_loss": 0.5426265001296997,
+      "reconstruction_loss": 0.23235563933849335,
+      "quantization_loss": 0.31027087569236755,
+      "training_seconds": 0.18318187817931175,
+      "item_count": 3686,
+      "unique_sid_count": 3040,
+      "collision_count": 646,
+      "collision_rate": 0.17525773195876287,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 238,
+          "total_codes": 256,
+          "utilization": 0.9296875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1482229307293892
+    },
+    {
+      "epoch": 3350,
+      "total_loss": 0.5405710935592651,
+      "reconstruction_loss": 0.22713884711265564,
+      "quantization_loss": 0.3134322464466095,
+      "training_seconds": 0.16169594135135412,
+      "item_count": 3686,
+      "unique_sid_count": 3034,
+      "collision_count": 652,
+      "collision_rate": 0.17688551275094955,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 238,
+          "total_codes": 256,
+          "utilization": 0.9296875
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.1442591082304716
+    },
+    {
+      "epoch": 3400,
+      "total_loss": 0.5505059957504272,
+      "reconstruction_loss": 0.23723013699054718,
+      "quantization_loss": 0.31327587366104126,
+      "training_seconds": 0.14835971500724554,
+      "item_count": 3686,
+      "unique_sid_count": 3037,
+      "collision_count": 649,
+      "collision_rate": 0.1760716223548562,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 235,
+          "total_codes": 256,
+          "utilization": 0.91796875
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.142592447809875
+    },
+    {
+      "epoch": 3450,
+      "total_loss": 0.5362633466720581,
+      "reconstruction_loss": 0.21417315304279327,
+      "quantization_loss": 0.322090208530426,
+      "training_seconds": 0.14865467604249716,
+      "item_count": 3686,
+      "unique_sid_count": 3005,
+      "collision_count": 681,
+      "collision_rate": 0.18475311991318502,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 238,
+          "total_codes": 256,
+          "utilization": 0.9296875
+        },
+        {
+          "layer": 3,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        }
+      ],
+      "evaluation_seconds": 0.16717969719320536
+    },
+    {
+      "epoch": 3500,
+      "total_loss": 0.5574124455451965,
+      "reconstruction_loss": 0.232121542096138,
+      "quantization_loss": 0.32529088854789734,
+      "training_seconds": 0.14188607316464186,
+      "item_count": 3686,
+      "unique_sid_count": 3016,
+      "collision_count": 670,
+      "collision_rate": 0.18176885512750948,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 239,
+          "total_codes": 256,
+          "utilization": 0.93359375
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.1475148107856512
+    },
+    {
+      "epoch": 3550,
+      "total_loss": 0.542833685874939,
+      "reconstruction_loss": 0.2189837396144867,
+      "quantization_loss": 0.32384994626045227,
+      "training_seconds": 0.1629289472475648,
+      "item_count": 3686,
+      "unique_sid_count": 3026,
+      "collision_count": 660,
+      "collision_rate": 0.17905588714053175,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 241,
+          "total_codes": 256,
+          "utilization": 0.94140625
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.14520307257771492
+    },
+    {
+      "epoch": 3600,
+      "total_loss": 0.5472181439399719,
+      "reconstruction_loss": 0.22121582925319672,
+      "quantization_loss": 0.326002299785614,
+      "training_seconds": 0.14603914599865675,
+      "item_count": 3686,
+      "unique_sid_count": 3059,
+      "collision_count": 627,
+      "collision_rate": 0.17010309278350516,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 241,
+          "total_codes": 256,
+          "utilization": 0.94140625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1473903674632311
+    },
+    {
+      "epoch": 3650,
+      "total_loss": 0.5477582812309265,
+      "reconstruction_loss": 0.22046835720539093,
+      "quantization_loss": 0.3272899091243744,
+      "training_seconds": 0.13905566185712814,
+      "item_count": 3686,
+      "unique_sid_count": 3043,
+      "collision_count": 643,
+      "collision_rate": 0.17444384156266957,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 241,
+          "total_codes": 256,
+          "utilization": 0.94140625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12375179305672646
+    },
+    {
+      "epoch": 3700,
+      "total_loss": 0.5461999177932739,
+      "reconstruction_loss": 0.21942320466041565,
+      "quantization_loss": 0.32677674293518066,
+      "training_seconds": 0.157685287296772,
+      "item_count": 3686,
+      "unique_sid_count": 3069,
+      "collision_count": 617,
+      "collision_rate": 0.1673901247965274,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 240,
+          "total_codes": 256,
+          "utilization": 0.9375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14651014655828476
+    },
+    {
+      "epoch": 3750,
+      "total_loss": 0.5625818371772766,
+      "reconstruction_loss": 0.22394485771656036,
+      "quantization_loss": 0.33863696455955505,
+      "training_seconds": 0.15556576941162348,
+      "item_count": 3686,
+      "unique_sid_count": 3079,
+      "collision_count": 607,
+      "collision_rate": 0.16467715680954964,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 244,
+          "total_codes": 256,
+          "utilization": 0.953125
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.12638383824378252
+    },
+    {
+      "epoch": 3800,
+      "total_loss": 0.5503004789352417,
+      "reconstruction_loss": 0.21193549036979675,
+      "quantization_loss": 0.33836501836776733,
+      "training_seconds": 0.14068874716758728,
+      "item_count": 3686,
+      "unique_sid_count": 3052,
+      "collision_count": 634,
+      "collision_rate": 0.17200217037438958,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 242,
+          "total_codes": 256,
+          "utilization": 0.9453125
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.12073317915201187
+    },
+    {
+      "epoch": 3850,
+      "total_loss": 0.5622093081474304,
+      "reconstruction_loss": 0.2274429351091385,
+      "quantization_loss": 0.3347663879394531,
+      "training_seconds": 0.13373538851737976,
+      "item_count": 3686,
+      "unique_sid_count": 3095,
+      "collision_count": 591,
+      "collision_rate": 0.16033640803038524,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 244,
+          "total_codes": 256,
+          "utilization": 0.953125
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.11485026497393847
+    },
+    {
+      "epoch": 3900,
+      "total_loss": 0.5618177056312561,
+      "reconstruction_loss": 0.2241453379392624,
+      "quantization_loss": 0.3376723527908325,
+      "training_seconds": 0.13842751272022724,
+      "item_count": 3686,
+      "unique_sid_count": 3066,
+      "collision_count": 620,
+      "collision_rate": 0.16820401519262074,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 243,
+          "total_codes": 256,
+          "utilization": 0.94921875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13143078330904245
+    },
+    {
+      "epoch": 3950,
+      "total_loss": 0.5648239850997925,
+      "reconstruction_loss": 0.21779149770736694,
+      "quantization_loss": 0.3470325171947479,
+      "training_seconds": 0.12577858194708824,
+      "item_count": 3686,
+      "unique_sid_count": 3108,
+      "collision_count": 578,
+      "collision_rate": 0.15680954964731417,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 26,
+          "total_codes": 256,
+          "utilization": 0.1015625
+        },
+        {
+          "layer": 2,
+          "used_codes": 244,
+          "total_codes": 256,
+          "utilization": 0.953125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11585130821913481
+    },
+    {
+      "epoch": 4000,
+      "total_loss": 0.5662357807159424,
+      "reconstruction_loss": 0.2112278938293457,
+      "quantization_loss": 0.3550078868865967,
+      "training_seconds": 0.14455616381019354,
+      "item_count": 3686,
+      "unique_sid_count": 3078,
+      "collision_count": 608,
+      "collision_rate": 0.16494845360824742,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 245,
+          "total_codes": 256,
+          "utilization": 0.95703125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14456674363464117
+    },
+    {
+      "epoch": 4050,
+      "total_loss": 0.5610673427581787,
+      "reconstruction_loss": 0.20303454995155334,
+      "quantization_loss": 0.35803279280662537,
+      "training_seconds": 0.13726629596203566,
+      "item_count": 3686,
+      "unique_sid_count": 3061,
+      "collision_count": 625,
+      "collision_rate": 0.1695604991861096,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1268501365557313
+    },
+    {
+      "epoch": 4100,
+      "total_loss": 0.5577930212020874,
+      "reconstruction_loss": 0.20159049332141876,
+      "quantization_loss": 0.35620254278182983,
+      "training_seconds": 0.12308036908507347,
+      "item_count": 3686,
+      "unique_sid_count": 3025,
+      "collision_count": 661,
+      "collision_rate": 0.17932718393922953,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 245,
+          "total_codes": 256,
+          "utilization": 0.95703125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1270824121311307
+    },
+    {
+      "epoch": 4150,
+      "total_loss": 0.5574464201927185,
+      "reconstruction_loss": 0.19831471145153046,
+      "quantization_loss": 0.35913169384002686,
+      "training_seconds": 0.13107107859104872,
+      "item_count": 3686,
+      "unique_sid_count": 3031,
+      "collision_count": 655,
+      "collision_rate": 0.17769940314704286,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 245,
+          "total_codes": 256,
+          "utilization": 0.95703125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11764397192746401
+    },
+    {
+      "epoch": 4200,
+      "total_loss": 0.5659963488578796,
+      "reconstruction_loss": 0.20487208664417267,
+      "quantization_loss": 0.36112427711486816,
+      "training_seconds": 0.14755544625222683,
+      "item_count": 3686,
+      "unique_sid_count": 3060,
+      "collision_count": 626,
+      "collision_rate": 0.16983179598480738,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 247,
+          "total_codes": 256,
+          "utilization": 0.96484375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13913308922201395
+    },
+    {
+      "epoch": 4250,
+      "total_loss": 0.5634533762931824,
+      "reconstruction_loss": 0.2058531492948532,
+      "quantization_loss": 0.35760021209716797,
+      "training_seconds": 0.1605069302022457,
+      "item_count": 3686,
+      "unique_sid_count": 3086,
+      "collision_count": 600,
+      "collision_rate": 0.16277807921866522,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11615564487874508
+    },
+    {
+      "epoch": 4300,
+      "total_loss": 0.5590765476226807,
+      "reconstruction_loss": 0.1952112317085266,
+      "quantization_loss": 0.36386531591415405,
+      "training_seconds": 0.13109719473868608,
+      "item_count": 3686,
+      "unique_sid_count": 3051,
+      "collision_count": 635,
+      "collision_rate": 0.17227346717308736,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 249,
+          "total_codes": 256,
+          "utilization": 0.97265625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1319022523239255
+    },
+    {
+      "epoch": 4350,
+      "total_loss": 0.5558075904846191,
+      "reconstruction_loss": 0.19117330014705658,
+      "quantization_loss": 0.36463427543640137,
+      "training_seconds": 0.12539130356162786,
+      "item_count": 3686,
+      "unique_sid_count": 3035,
+      "collision_count": 651,
+      "collision_rate": 0.17661421595225177,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.10980470385402441
+    },
+    {
+      "epoch": 4400,
+      "total_loss": 0.5893967747688293,
+      "reconstruction_loss": 0.22328446805477142,
+      "quantization_loss": 0.3661123216152191,
+      "training_seconds": 0.13259426597505808,
+      "item_count": 3686,
+      "unique_sid_count": 3074,
+      "collision_count": 612,
+      "collision_rate": 0.16603364080303853,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 27,
+          "total_codes": 256,
+          "utilization": 0.10546875
+        },
+        {
+          "layer": 2,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.12065232079476118
+    },
+    {
+      "epoch": 4450,
+      "total_loss": 0.5636158585548401,
+      "reconstruction_loss": 0.1939077377319336,
+      "quantization_loss": 0.3697081208229065,
+      "training_seconds": 0.13523711264133453,
+      "item_count": 3686,
+      "unique_sid_count": 3069,
+      "collision_count": 617,
+      "collision_rate": 0.1673901247965274,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 247,
+          "total_codes": 256,
+          "utilization": 0.96484375
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.11397068295627832
+    },
+    {
+      "epoch": 4500,
+      "total_loss": 0.5728890895843506,
+      "reconstruction_loss": 0.20769073069095612,
+      "quantization_loss": 0.3651983439922333,
+      "training_seconds": 0.15127708949148655,
+      "item_count": 3686,
+      "unique_sid_count": 3088,
+      "collision_count": 598,
+      "collision_rate": 0.16223548562126966,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 245,
+          "total_codes": 256,
+          "utilization": 0.95703125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12323190830647945
+    },
+    {
+      "epoch": 4550,
+      "total_loss": 0.5701969265937805,
+      "reconstruction_loss": 0.1992647498846054,
+      "quantization_loss": 0.3709321916103363,
+      "training_seconds": 0.14788013882935047,
+      "item_count": 3686,
+      "unique_sid_count": 3098,
+      "collision_count": 588,
+      "collision_rate": 0.15952251763429193,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 246,
+          "total_codes": 256,
+          "utilization": 0.9609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11766521818935871
+    },
+    {
+      "epoch": 4600,
+      "total_loss": 0.5577259063720703,
+      "reconstruction_loss": 0.18280701339244843,
+      "quantization_loss": 0.3749188780784607,
+      "training_seconds": 0.12910495232790709,
+      "item_count": 3686,
+      "unique_sid_count": 3084,
+      "collision_count": 602,
+      "collision_rate": 0.16332067281606077,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 248,
+          "total_codes": 256,
+          "utilization": 0.96875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1260654516518116
+    },
+    {
+      "epoch": 4650,
+      "total_loss": 0.5560340285301208,
+      "reconstruction_loss": 0.17998401820659637,
+      "quantization_loss": 0.3760499954223633,
+      "training_seconds": 0.13088969234377146,
+      "item_count": 3686,
+      "unique_sid_count": 3096,
+      "collision_count": 590,
+      "collision_rate": 0.16006511123168746,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 248,
+          "total_codes": 256,
+          "utilization": 0.96875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11739806644618511
+    },
+    {
+      "epoch": 4700,
+      "total_loss": 0.5721181631088257,
+      "reconstruction_loss": 0.20079940557479858,
+      "quantization_loss": 0.3713187873363495,
+      "training_seconds": 0.14417205564677715,
+      "item_count": 3686,
+      "unique_sid_count": 3088,
+      "collision_count": 598,
+      "collision_rate": 0.16223548562126966,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 248,
+          "total_codes": 256,
+          "utilization": 0.96875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11386560276150703
+    },
+    {
+      "epoch": 4750,
+      "total_loss": 0.5676518678665161,
+      "reconstruction_loss": 0.18875634670257568,
+      "quantization_loss": 0.37889549136161804,
+      "training_seconds": 0.14045357424765825,
+      "item_count": 3686,
+      "unique_sid_count": 3092,
+      "collision_count": 594,
+      "collision_rate": 0.16115029842647857,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 249,
+          "total_codes": 256,
+          "utilization": 0.97265625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1313865017145872
+    },
+    {
+      "epoch": 4800,
+      "total_loss": 0.560872495174408,
+      "reconstruction_loss": 0.17998667061328888,
+      "quantization_loss": 0.3808858394622803,
+      "training_seconds": 0.14990846440196037,
+      "item_count": 3686,
+      "unique_sid_count": 3107,
+      "collision_count": 579,
+      "collision_rate": 0.15708084644601195,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1325606182217598
+    },
+    {
+      "epoch": 4850,
+      "total_loss": 0.5745042562484741,
+      "reconstruction_loss": 0.18217256665229797,
+      "quantization_loss": 0.39233165979385376,
+      "training_seconds": 0.12839164398610592,
+      "item_count": 3686,
+      "unique_sid_count": 3092,
+      "collision_count": 594,
+      "collision_rate": 0.16115029842647857,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 250,
+          "total_codes": 256,
+          "utilization": 0.9765625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1161817079409957
+    },
+    {
+      "epoch": 4900,
+      "total_loss": 0.5657603144645691,
+      "reconstruction_loss": 0.18025825917720795,
+      "quantization_loss": 0.38550204038619995,
+      "training_seconds": 0.12759277783334255,
+      "item_count": 3686,
+      "unique_sid_count": 3102,
+      "collision_count": 584,
+      "collision_rate": 0.1584373304395008,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 250,
+          "total_codes": 256,
+          "utilization": 0.9765625
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13229904789477587
+    },
+    {
+      "epoch": 4950,
+      "total_loss": 0.5635718107223511,
+      "reconstruction_loss": 0.18296296894550323,
+      "quantization_loss": 0.38060885667800903,
+      "training_seconds": 0.1228803563863039,
+      "item_count": 3686,
+      "unique_sid_count": 3083,
+      "collision_count": 603,
+      "collision_rate": 0.16359196961475855,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13633523415774107
+    },
+    {
+      "epoch": 5000,
+      "total_loss": 0.5767713785171509,
+      "reconstruction_loss": 0.18398308753967285,
+      "quantization_loss": 0.392788290977478,
+      "training_seconds": 0.1288412744179368,
+      "item_count": 3686,
+      "unique_sid_count": 3092,
+      "collision_count": 594,
+      "collision_rate": 0.16115029842647857,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13923894800245762
+    },
+    {
+      "epoch": 5050,
+      "total_loss": 0.5652165412902832,
+      "reconstruction_loss": 0.17651847004890442,
+      "quantization_loss": 0.3886980414390564,
+      "training_seconds": 0.1297298977151513,
+      "item_count": 3686,
+      "unique_sid_count": 3095,
+      "collision_count": 591,
+      "collision_rate": 0.16033640803038524,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14280598517507315
+    },
+    {
+      "epoch": 5100,
+      "total_loss": 0.5628639459609985,
+      "reconstruction_loss": 0.17558260262012482,
+      "quantization_loss": 0.3872813582420349,
+      "training_seconds": 0.1349126985296607,
+      "item_count": 3686,
+      "unique_sid_count": 3072,
+      "collision_count": 614,
+      "collision_rate": 0.16657623440043406,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 252,
+          "total_codes": 256,
+          "utilization": 0.984375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14186065644025803
+    },
+    {
+      "epoch": 5150,
+      "total_loss": 0.5708907246589661,
+      "reconstruction_loss": 0.18722078204154968,
+      "quantization_loss": 0.3836699426174164,
+      "training_seconds": 0.13144244346767664,
+      "item_count": 3686,
+      "unique_sid_count": 3111,
+      "collision_count": 575,
+      "collision_rate": 0.15599565925122083,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1071595661342144
+    },
+    {
+      "epoch": 5200,
+      "total_loss": 0.5563523769378662,
+      "reconstruction_loss": 0.17215211689472198,
+      "quantization_loss": 0.3842002749443054,
+      "training_seconds": 0.15561317838728428,
+      "item_count": 3686,
+      "unique_sid_count": 3093,
+      "collision_count": 593,
+      "collision_rate": 0.1608790016277808,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 251,
+          "total_codes": 256,
+          "utilization": 0.98046875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13933650869876146
+    },
+    {
+      "epoch": 5250,
+      "total_loss": 0.5646396279335022,
+      "reconstruction_loss": 0.17692506313323975,
+      "quantization_loss": 0.38771456480026245,
+      "training_seconds": 0.14342478103935719,
+      "item_count": 3686,
+      "unique_sid_count": 3071,
+      "collision_count": 615,
+      "collision_rate": 0.16684753119913184,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1278839400038123
+    },
+    {
+      "epoch": 5300,
+      "total_loss": 0.5586571097373962,
+      "reconstruction_loss": 0.17101068794727325,
+      "quantization_loss": 0.3876464068889618,
+      "training_seconds": 0.1405835822224617,
+      "item_count": 3686,
+      "unique_sid_count": 3075,
+      "collision_count": 611,
+      "collision_rate": 0.16576234400434076,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11551726050674915
+    },
+    {
+      "epoch": 5350,
+      "total_loss": 0.5575912594795227,
+      "reconstruction_loss": 0.1692667156457901,
+      "quantization_loss": 0.3883245587348938,
+      "training_seconds": 0.17161097284406424,
+      "item_count": 3686,
+      "unique_sid_count": 3097,
+      "collision_count": 589,
+      "collision_rate": 0.15979381443298968,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11873306892812252
+    },
+    {
+      "epoch": 5400,
+      "total_loss": 0.5523712038993835,
+      "reconstruction_loss": 0.1671609729528427,
+      "quantization_loss": 0.38521021604537964,
+      "training_seconds": 0.12189136259257793,
+      "item_count": 3686,
+      "unique_sid_count": 3068,
+      "collision_count": 618,
+      "collision_rate": 0.16766142159522518,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13127742148935795
+    },
+    {
+      "epoch": 5450,
+      "total_loss": 0.5709490180015564,
+      "reconstruction_loss": 0.1817399263381958,
+      "quantization_loss": 0.3892090916633606,
+      "training_seconds": 0.13441106770187616,
+      "item_count": 3686,
+      "unique_sid_count": 3116,
+      "collision_count": 570,
+      "collision_rate": 0.15463917525773196,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11502589844167233
+    },
+    {
+      "epoch": 5500,
+      "total_loss": 0.5656484365463257,
+      "reconstruction_loss": 0.17158785462379456,
+      "quantization_loss": 0.3940606117248535,
+      "training_seconds": 0.1334651755169034,
+      "item_count": 3686,
+      "unique_sid_count": 3101,
+      "collision_count": 585,
+      "collision_rate": 0.1587086272381986,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14142454508692026
+    },
+    {
+      "epoch": 5550,
+      "total_loss": 0.5594354867935181,
+      "reconstruction_loss": 0.1687268316745758,
+      "quantization_loss": 0.3907086253166199,
+      "training_seconds": 0.15808835718780756,
+      "item_count": 3686,
+      "unique_sid_count": 3090,
+      "collision_count": 596,
+      "collision_rate": 0.16169289202387413,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11687528993934393
+    },
+    {
+      "epoch": 5600,
+      "total_loss": 0.5680575370788574,
+      "reconstruction_loss": 0.17205262184143066,
+      "quantization_loss": 0.39600491523742676,
+      "training_seconds": 0.1438127951696515,
+      "item_count": 3686,
+      "unique_sid_count": 3117,
+      "collision_count": 569,
+      "collision_rate": 0.15436787845903419,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11737431399524212
+    },
+    {
+      "epoch": 5650,
+      "total_loss": 0.561976432800293,
+      "reconstruction_loss": 0.170747771859169,
+      "quantization_loss": 0.39122867584228516,
+      "training_seconds": 0.14693098049610853,
+      "item_count": 3686,
+      "unique_sid_count": 3082,
+      "collision_count": 604,
+      "collision_rate": 0.16386326641345633,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14761005248874426
+    },
+    {
+      "epoch": 5700,
+      "total_loss": 0.5535341501235962,
+      "reconstruction_loss": 0.1677238643169403,
+      "quantization_loss": 0.3858102560043335,
+      "training_seconds": 0.1472717896103859,
+      "item_count": 3686,
+      "unique_sid_count": 3103,
+      "collision_count": 583,
+      "collision_rate": 0.15816603364080303,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13889779523015022
+    },
+    {
+      "epoch": 5750,
+      "total_loss": 0.5568035244941711,
+      "reconstruction_loss": 0.1680280715227127,
+      "quantization_loss": 0.38877543807029724,
+      "training_seconds": 0.1532110758125782,
+      "item_count": 3686,
+      "unique_sid_count": 3123,
+      "collision_count": 563,
+      "collision_rate": 0.15274009766684754,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 253,
+          "total_codes": 256,
+          "utilization": 0.98828125
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1253916108980775
+    },
+    {
+      "epoch": 5800,
+      "total_loss": 0.5690683722496033,
+      "reconstruction_loss": 0.17322783172130585,
+      "quantization_loss": 0.39584052562713623,
+      "training_seconds": 0.11905770376324654,
+      "item_count": 3686,
+      "unique_sid_count": 3114,
+      "collision_count": 572,
+      "collision_rate": 0.15518176885512752,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11695574969053268
+    },
+    {
+      "epoch": 5850,
+      "total_loss": 0.5652677416801453,
+      "reconstruction_loss": 0.16684995591640472,
+      "quantization_loss": 0.39841777086257935,
+      "training_seconds": 0.15290732588618994,
+      "item_count": 3686,
+      "unique_sid_count": 3096,
+      "collision_count": 590,
+      "collision_rate": 0.16006511123168746,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14014108013361692
+    },
+    {
+      "epoch": 5900,
+      "total_loss": 0.5670952200889587,
+      "reconstruction_loss": 0.17293865978717804,
+      "quantization_loss": 0.3941565454006195,
+      "training_seconds": 0.16149897780269384,
+      "item_count": 3686,
+      "unique_sid_count": 3151,
+      "collision_count": 535,
+      "collision_rate": 0.14514378730330982,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13561744149774313
+    },
+    {
+      "epoch": 5950,
+      "total_loss": 0.5616351962089539,
+      "reconstruction_loss": 0.1643015295267105,
+      "quantization_loss": 0.39733368158340454,
+      "training_seconds": 0.12651732563972473,
+      "item_count": 3686,
+      "unique_sid_count": 3118,
+      "collision_count": 568,
+      "collision_rate": 0.1540965816603364,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 254,
+          "total_codes": 256,
+          "utilization": 0.9921875
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13576753251254559
+    },
+    {
+      "epoch": 6000,
+      "total_loss": 0.5513259172439575,
+      "reconstruction_loss": 0.15914608538150787,
+      "quantization_loss": 0.39217984676361084,
+      "training_seconds": 0.11708711367100477,
+      "item_count": 3686,
+      "unique_sid_count": 3121,
+      "collision_count": 565,
+      "collision_rate": 0.15328269126424307,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13579377997666597
+    },
+    {
+      "epoch": 6050,
+      "total_loss": 0.5490091443061829,
+      "reconstruction_loss": 0.15895627439022064,
+      "quantization_loss": 0.390052855014801,
+      "training_seconds": 0.1315630106255412,
+      "item_count": 3686,
+      "unique_sid_count": 3117,
+      "collision_count": 569,
+      "collision_rate": 0.15436787845903419,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13863581977784634
+    },
+    {
+      "epoch": 6100,
+      "total_loss": 0.5498889684677124,
+      "reconstruction_loss": 0.1532323956489563,
+      "quantization_loss": 0.3966566026210785,
+      "training_seconds": 0.1494428003206849,
+      "item_count": 3686,
+      "unique_sid_count": 3124,
+      "collision_count": 562,
+      "collision_rate": 0.15246880086814976,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1215926269069314
+    },
+    {
+      "epoch": 6150,
+      "total_loss": 0.5517680644989014,
+      "reconstruction_loss": 0.1625247448682785,
+      "quantization_loss": 0.38924330472946167,
+      "training_seconds": 0.14559720922261477,
+      "item_count": 3686,
+      "unique_sid_count": 3155,
+      "collision_count": 531,
+      "collision_rate": 0.14405860010851873,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13232010789215565
+    },
+    {
+      "epoch": 6200,
+      "total_loss": 0.5542390942573547,
+      "reconstruction_loss": 0.159198597073555,
+      "quantization_loss": 0.39504051208496094,
+      "training_seconds": 0.1417573317885399,
+      "item_count": 3686,
+      "unique_sid_count": 3128,
+      "collision_count": 558,
+      "collision_rate": 0.15138361367335865,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1425881376489997
+    },
+    {
+      "epoch": 6250,
+      "total_loss": 0.567571222782135,
+      "reconstruction_loss": 0.16575343906879425,
+      "quantization_loss": 0.40181779861450195,
+      "training_seconds": 0.1275129485875368,
+      "item_count": 3686,
+      "unique_sid_count": 3122,
+      "collision_count": 564,
+      "collision_rate": 0.15301139446554532,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11499482579529285
+    },
+    {
+      "epoch": 6300,
+      "total_loss": 0.5612265467643738,
+      "reconstruction_loss": 0.16513894498348236,
+      "quantization_loss": 0.3960875868797302,
+      "training_seconds": 0.14102112408727407,
+      "item_count": 3686,
+      "unique_sid_count": 3158,
+      "collision_count": 528,
+      "collision_rate": 0.1432447097124254,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1146570835262537
+    },
+    {
+      "epoch": 6350,
+      "total_loss": 0.5557898879051208,
+      "reconstruction_loss": 0.15751035511493683,
+      "quantization_loss": 0.3982795476913452,
+      "training_seconds": 0.15024687256664038,
+      "item_count": 3686,
+      "unique_sid_count": 3141,
+      "collision_count": 545,
+      "collision_rate": 0.14785675529028758,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1401413269340992
+    },
+    {
+      "epoch": 6400,
+      "total_loss": 0.5496900081634521,
+      "reconstruction_loss": 0.15512116253376007,
+      "quantization_loss": 0.39456886053085327,
+      "training_seconds": 0.11803992465138435,
+      "item_count": 3686,
+      "unique_sid_count": 3124,
+      "collision_count": 562,
+      "collision_rate": 0.15246880086814976,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11759625375270844
+    },
+    {
+      "epoch": 6450,
+      "total_loss": 0.5547179579734802,
+      "reconstruction_loss": 0.15477034449577332,
+      "quantization_loss": 0.3999476134777069,
+      "training_seconds": 0.12399318721145391,
+      "item_count": 3686,
+      "unique_sid_count": 3129,
+      "collision_count": 557,
+      "collision_rate": 0.15111231687466087,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11212767846882343
+    },
+    {
+      "epoch": 6500,
+      "total_loss": 0.5450863242149353,
+      "reconstruction_loss": 0.15143369138240814,
+      "quantization_loss": 0.39365261793136597,
+      "training_seconds": 0.12986654229462147,
+      "item_count": 3686,
+      "unique_sid_count": 3126,
+      "collision_count": 560,
+      "collision_rate": 0.1519262072707542,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13999707531183958
+    },
+    {
+      "epoch": 6550,
+      "total_loss": 0.5461308360099792,
+      "reconstruction_loss": 0.15332770347595215,
+      "quantization_loss": 0.3928031325340271,
+      "training_seconds": 0.14224779792129993,
+      "item_count": 3686,
+      "unique_sid_count": 3124,
+      "collision_count": 562,
+      "collision_rate": 0.15246880086814976,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13207599706947803
+    },
+    {
+      "epoch": 6600,
+      "total_loss": 0.5462371110916138,
+      "reconstruction_loss": 0.15381409227848053,
+      "quantization_loss": 0.39242303371429443,
+      "training_seconds": 0.13730994425714016,
+      "item_count": 3686,
+      "unique_sid_count": 3129,
+      "collision_count": 557,
+      "collision_rate": 0.15111231687466087,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11943876277655363
+    },
+    {
+      "epoch": 6650,
+      "total_loss": 0.5479716658592224,
+      "reconstruction_loss": 0.15025173127651215,
+      "quantization_loss": 0.3977199196815491,
+      "training_seconds": 0.13133660331368446,
+      "item_count": 3686,
+      "unique_sid_count": 3126,
+      "collision_count": 560,
+      "collision_rate": 0.1519262072707542,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11913247779011726
+    },
+    {
+      "epoch": 6700,
+      "total_loss": 0.5661197304725647,
+      "reconstruction_loss": 0.16070148348808289,
+      "quantization_loss": 0.4054182469844818,
+      "training_seconds": 0.13631335832178593,
+      "item_count": 3686,
+      "unique_sid_count": 3184,
+      "collision_count": 502,
+      "collision_rate": 0.13619099294628323,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11898034252226353
+    },
+    {
+      "epoch": 6750,
+      "total_loss": 0.5551117658615112,
+      "reconstruction_loss": 0.150900736451149,
+      "quantization_loss": 0.40421101450920105,
+      "training_seconds": 0.14089761953800917,
+      "item_count": 3686,
+      "unique_sid_count": 3134,
+      "collision_count": 552,
+      "collision_rate": 0.149755832881172,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1300022853538394
+    },
+    {
+      "epoch": 6800,
+      "total_loss": 0.547542154788971,
+      "reconstruction_loss": 0.14499355852603912,
+      "quantization_loss": 0.402548611164093,
+      "training_seconds": 0.1197813218459487,
+      "item_count": 3686,
+      "unique_sid_count": 3157,
+      "collision_count": 529,
+      "collision_rate": 0.14351600651112317,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11374292988330126
+    },
+    {
+      "epoch": 6850,
+      "total_loss": 0.5533673167228699,
+      "reconstruction_loss": 0.15064246952533722,
+      "quantization_loss": 0.40272486209869385,
+      "training_seconds": 0.12233588378876448,
+      "item_count": 3686,
+      "unique_sid_count": 3146,
+      "collision_count": 540,
+      "collision_rate": 0.14650027129679868,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12680290546268225
+    },
+    {
+      "epoch": 6900,
+      "total_loss": 0.5656683444976807,
+      "reconstruction_loss": 0.1647038459777832,
+      "quantization_loss": 0.40096449851989746,
+      "training_seconds": 0.14963969215750694,
+      "item_count": 3686,
+      "unique_sid_count": 3155,
+      "collision_count": 531,
+      "collision_rate": 0.14405860010851873,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11835987120866776
+    },
+    {
+      "epoch": 6950,
+      "total_loss": 0.564598798751831,
+      "reconstruction_loss": 0.15879036486148834,
+      "quantization_loss": 0.4058084487915039,
+      "training_seconds": 0.15621298551559448,
+      "item_count": 3686,
+      "unique_sid_count": 3133,
+      "collision_count": 553,
+      "collision_rate": 0.15002712967986978,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13703983649611473
+    },
+    {
+      "epoch": 7000,
+      "total_loss": 0.5616308450698853,
+      "reconstruction_loss": 0.15285055339336395,
+      "quantization_loss": 0.4087802767753601,
+      "training_seconds": 0.13556051813066006,
+      "item_count": 3686,
+      "unique_sid_count": 3143,
+      "collision_count": 543,
+      "collision_rate": 0.14731416169289202,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11464433465152979
+    },
+    {
+      "epoch": 7050,
+      "total_loss": 0.5495049357414246,
+      "reconstruction_loss": 0.14631056785583496,
+      "quantization_loss": 0.4031943678855896,
+      "training_seconds": 0.14294029120355844,
+      "item_count": 3686,
+      "unique_sid_count": 3163,
+      "collision_count": 523,
+      "collision_rate": 0.14188822571893653,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11120913550257683
+    },
+    {
+      "epoch": 7100,
+      "total_loss": 0.5571778416633606,
+      "reconstruction_loss": 0.14642010629177094,
+      "quantization_loss": 0.41075775027275085,
+      "training_seconds": 0.14213402196764946,
+      "item_count": 3686,
+      "unique_sid_count": 3127,
+      "collision_count": 559,
+      "collision_rate": 0.15165491047205643,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12153702788054943
+    },
+    {
+      "epoch": 7150,
+      "total_loss": 0.5500761270523071,
+      "reconstruction_loss": 0.14448882639408112,
+      "quantization_loss": 0.4055873155593872,
+      "training_seconds": 0.13851423561573029,
+      "item_count": 3686,
+      "unique_sid_count": 3137,
+      "collision_count": 549,
+      "collision_rate": 0.14894194248507867,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11457919329404831
+    },
+    {
+      "epoch": 7200,
+      "total_loss": 0.5539915561676025,
+      "reconstruction_loss": 0.14918038249015808,
+      "quantization_loss": 0.40481120347976685,
+      "training_seconds": 0.13449831865727901,
+      "item_count": 3686,
+      "unique_sid_count": 3153,
+      "collision_count": 533,
+      "collision_rate": 0.14460119370591426,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.10084547474980354
+    },
+    {
+      "epoch": 7250,
+      "total_loss": 0.5611422657966614,
+      "reconstruction_loss": 0.15313276648521423,
+      "quantization_loss": 0.40800949931144714,
+      "training_seconds": 0.15166656393557787,
+      "item_count": 3686,
+      "unique_sid_count": 3142,
+      "collision_count": 544,
+      "collision_rate": 0.1475854584915898,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1116049662232399
+    },
+    {
+      "epoch": 7300,
+      "total_loss": 0.5603073835372925,
+      "reconstruction_loss": 0.15276643633842468,
+      "quantization_loss": 0.4075409770011902,
+      "training_seconds": 0.13847053330391645,
+      "item_count": 3686,
+      "unique_sid_count": 3147,
+      "collision_count": 539,
+      "collision_rate": 0.14622897449810093,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1084616519510746
+    },
+    {
+      "epoch": 7350,
+      "total_loss": 0.5516679883003235,
+      "reconstruction_loss": 0.1439998596906662,
+      "quantization_loss": 0.4076681137084961,
+      "training_seconds": 0.1277584219351411,
+      "item_count": 3686,
+      "unique_sid_count": 3129,
+      "collision_count": 557,
+      "collision_rate": 0.15111231687466087,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12367767281830311
+    },
+    {
+      "epoch": 7400,
+      "total_loss": 0.553663969039917,
+      "reconstruction_loss": 0.1419239342212677,
+      "quantization_loss": 0.4117400050163269,
+      "training_seconds": 0.13928327430039644,
+      "item_count": 3686,
+      "unique_sid_count": 3136,
+      "collision_count": 550,
+      "collision_rate": 0.14921323928377644,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14057113323360682
+    },
+    {
+      "epoch": 7450,
+      "total_loss": 0.5435514450073242,
+      "reconstruction_loss": 0.14215922355651855,
+      "quantization_loss": 0.40139222145080566,
+      "training_seconds": 0.1246195649728179,
+      "item_count": 3686,
+      "unique_sid_count": 3150,
+      "collision_count": 536,
+      "collision_rate": 0.1454150841020076,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1289825914427638
+    },
+    {
+      "epoch": 7500,
+      "total_loss": 0.5550341606140137,
+      "reconstruction_loss": 0.1469511091709137,
+      "quantization_loss": 0.40808308124542236,
+      "training_seconds": 0.14199914783239365,
+      "item_count": 3686,
+      "unique_sid_count": 3172,
+      "collision_count": 514,
+      "collision_rate": 0.13944655453065655,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11268236115574837
+    },
+    {
+      "epoch": 7550,
+      "total_loss": 0.5538017749786377,
+      "reconstruction_loss": 0.14851805567741394,
+      "quantization_loss": 0.40528374910354614,
+      "training_seconds": 0.1390042407438159,
+      "item_count": 3686,
+      "unique_sid_count": 3180,
+      "collision_count": 506,
+      "collision_rate": 0.13727618014107434,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 255,
+          "total_codes": 256,
+          "utilization": 0.99609375
+        }
+      ],
+      "evaluation_seconds": 0.11885738838464022
+    },
+    {
+      "epoch": 7600,
+      "total_loss": 0.5818262100219727,
+      "reconstruction_loss": 0.16290780901908875,
+      "quantization_loss": 0.4189184308052063,
+      "training_seconds": 0.1391287837177515,
+      "item_count": 3686,
+      "unique_sid_count": 3166,
+      "collision_count": 520,
+      "collision_rate": 0.1410743353228432,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14009087532758713
+    },
+    {
+      "epoch": 7650,
+      "total_loss": 0.5555623769760132,
+      "reconstruction_loss": 0.1493711620569229,
+      "quantization_loss": 0.4061912000179291,
+      "training_seconds": 0.1268236804753542,
+      "item_count": 3686,
+      "unique_sid_count": 3178,
+      "collision_count": 508,
+      "collision_rate": 0.13781877373846987,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1253523761406541
+    },
+    {
+      "epoch": 7700,
+      "total_loss": 0.541420042514801,
+      "reconstruction_loss": 0.14215563237667084,
+      "quantization_loss": 0.3992644250392914,
+      "training_seconds": 0.12280640006065369,
+      "item_count": 3686,
+      "unique_sid_count": 3155,
+      "collision_count": 531,
+      "collision_rate": 0.14405860010851873,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11949864868074656
+    },
+    {
+      "epoch": 7750,
+      "total_loss": 0.5486951470375061,
+      "reconstruction_loss": 0.14209823310375214,
+      "quantization_loss": 0.4065968990325928,
+      "training_seconds": 0.14550430700182915,
+      "item_count": 3686,
+      "unique_sid_count": 3144,
+      "collision_count": 542,
+      "collision_rate": 0.14704286489419424,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12205702811479568
+    },
+    {
+      "epoch": 7800,
+      "total_loss": 0.5586147308349609,
+      "reconstruction_loss": 0.14636565744876862,
+      "quantization_loss": 0.4122490882873535,
+      "training_seconds": 0.1438352121040225,
+      "item_count": 3686,
+      "unique_sid_count": 3169,
+      "collision_count": 517,
+      "collision_rate": 0.14026044492674986,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1305926451459527
+    },
+    {
+      "epoch": 7850,
+      "total_loss": 0.5624006986618042,
+      "reconstruction_loss": 0.14460431039333344,
+      "quantization_loss": 0.41779637336730957,
+      "training_seconds": 0.14180167578160763,
+      "item_count": 3686,
+      "unique_sid_count": 3154,
+      "collision_count": 532,
+      "collision_rate": 0.14432989690721648,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11518989410251379
+    },
+    {
+      "epoch": 7900,
+      "total_loss": 0.5511638522148132,
+      "reconstruction_loss": 0.14414115250110626,
+      "quantization_loss": 0.40702271461486816,
+      "training_seconds": 0.1510312920436263,
+      "item_count": 3686,
+      "unique_sid_count": 3153,
+      "collision_count": 533,
+      "collision_rate": 0.14460119370591426,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1433310778811574
+    },
+    {
+      "epoch": 7950,
+      "total_loss": 0.5506722331047058,
+      "reconstruction_loss": 0.13694848120212555,
+      "quantization_loss": 0.41372376680374146,
+      "training_seconds": 0.15512968320399523,
+      "item_count": 3686,
+      "unique_sid_count": 3165,
+      "collision_count": 521,
+      "collision_rate": 0.14134563212154097,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11588653735816479
+    },
+    {
+      "epoch": 8000,
+      "total_loss": 0.5711422562599182,
+      "reconstruction_loss": 0.15233705937862396,
+      "quantization_loss": 0.41880518198013306,
+      "training_seconds": 0.12213645502924919,
+      "item_count": 3686,
+      "unique_sid_count": 3198,
+      "collision_count": 488,
+      "collision_rate": 0.13239283776451438,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1274256957694888
+    },
+    {
+      "epoch": 8050,
+      "total_loss": 0.5618569850921631,
+      "reconstruction_loss": 0.14484646916389465,
+      "quantization_loss": 0.41701048612594604,
+      "training_seconds": 0.14220890682190657,
+      "item_count": 3686,
+      "unique_sid_count": 3173,
+      "collision_count": 513,
+      "collision_rate": 0.13917525773195877,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13177632074803114
+    },
+    {
+      "epoch": 8100,
+      "total_loss": 0.555557131767273,
+      "reconstruction_loss": 0.1406920999288559,
+      "quantization_loss": 0.41486501693725586,
+      "training_seconds": 0.1366408048197627,
+      "item_count": 3686,
+      "unique_sid_count": 3164,
+      "collision_count": 522,
+      "collision_rate": 0.14161692892023875,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12391862086951733
+    },
+    {
+      "epoch": 8150,
+      "total_loss": 0.5482807159423828,
+      "reconstruction_loss": 0.1381867378950119,
+      "quantization_loss": 0.4100939929485321,
+      "training_seconds": 0.1338054770603776,
+      "item_count": 3686,
+      "unique_sid_count": 3179,
+      "collision_count": 507,
+      "collision_rate": 0.13754747693977212,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1129265557974577
+    },
+    {
+      "epoch": 8200,
+      "total_loss": 0.5571156740188599,
+      "reconstruction_loss": 0.138046532869339,
+      "quantization_loss": 0.4190691411495209,
+      "training_seconds": 0.12827417347580194,
+      "item_count": 3686,
+      "unique_sid_count": 3165,
+      "collision_count": 521,
+      "collision_rate": 0.14134563212154097,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12272191978991032
+    },
+    {
+      "epoch": 8250,
+      "total_loss": 0.5704652070999146,
+      "reconstruction_loss": 0.14290297031402588,
+      "quantization_loss": 0.42756223678588867,
+      "training_seconds": 0.13120791409164667,
+      "item_count": 3686,
+      "unique_sid_count": 3178,
+      "collision_count": 508,
+      "collision_rate": 0.13781877373846987,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1409588372334838
+    },
+    {
+      "epoch": 8300,
+      "total_loss": 0.5548979043960571,
+      "reconstruction_loss": 0.13758844137191772,
+      "quantization_loss": 0.4173094630241394,
+      "training_seconds": 0.12759668566286564,
+      "item_count": 3686,
+      "unique_sid_count": 3164,
+      "collision_count": 522,
+      "collision_rate": 0.14161692892023875,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13507874961942434
+    },
+    {
+      "epoch": 8350,
+      "total_loss": 0.5547771453857422,
+      "reconstruction_loss": 0.14012028276920319,
+      "quantization_loss": 0.4146568775177002,
+      "training_seconds": 0.14362682029604912,
+      "item_count": 3686,
+      "unique_sid_count": 3178,
+      "collision_count": 508,
+      "collision_rate": 0.13781877373846987,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1314844824373722
+    },
+    {
+      "epoch": 8400,
+      "total_loss": 0.5561537146568298,
+      "reconstruction_loss": 0.13624906539916992,
+      "quantization_loss": 0.4199046492576599,
+      "training_seconds": 0.12686267122626305,
+      "item_count": 3686,
+      "unique_sid_count": 3158,
+      "collision_count": 528,
+      "collision_rate": 0.1432447097124254,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1156837660819292
+    },
+    {
+      "epoch": 8450,
+      "total_loss": 0.5713715553283691,
+      "reconstruction_loss": 0.14383292198181152,
+      "quantization_loss": 0.42753860354423523,
+      "training_seconds": 0.12862158194184303,
+      "item_count": 3686,
+      "unique_sid_count": 3185,
+      "collision_count": 501,
+      "collision_rate": 0.13591969614758545,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1178631354123354
+    },
+    {
+      "epoch": 8500,
+      "total_loss": 0.5581503510475159,
+      "reconstruction_loss": 0.13470351696014404,
+      "quantization_loss": 0.4234468340873718,
+      "training_seconds": 0.12567023746669292,
+      "item_count": 3686,
+      "unique_sid_count": 3164,
+      "collision_count": 522,
+      "collision_rate": 0.14161692892023875,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11597097292542458
+    },
+    {
+      "epoch": 8550,
+      "total_loss": 0.5567616820335388,
+      "reconstruction_loss": 0.13432574272155762,
+      "quantization_loss": 0.4224359393119812,
+      "training_seconds": 0.1433313461020589,
+      "item_count": 3686,
+      "unique_sid_count": 3171,
+      "collision_count": 515,
+      "collision_rate": 0.13971785132935433,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1257564201951027
+    },
+    {
+      "epoch": 8600,
+      "total_loss": 0.5609268546104431,
+      "reconstruction_loss": 0.1362924575805664,
+      "quantization_loss": 0.4246343970298767,
+      "training_seconds": 0.14457270875573158,
+      "item_count": 3686,
+      "unique_sid_count": 3183,
+      "collision_count": 503,
+      "collision_rate": 0.136462289744981,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11606236360967159
+    },
+    {
+      "epoch": 8650,
+      "total_loss": 0.5576825141906738,
+      "reconstruction_loss": 0.13495491445064545,
+      "quantization_loss": 0.4227275848388672,
+      "training_seconds": 0.12423157505691051,
+      "item_count": 3686,
+      "unique_sid_count": 3180,
+      "collision_count": 506,
+      "collision_rate": 0.13727618014107434,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11601200979202986
+    },
+    {
+      "epoch": 8700,
+      "total_loss": 0.5568833947181702,
+      "reconstruction_loss": 0.13220316171646118,
+      "quantization_loss": 0.424680233001709,
+      "training_seconds": 0.1373513825237751,
+      "item_count": 3686,
+      "unique_sid_count": 3155,
+      "collision_count": 531,
+      "collision_rate": 0.14405860010851873,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1536354422569275
+    },
+    {
+      "epoch": 8750,
+      "total_loss": 0.5622970461845398,
+      "reconstruction_loss": 0.13381165266036987,
+      "quantization_loss": 0.4284853935241699,
+      "training_seconds": 0.14600739441812038,
+      "item_count": 3686,
+      "unique_sid_count": 3171,
+      "collision_count": 515,
+      "collision_rate": 0.13971785132935433,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1227795872837305
+    },
+    {
+      "epoch": 8800,
+      "total_loss": 0.5602372288703918,
+      "reconstruction_loss": 0.1321367472410202,
+      "quantization_loss": 0.42810046672821045,
+      "training_seconds": 0.12879103887826204,
+      "item_count": 3686,
+      "unique_sid_count": 3193,
+      "collision_count": 493,
+      "collision_rate": 0.13374932175800325,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11213042307645082
+    },
+    {
+      "epoch": 8850,
+      "total_loss": 0.5564875602722168,
+      "reconstruction_loss": 0.13585655391216278,
+      "quantization_loss": 0.4206310212612152,
+      "training_seconds": 0.16826646775007248,
+      "item_count": 3686,
+      "unique_sid_count": 3177,
+      "collision_count": 509,
+      "collision_rate": 0.13809007053716765,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1341623030602932
+    },
+    {
+      "epoch": 8900,
+      "total_loss": 0.5583270788192749,
+      "reconstruction_loss": 0.13309325277805328,
+      "quantization_loss": 0.4252338409423828,
+      "training_seconds": 0.1477288668975234,
+      "item_count": 3686,
+      "unique_sid_count": 3160,
+      "collision_count": 526,
+      "collision_rate": 0.14270211611502984,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11423449125140905
+    },
+    {
+      "epoch": 8950,
+      "total_loss": 0.5578527450561523,
+      "reconstruction_loss": 0.12957921624183655,
+      "quantization_loss": 0.4282735586166382,
+      "training_seconds": 0.11631540674716234,
+      "item_count": 3686,
+      "unique_sid_count": 3165,
+      "collision_count": 521,
+      "collision_rate": 0.14134563212154097,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1392768658697605
+    },
+    {
+      "epoch": 9000,
+      "total_loss": 0.5738741159439087,
+      "reconstruction_loss": 0.13910901546478271,
+      "quantization_loss": 0.434765100479126,
+      "training_seconds": 0.1528909569606185,
+      "item_count": 3686,
+      "unique_sid_count": 3180,
+      "collision_count": 506,
+      "collision_rate": 0.13727618014107434,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1171458913013339
+    },
+    {
+      "epoch": 9050,
+      "total_loss": 0.5614405870437622,
+      "reconstruction_loss": 0.13441291451454163,
+      "quantization_loss": 0.4270276725292206,
+      "training_seconds": 0.1275088582187891,
+      "item_count": 3686,
+      "unique_sid_count": 3189,
+      "collision_count": 497,
+      "collision_rate": 0.13483450895279436,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11732533574104309
+    },
+    {
+      "epoch": 9100,
+      "total_loss": 0.561211109161377,
+      "reconstruction_loss": 0.13378433883190155,
+      "quantization_loss": 0.4274267554283142,
+      "training_seconds": 0.14013606309890747,
+      "item_count": 3686,
+      "unique_sid_count": 3187,
+      "collision_count": 499,
+      "collision_rate": 0.13537710255018992,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1288487771525979
+    },
+    {
+      "epoch": 9150,
+      "total_loss": 0.5553194284439087,
+      "reconstruction_loss": 0.13163341581821442,
+      "quantization_loss": 0.4236859977245331,
+      "training_seconds": 0.14550324901938438,
+      "item_count": 3686,
+      "unique_sid_count": 3172,
+      "collision_count": 514,
+      "collision_rate": 0.13944655453065655,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12686429265886545
+    },
+    {
+      "epoch": 9200,
+      "total_loss": 0.5736262202262878,
+      "reconstruction_loss": 0.14399704337120056,
+      "quantization_loss": 0.4296291768550873,
+      "training_seconds": 0.1451889406889677,
+      "item_count": 3686,
+      "unique_sid_count": 3194,
+      "collision_count": 492,
+      "collision_rate": 0.13347802495930547,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11764270067214966
+    },
+    {
+      "epoch": 9250,
+      "total_loss": 0.5556530952453613,
+      "reconstruction_loss": 0.1312064379453659,
+      "quantization_loss": 0.42444664239883423,
+      "training_seconds": 0.14948719553649426,
+      "item_count": 3686,
+      "unique_sid_count": 3193,
+      "collision_count": 493,
+      "collision_rate": 0.13374932175800325,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11724978499114513
+    },
+    {
+      "epoch": 9300,
+      "total_loss": 0.5686355829238892,
+      "reconstruction_loss": 0.13373948633670807,
+      "quantization_loss": 0.4348960816860199,
+      "training_seconds": 0.13261491432785988,
+      "item_count": 3686,
+      "unique_sid_count": 3173,
+      "collision_count": 513,
+      "collision_rate": 0.13917525773195877,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11959285940974951
+    },
+    {
+      "epoch": 9350,
+      "total_loss": 0.5580150485038757,
+      "reconstruction_loss": 0.12915585935115814,
+      "quantization_loss": 0.4288592040538788,
+      "training_seconds": 0.12363428343087435,
+      "item_count": 3686,
+      "unique_sid_count": 3168,
+      "collision_count": 518,
+      "collision_rate": 0.14053174172544763,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1420052209869027
+    },
+    {
+      "epoch": 9400,
+      "total_loss": 0.5548912882804871,
+      "reconstruction_loss": 0.13050027191638947,
+      "quantization_loss": 0.4243910312652588,
+      "training_seconds": 0.1493261381983757,
+      "item_count": 3686,
+      "unique_sid_count": 3191,
+      "collision_count": 495,
+      "collision_rate": 0.1342919153553988,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1426697475835681
+    },
+    {
+      "epoch": 9450,
+      "total_loss": 0.5631893873214722,
+      "reconstruction_loss": 0.13355521857738495,
+      "quantization_loss": 0.4296341836452484,
+      "training_seconds": 0.1309472443535924,
+      "item_count": 3686,
+      "unique_sid_count": 3187,
+      "collision_count": 499,
+      "collision_rate": 0.13537710255018992,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11668066959828138
+    },
+    {
+      "epoch": 9500,
+      "total_loss": 0.5590559244155884,
+      "reconstruction_loss": 0.1302611380815506,
+      "quantization_loss": 0.428794801235199,
+      "training_seconds": 0.14143620617687702,
+      "item_count": 3686,
+      "unique_sid_count": 3193,
+      "collision_count": 493,
+      "collision_rate": 0.13374932175800325,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11838793568313122
+    },
+    {
+      "epoch": 9550,
+      "total_loss": 0.5552608966827393,
+      "reconstruction_loss": 0.1319100558757782,
+      "quantization_loss": 0.42335087060928345,
+      "training_seconds": 0.14414196833968163,
+      "item_count": 3686,
+      "unique_sid_count": 3175,
+      "collision_count": 511,
+      "collision_rate": 0.1386326641345632,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11556638032197952
+    },
+    {
+      "epoch": 9600,
+      "total_loss": 0.5607900619506836,
+      "reconstruction_loss": 0.12974372506141663,
+      "quantization_loss": 0.43104636669158936,
+      "training_seconds": 0.13441586773842573,
+      "item_count": 3686,
+      "unique_sid_count": 3167,
+      "collision_count": 519,
+      "collision_rate": 0.1408030385241454,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.14277185779064894
+    },
+    {
+      "epoch": 9650,
+      "total_loss": 0.5583704113960266,
+      "reconstruction_loss": 0.1332857310771942,
+      "quantization_loss": 0.4250846803188324,
+      "training_seconds": 0.14550455193966627,
+      "item_count": 3686,
+      "unique_sid_count": 3198,
+      "collision_count": 488,
+      "collision_rate": 0.13239283776451438,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.11766959726810455
+    },
+    {
+      "epoch": 9700,
+      "total_loss": 0.562561571598053,
+      "reconstruction_loss": 0.1352003663778305,
+      "quantization_loss": 0.42736122012138367,
+      "training_seconds": 0.1303657153621316,
+      "item_count": 3686,
+      "unique_sid_count": 3201,
+      "collision_count": 485,
+      "collision_rate": 0.13157894736842105,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12722538318485022
+    },
+    {
+      "epoch": 9750,
+      "total_loss": 0.553199291229248,
+      "reconstruction_loss": 0.12887921929359436,
+      "quantization_loss": 0.4243200719356537,
+      "training_seconds": 0.16279080137610435,
+      "item_count": 3686,
+      "unique_sid_count": 3192,
+      "collision_count": 494,
+      "collision_rate": 0.13402061855670103,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12327558733522892
+    },
+    {
+      "epoch": 9800,
+      "total_loss": 0.5704866647720337,
+      "reconstruction_loss": 0.13649237155914307,
+      "quantization_loss": 0.4339942932128906,
+      "training_seconds": 0.1502082170918584,
+      "item_count": 3686,
+      "unique_sid_count": 3200,
+      "collision_count": 486,
+      "collision_rate": 0.13185024416711882,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12986653670668602
+    },
+    {
+      "epoch": 9850,
+      "total_loss": 0.5601682662963867,
+      "reconstruction_loss": 0.1270533949136734,
+      "quantization_loss": 0.4331148564815521,
+      "training_seconds": 0.12476657051593065,
+      "item_count": 3686,
+      "unique_sid_count": 3170,
+      "collision_count": 516,
+      "collision_rate": 0.13998914812805208,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.12559648137539625
+    },
+    {
+      "epoch": 9900,
+      "total_loss": 0.5704609155654907,
+      "reconstruction_loss": 0.13584519922733307,
+      "quantization_loss": 0.43461573123931885,
+      "training_seconds": 0.15077799651771784,
+      "item_count": 3686,
+      "unique_sid_count": 3213,
+      "collision_count": 473,
+      "collision_rate": 0.12832338578404776,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1267249435186386
+    },
+    {
+      "epoch": 9950,
+      "total_loss": 0.5597234964370728,
+      "reconstruction_loss": 0.12799766659736633,
+      "quantization_loss": 0.4317258596420288,
+      "training_seconds": 0.13106730952858925,
+      "item_count": 3686,
+      "unique_sid_count": 3214,
+      "collision_count": 472,
+      "collision_rate": 0.12805208898534998,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.13011118955910206
+    },
+    {
+      "epoch": 10000,
+      "total_loss": 0.5586245059967041,
+      "reconstruction_loss": 0.12546218931674957,
+      "quantization_loss": 0.43316230177879333,
+      "training_seconds": 0.1294692624360323,
+      "item_count": 3686,
+      "unique_sid_count": 3186,
+      "collision_count": 500,
+      "collision_rate": 0.13564839934888767,
+      "codebook_layers": [
+        {
+          "layer": 1,
+          "used_codes": 28,
+          "total_codes": 256,
+          "utilization": 0.109375
+        },
+        {
+          "layer": 2,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        },
+        {
+          "layer": 3,
+          "used_codes": 256,
+          "total_codes": 256,
+          "utilization": 1.0
+        }
+      ],
+      "evaluation_seconds": 0.1360017405822873
+    }
+  ],
+  "best_loss": {
+    "value": 0.520868182182312,
+    "epoch": 2438
+  },
+  "best_collision": {
+    "value": 0.12805208898534998,
+    "epoch": 9950
+  }
+}

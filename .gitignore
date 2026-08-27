@@ -42,8 +42,9 @@ outputs/
 
 # Local datasets, embeddings, checkpoints and full predictions
 artifacts/*
-!artifacts/README.md
 
 # Keep only compact, reviewable result summaries in Git
+results/**/final_model/
+results/**/checkpoint-*/
 results/predictions/
 results/checkpoints/

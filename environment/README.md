@@ -1,41 +1,50 @@
-# A6000 项目私有环境
+# RTX A6000 服务器环境
 
-本目录保存“如何创建环境”的可版本化文件；真正安装的解释器和第三方包位于项目根目录的 `.venv-a6000/`。
+服务器项目目录为 `/home/user/wbn/minionerec`，虚拟环境为 `/home/user/wbn/minionerec/.venv-a6000`。虚拟环境只在服务器维护，不从本地复制或覆盖。
 
-```text
-minionerec/
-├─ environment/          # 提交 Git：说明、脚本、锁文件
-│  ├─ scripts/
-│  └─ locks/
-└─ .venv-a6000/          # 不提交 Git：实际 Python 包
-```
+## 已验证配置
 
-## 为什么不用共享 Conda 环境
+| 项目 | 版本或容量 |
+| --- | --- |
+| GPU | NVIDIA RTX A6000，49140 MiB，compute capability 8.6 |
+| Driver | 565.57.01 |
+| `nvidia-smi` CUDA 上限 | 12.7 |
+| Python | 3.11.5 |
+| PyTorch | 2.6.0+cu124 |
+| PyTorch CUDA runtime | 12.4 |
+| Transformers | 4.57.1 |
+| TRL | 0.24.0 |
+| Accelerate | 1.10.1 |
+| BitsAndBytes | 0.48.1 |
+| NumPy | 1.26.3 |
 
-- 不污染 `base` 或组内其他项目；
-- 每个项目拥有独立的 Python 和包版本；
-- 激活后 `python`、`pip`、训练命令都来自同一目录；
-- 删除 `.venv-a6000/` 即可重建，不影响系统环境。
+Driver 的 CUDA 12.7 表示驱动兼容上限；PyTorch 自带 CUDA 12.4 runtime，两者可以正常配合。
 
-## 重要限制
+完整依赖快照保存在 [locks/a6000-py311-cu124.txt](locks/a6000-py311-cu124.txt)。
 
-虚拟环境包含平台相关的解释器路径和二进制包。Windows 上创建的环境不能复制到 Linux A6000 使用，因此当前阶段不会在本机安装任何包。
+## 启动与验证
 
-## 后续环境步骤
-
-在获得单独确认后，将在 A6000 上依次执行：
-
-1. 记录 `nvidia-smi`、驱动、CUDA、系统 Python 和磁盘信息；
-2. 选择明确的 Python 3.10/3.11 可执行文件；
-3. 用该解释器创建 `.venv-a6000/`；
-4. 根据服务器 CUDA 能力生成精确 lock 文件；
-5. 只向 `.venv-a6000/` 安装依赖；
-6. 运行 import 与 CUDA 可见性检查，但不启动训练。
-
-预期激活方式：
+在服务器项目根目录执行：
 
 ```bash
 source .venv-a6000/bin/activate
+python -c 'import torch; print(torch.__version__, torch.version.cuda); print(torch.cuda.get_device_name(0))'
+python -m pip check
 ```
 
-在锁文件确定之前，本目录不会提供猜测性的 PyTorch/CUDA 安装命令。
+预期 GPU 为 `NVIDIA RTX A6000`，`python -m pip check` 不报告损坏依赖。正式训练前使用 `nvidia-smi` 确认 GPU 0 的空闲显存。
+
+运行时应显式指定：
+
+```bash
+CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python ...
+```
+
+两个 Qwen 模型已经放在 `artifacts/models/`，训练过程不依赖网络。
+
+## 同步规则
+
+- 本地修改 `scripts/`、`src/` 和文档后，再手动同步到服务器。
+- 不覆盖服务器 `.venv-a6000/`。
+- 数据、模型和实验结果在 `artifacts/`、`results/` 中按相同相对路径保存。
+- 所有运行都限制在 `/home/user/wbn/minionerec`，不使用 `sudo`。
