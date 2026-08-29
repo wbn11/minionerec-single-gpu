@@ -85,6 +85,24 @@ minionerec/
 └── README.md
 ```
 
+### 1.4 复现范围与官方差异
+
+本项目复现固定 commit 的核心方法和数据流，但受单卡硬件、模型规模和实验成本限制，不应将它表述为论文全部实验配置的逐项复刻。
+
+| 对比项 | 论文或上游方案 | 本项目实际设置 |
+| --- | --- | --- |
+| 代码参考 | MiniOneRec 官方实现 | 固定 commit `0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed` |
+| 数据范围 | 论文包含多个 Amazon 数据集 | 只完成 `Industrial_and_Scientific` |
+| 推荐模型规模 | 论文实验覆盖多个 Qwen2.5-Instruct 规模 | Qwen2.5-1.5B-Instruct |
+| 训练硬件 | 论文使用多卡高端 GPU | 单张 RTX A6000 48GB |
+| SID token | 论文按完整三层码本描述为 `3 × 256 = 768` | 根据实际 `index.json` 加入出现过的 540 个 token |
+| SFT 轮数 | 配置上限依实验而定 | 配置 10 epochs，验证早停于约 4.5 epochs，并回载最佳权重 |
+| GRPO 奖励 | exact + ranking reward | baseline 保持不变；CGRF-H 只在创新实验中额外加入稠密奖励 |
+| 主评测 | SID-level Top-K 推荐 | 同口径 SID-level HR/NDCG；Item-level CCE 只作补充 |
+| 重复实验 | 论文级实验设置 | 当前每种方法一个随机种子、一次正式训练 |
+
+因此，“复现完成”表示整条算法链路、训练任务、奖励和评测已在单卡环境跑通；最终数值应视为当前 1.5B 单卡配置的实验结果，而不是与论文多模型、多硬件结果严格等价的复刻值。
+
 ## 2. 模块功能、输入与输出
 
 | 阶段 | 入口 | 主要输入 | 主要输出 |
@@ -273,6 +291,14 @@ R = R_official + λ × [g × R_collaborative + (1 - g) × R_hierarchical]
 4. 从同一 SFT checkpoint 训练 CGRF-H GRPO；其余超参数与 baseline 完全一致。
 5. 评测时只加载最终 Qwen 模型，不需要 SASRec，因此不增加线上推理成本。
 
+SASRec 读取的是最终训练/验证 CSV，而不是预处理阶段的 `.train.inter`；实际只使用 `history_item_id` 和 `item_id` 两列。`index.json` 会从 `Item ID → SID` 反转成 `SID → [Item ID, ...]`。若一个候选 SID 只对应一个 Item，直接使用该 Item 的 SASRec logit；若对应多个 Item，则用下式得到一个对 Item 排列顺序无关的 SID 分数：
+
+```text
+SID_score = logsumexp(item_logits) - log(item_count)
+```
+
+减去 `log(item_count)` 可以避免碰撞组仅因包含更多 Item 而获得更高分，同时保留组内高分 Item 的影响。该处理服务于当前 SID-level 训练与评测，不能区分同一 SID 内的具体商品；Item-level 部署仍需要二阶段重排。
+
 完整命令与实现说明见 [`innovations/cgrf_hierarchical_grpo/README.md`](innovations/cgrf_hierarchical_grpo/README.md)。
 
 ## 5. 关键实验参数
@@ -396,7 +422,25 @@ CGRF-H 比 baseline GRPO 多 104.3 秒，仅增加约 0.21% 的训练时间；�
 - λ=0.1/0.2/0.3 只完成了离线奖励回放，只有 λ=0.1 完成下游训练；不能据此声称 λ=0.1 是全局最优。
 - SID 碰撞相关的 Item-level CCE 仅作补充。主表保持与 baseline 一致的 SID-level 口径。
 
-## 7. 结果管理与复核
+## 7. 验收标准与结果管理
+
+### 7.1 分阶段验收标准
+
+| 阶段 | 必须满足的验收条件 |
+| --- | --- |
+| 数据预处理 | 7,694 users、3,686 items、53,018 interactions；train/valid/test 为 36,259/4,532/4,533 |
+| 商品 embedding | shape `(3686, 2560)`；dtype `float32`；所有值 finite；全零行数为 0 |
+| RQ-VAE | 完成 10,000 epochs；选用 epoch 9,950 best-collision checkpoint；码本使用数 `[28, 256, 256]` |
+| SID 生成 | 3,673 个唯一 SID；碰撞冗余 13；碰撞率 0.3527% |
+| 最终 CSV | train/valid/test 行数保持 36,259/4,532/4,533；商品数保持 3,686 |
+| SFT | tokenizer、输入/输出 embedding 均为 152,205；最终模型 forward loss 和 logits 均为有限值 |
+| Baseline GRPO | 2 epochs、1,650 steps；生成合法候选率 100%；保留最终模型和训练统计 |
+| SASRec | 按验证 NDCG@10 选出 epoch 66；模型参数量 143,776；checkpoint 可冻结加载 |
+| 奖励回放 | 零 advantage 率由 70.4% 降至 2.1%；精确目标保持最高奖励率 100% |
+| CGRF-H | 2 epochs、1,650 steps；与 baseline 相同峰值显存；K≥5 主指标不低于 baseline |
+| 最终评测 | 4,533 条测试样本、Beam-50、合法候选率 100%；主表读取 JSON 的 `metrics` 字段 |
+
+### 7.2 结果文件与复核
 
 大型数据、模型、checkpoint、训练日志和创新原始结果由 `.gitignore` 排除。可审查的 baseline JSON 保存在 `results/`，CGRF-H 的统一紧凑汇总保存在：
 

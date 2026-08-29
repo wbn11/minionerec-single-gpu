@@ -69,6 +69,8 @@ CUDA_VISIBLE_DEVICES=0 python innovations/cgrf_hierarchical_grpo/scripts/train_s
 
 输入仅使用真实 Item ID：`history_item_id → item_id`。CSV 中的 Item ID `0` 是正常商品，模型内部统一加一并保留内部 ID `0` 作为 padding。只有训练集更新参数，验证集按 NDCG@10 选择最佳 checkpoint。
 
+这里的 `--train-file` 和 `--valid-file` 都是 `artifacts/data/final/amazon18/` 下的最终 CSV，不是 processed 目录中的 `.train.inter` 中间文件。SASRec 只读取 CSV 的 `history_item_id` 和 `item_id` 两列，标题、描述和 SID 不参与教师训练。
+
 实际配置：
 
 | 参数 | 数值 |
@@ -82,6 +84,24 @@ CUDA_VISIBLE_DEVICES=0 python innovations/cgrf_hierarchical_grpo/scripts/train_s
 | learning rate | 1e-3 |
 | 最大 epoch / patience | 100 / 10 |
 | seed / workers | 42 / 4 |
+
+#### SID 映射与碰撞组聚合
+
+SASRec 预测的是真实 Item ID，而 Qwen/GRPO 生成的是 SID。程序从 baseline `index.json` 读取 `Item ID → SID`，然后建立完整的反向映射：
+
+```text
+SID → [Item ID 1, Item ID 2, ...]
+```
+
+对唯一 SID，协同分数就是对应 Item 的 SASRec logit。对碰撞 SID，程序不会随机选择 Item，也不会只选择映射中的第一项，而是计算：
+
+```text
+SID_score = logsumexp(item_logits) - log(item_count)
+```
+
+这等价于 Item 指数分数平均值的对数。它比普通最大值更平滑，又通过减去 `log(item_count)` 消除碰撞组大小造成的天然加分。真实 `target_item_id` 用于检查目标 Item 确实属于目标 SID；目标 SID 的协同分数仍按整个碰撞组聚合，从而保持训练奖励与 SID-level 评测一致。
+
+该设计不能解决同一个 SID 内部的 Item 区分问题。如果系统最终需要输出真实 Item，应在 SID 生成后使用 SASRec 分数或业务排序模型对碰撞组进行二阶段重排。
 
 ### 3.2 离线奖励回放
 
