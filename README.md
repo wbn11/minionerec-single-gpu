@@ -422,25 +422,7 @@ CGRF-H 比 baseline GRPO 多 104.3 秒，仅增加约 0.21% 的训练时间；�
 - λ=0.1/0.2/0.3 只完成了离线奖励回放，只有 λ=0.1 完成下游训练；不能据此声称 λ=0.1 是全局最优。
 - SID 碰撞相关的 Item-level CCE 仅作补充。主表保持与 baseline 一致的 SID-level 口径。
 
-## 7. 验收标准与结果管理
-
-### 7.1 分阶段验收标准
-
-| 阶段 | 必须满足的验收条件 |
-| --- | --- |
-| 数据预处理 | 7,694 users、3,686 items、53,018 interactions；train/valid/test 为 36,259/4,532/4,533 |
-| 商品 embedding | shape `(3686, 2560)`；dtype `float32`；所有值 finite；全零行数为 0 |
-| RQ-VAE | 完成 10,000 epochs；选用 epoch 9,950 best-collision checkpoint；码本使用数 `[28, 256, 256]` |
-| SID 生成 | 3,673 个唯一 SID；碰撞冗余 13；碰撞率 0.3527% |
-| 最终 CSV | train/valid/test 行数保持 36,259/4,532/4,533；商品数保持 3,686 |
-| SFT | tokenizer、输入/输出 embedding 均为 152,205；最终模型 forward loss 和 logits 均为有限值 |
-| Baseline GRPO | 2 epochs、1,650 steps；生成合法候选率 100%；保留最终模型和训练统计 |
-| SASRec | 按验证 NDCG@10 选出 epoch 66；模型参数量 143,776；checkpoint 可冻结加载 |
-| 奖励回放 | 零 advantage 率由 70.4% 降至 2.1%；精确目标保持最高奖励率 100% |
-| CGRF-H | 2 epochs、1,650 steps；与 baseline 相同峰值显存；K≥5 主指标不低于 baseline |
-| 最终评测 | 4,533 条测试样本、Beam-50、合法候选率 100%；主表读取 JSON 的 `metrics` 字段 |
-
-### 7.2 结果文件与复核
+## 7. 结果文件
 
 大型数据、模型、checkpoint、训练日志和创新原始结果由 `.gitignore` 排除。可审查的 baseline JSON 保存在 `results/`，CGRF-H 的统一紧凑汇总保存在：
 
