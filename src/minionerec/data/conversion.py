@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any
 
 
-OFFICIAL_FILE_SUFFIX = "5_2016-10-2018-11"
 CSV_FIELDS = (
     "user_id",
     "history_item_title",
@@ -35,13 +34,20 @@ class ConversionOutputPaths:
         return (self.train, self.valid, self.test, self.info)
 
 
-def output_paths(output_dir: Path, category: str) -> ConversionOutputPaths:
-    filename = f"{category}_{OFFICIAL_FILE_SUFFIX}"
+def output_paths(output_dir: Path, output_name: str) -> ConversionOutputPaths:
+    """Return final-data paths using an explicit filename stem."""
+
+    if (
+        not output_name
+        or output_name in {".", ".."}
+        or Path(output_name).name != output_name
+    ):
+        raise ValueError("output_name must be a non-empty filename stem")
     return ConversionOutputPaths(
-        train=output_dir / "train" / f"{filename}.csv",
-        valid=output_dir / "valid" / f"{filename}.csv",
-        test=output_dir / "test" / f"{filename}.csv",
-        info=output_dir / "info" / f"{filename}.txt",
+        train=output_dir / "train" / f"{output_name}.csv",
+        valid=output_dir / "valid" / f"{output_name}.csv",
+        test=output_dir / "test" / f"{output_name}.csv",
+        info=output_dir / "info" / f"{output_name}.txt",
     )
 
 
@@ -167,19 +173,20 @@ def convert_dataset(
     data_dir: Path,
     dataset_name: str,
     output_dir: Path,
-    category: str | None = None,
+    output_name: str,
+    index_file: Path | None = None,
 ) -> dict[str, Any]:
     """Create MiniOneRec CSV and item-info files without overwriting outputs."""
 
-    category = category or dataset_name
-    paths = output_paths(output_dir, category)
+    paths = output_paths(output_dir, output_name)
     existing = [path for path in paths.files if path.exists()]
     if existing:
         listed = ", ".join(str(path) for path in existing)
         raise FileExistsError(f"Refusing to overwrite existing outputs: {listed}")
 
     items = _load_json_object(data_dir / f"{dataset_name}.item.json")
-    item_to_semantic = _load_json_object(data_dir / f"{dataset_name}.index.json")
+    index_file = index_file or data_dir / f"{dataset_name}.index.json"
+    item_to_semantic = _load_json_object(index_file)
 
     if set(items) != set(item_to_semantic):
         missing_sids = sorted(set(items) - set(item_to_semantic))

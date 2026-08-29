@@ -1,7 +1,7 @@
 {
   "model_path": "results/sft/Industrial_and_Scientific/final_model",
-  "test_file": "artifacts/data/final/amazon18/test/Industrial_and_Scientific_5_2016-10-2018-11.csv",
-  "info_file": "artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_2016-10-2018-11.txt",
+  "test_file": "artifacts/data/final/amazon18/test/Industrial_and_Scientific_5_1996-10-2018-11.csv",
+  "info_file": "artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt",
   "cuda": {
     "logical_device": "cuda:0",
     "name": "NVIDIA RTX A6000",

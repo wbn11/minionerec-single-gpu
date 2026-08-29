@@ -44,9 +44,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="New root directory under which train/valid/test/info are created.",
     )
     parser.add_argument(
-        "--category",
+        "--index-file",
+        type=Path,
         default=None,
-        help="Output filename category; defaults to --dataset-name.",
+        help=(
+            "Optional Semantic ID index path; defaults to "
+            "<data-dir>/<dataset-name>.index.json."
+        ),
+    )
+    parser.add_argument(
+        "--output-name",
+        required=True,
+        help="Complete filename stem shared by train, valid, test and info.",
     )
     return parser
 
@@ -59,7 +68,8 @@ def main() -> int:
             data_dir=arguments.data_dir,
             dataset_name=arguments.dataset_name,
             output_dir=arguments.output_dir,
-            category=arguments.category,
+            output_name=arguments.output_name,
+            index_file=arguments.index_file,
         )
     except (
         FileNotFoundError,

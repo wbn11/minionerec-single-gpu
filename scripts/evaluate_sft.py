@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate a MiniOneRec SFT model with constrained beam search."""
+"""Evaluate a MiniOneRec SFT or GRPO model with SID and CCE item metrics."""
 
 # pylint: disable=wrong-import-position,import-error,no-name-in-module
 
@@ -25,12 +25,12 @@ from minionerec.generation.sft_generation import (  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build the single-GPU SFT evaluation command-line interface."""
+    """Build the shared single-GPU model evaluation command-line interface."""
 
     parser = argparse.ArgumentParser(
         description=(
             "Single-GPU BF16 constrained-beam evaluation using the fixed "
-            "MiniOneRec commit's prompt and HR/NDCG definitions."
+            "MiniOneRec prompt, legacy SID metrics, and CCE item metrics."
         )
     )
     parser.add_argument("--model-path", required=True, type=Path)

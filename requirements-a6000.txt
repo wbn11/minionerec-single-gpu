@@ -4,7 +4,7 @@
 # GPU: NVIDIA RTX A6000 (SM 8.6)
 # Driver: 565.57.01
 # PyTorch: 2.6.0+cu124
-# Source: `python -m pip freeze --all` from
+# Source: python -m pip freeze --all from
 # /home/user/wbn/minionerec/.venv-a6000
 
 --extra-index-url https://download.pytorch.org/whl/cu124

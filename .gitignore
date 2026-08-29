@@ -41,10 +41,18 @@ outputs/
 *.safetensors
 
 # Local datasets, embeddings, checkpoints and full predictions
-artifacts/*
+artifacts/
+innovations/**/artifacts/
+innovations/**/results/
 
 # Keep only compact, reviewable result summaries in Git
 results/**/final_model/
 results/**/checkpoint-*/
 results/predictions/
 results/checkpoints/
+
+# Deferred experiments outside the current baseline/CGRF-H main line
+innovations/sid_codebook_utilization/
+
+# The former environment/ hierarchy was flattened into requirements-a6000.txt
+environment/

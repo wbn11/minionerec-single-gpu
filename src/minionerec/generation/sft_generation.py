@@ -7,7 +7,7 @@ import csv
 import random
 import time
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Protocol, cast
 
@@ -20,7 +20,11 @@ from transformers import (
     LogitsProcessorList,
 )
 
-from minionerec.evaluation.ranking import OFFICIAL_TOP_K, compute_ranking_metrics
+from minionerec.evaluation.ranking import (
+    OFFICIAL_TOP_K,
+    compute_collision_corrected_metrics,
+    compute_ranking_metrics,
+)
 
 
 OFFICIAL_NUM_BEAMS = 50
@@ -48,6 +52,7 @@ class TokenizerLike(Protocol):
 class EvaluationExample:
     input_ids: tuple[int, ...]
     target_sid: str
+    target_item_id: str
 
 
 @dataclass(frozen=True)
@@ -55,6 +60,7 @@ class SidCatalog:
     item_rows: int
     semantic_ids: tuple[str, ...]
     token_path_to_sid: dict[tuple[int, ...], str]
+    sid_to_item_ids: dict[str, tuple[str, ...]] = field(default_factory=dict)
 
     @property
     def unique_sid_count(self) -> int:
@@ -63,6 +69,27 @@ class SidCatalog:
     @property
     def collision_excess(self) -> int:
         return self.item_rows - self.unique_sid_count
+
+    @property
+    def unique_item_count(self) -> int:
+        return len(
+            {
+                item_id
+                for item_ids in self.sid_to_item_ids.values()
+                for item_id in item_ids
+            }
+        )
+
+    @property
+    def collision_group_count(self) -> int:
+        return sum(len(item_ids) > 1 for item_ids in self.sid_to_item_ids.values())
+
+    @property
+    def max_collision_group_size(self) -> int:
+        return max(
+            (len(item_ids) for item_ids in self.sid_to_item_ids.values()),
+            default=0,
+        )
 
 
 class _TrieNode:
@@ -181,11 +208,16 @@ def load_evaluation_examples(
         prompt = build_official_evaluation_prompt(history)
         input_ids = _encode_without_terminal_eos(tokenizer, prompt)
         target_sid = row["item_sid"].strip()
+        target_item_id = row["item_id"].strip()
         if not input_ids:
             raise ValueError("tokenized evaluation prompt cannot be empty")
         if not target_sid:
             raise ValueError("item_sid cannot be empty")
-        examples.append(EvaluationExample(tuple(input_ids), target_sid))
+        if not target_item_id:
+            raise ValueError("item_id cannot be empty")
+        examples.append(
+            EvaluationExample(tuple(input_ids), target_sid, target_item_id)
+        )
     if not examples:
         raise ValueError("test dataset cannot be empty")
     return examples
@@ -204,16 +236,31 @@ def load_sid_catalog(info_file: Path, tokenizer: TokenizerLike) -> SidCatalog:
     item_rows = 0
     semantic_ids: list[str] = []
     seen_sids: set[str] = set()
+    seen_item_ids: set[str] = set()
     token_path_to_sid: dict[tuple[int, ...], str] = {}
+    sid_to_item_ids: dict[str, list[str]] = {}
     with info_file.open("r", encoding="utf-8") as handle:
         for line_number, line in enumerate(handle, start=1):
             columns = line.rstrip("\n").split("\t")
             if len(columns) < 3:
-                raise ValueError(f"Expected SID, title, and item ID at {info_file}:{line_number}")
+                raise ValueError(
+                    f"Expected SID, title, and item ID at "
+                    f"{info_file}:{line_number}"
+                )
             semantic_id = columns[0].strip()
+            item_id = columns[2].strip()
             if not semantic_id:
                 raise ValueError(f"Empty SID at {info_file}:{line_number}")
+            if not item_id:
+                raise ValueError(f"Empty item ID at {info_file}:{line_number}")
+            if item_id in seen_item_ids:
+                raise ValueError(
+                    f"Duplicate item ID {item_id!r} at "
+                    f"{info_file}:{line_number}"
+                )
+            seen_item_ids.add(item_id)
             item_rows += 1
+            sid_to_item_ids.setdefault(semantic_id, []).append(item_id)
             if semantic_id in seen_sids:
                 continue
             seen_sids.add(semantic_id)
@@ -231,7 +278,15 @@ def load_sid_catalog(info_file: Path, tokenizer: TokenizerLike) -> SidCatalog:
 
     if not semantic_ids:
         raise ValueError("SID catalog cannot be empty")
-    return SidCatalog(item_rows, tuple(semantic_ids), token_path_to_sid)
+    return SidCatalog(
+        item_rows,
+        tuple(semantic_ids),
+        token_path_to_sid,
+        {
+            semantic_id: tuple(item_ids)
+            for semantic_id, item_ids in sid_to_item_ids.items()
+        },
+    )
 
 
 def _pad_batch(
@@ -305,6 +360,17 @@ def evaluate_sft_model(
     )
     if missing_targets:
         raise ValueError(f"Test targets missing from SID catalog: {missing_targets[:5]}")
+    mismatched_targets = [
+        example.target_item_id
+        for example in examples
+        if example.target_item_id
+        not in catalog.sid_to_item_ids.get(example.target_sid, ())
+    ]
+    if mismatched_targets:
+        raise ValueError(
+            "Test item IDs do not match their SID catalog groups: "
+            f"{mismatched_targets[:5]}"
+        )
 
     model: Any = AutoModelForCausalLM.from_pretrained(
         model_path,
@@ -374,8 +440,19 @@ def evaluate_sft_model(
 
     elapsed_seconds = time.perf_counter() - started
     targets = [example.target_sid for example in examples]
+    target_item_ids = [example.target_item_id for example in examples]
     valid_top_k = tuple(cutoff for cutoff in OFFICIAL_TOP_K if cutoff <= num_beams)
     metrics = compute_ranking_metrics(targets, predictions, valid_top_k)
+    item_metrics = compute_collision_corrected_metrics(
+        target_item_ids,
+        predictions,
+        catalog.sid_to_item_ids,
+        valid_top_k,
+    )
+    collision_target_count = sum(
+        len(catalog.sid_to_item_ids[example.target_sid]) > 1
+        for example in examples
+    )
     allocated_gib = torch.cuda.memory_allocated(torch_device) / (1024**3)
     peak_gib = torch.cuda.max_memory_allocated(torch_device) / (1024**3)
 
@@ -395,8 +472,19 @@ def evaluate_sft_model(
         },
         "catalog": {
             "item_rows": catalog.item_rows,
+            "unique_item_ids": catalog.unique_item_count,
             "unique_sids": catalog.unique_sid_count,
             "sid_collision_excess": catalog.collision_excess,
+            "collision_sid_groups": catalog.collision_group_count,
+            "max_collision_group_size": catalog.max_collision_group_size,
+        },
+        "evaluation": {
+            "primary_metric_field": "item_metrics",
+            "primary_metric_level": "item_id",
+            "item_metric_method": "collision_corrected_evaluation",
+            "legacy_sid_metric_field": "metrics",
+            "collision_target_count": collision_target_count,
+            "collision_target_rate": collision_target_count / len(examples),
         },
         "generation": {
             "sample_count": len(examples),
@@ -417,4 +505,5 @@ def evaluate_sft_model(
             "samples_per_second": round(len(examples) / elapsed_seconds, 3),
         },
         "metrics": metrics,
+        "item_metrics": item_metrics,
     }
