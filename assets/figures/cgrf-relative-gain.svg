@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="660" viewBox="0 0 1320 660" role="img">
+<title>CGRF-H relative gain over MiniOneRec GRPO</title>
+<desc>Diverging bars show relative percentage changes for HR and NDCG at six cutoffs.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L0,6 L9,3 z" fill="#66757F"/>
+</marker>
+<filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="130%">
+<feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.12"/>
+</filter>
+</defs>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="54.0" y="54.0" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#263238" text-anchor="start">CGRF-H Relative Change vs. MiniOneRec GRPO</text>
+<text x="54.0" y="84.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#66757F" text-anchor="start">Positive values indicate improvement; negative values indicate a trade-off</text>
+<line x1="54.0" y1="101.0" x2="1266.0" y2="101.0" stroke="#D9E1E6" stroke-width="1.2"/>
+<rect x="995.0" y="63.0" width="18.0" height="13.0" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="1021.0" y="75.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#263238" text-anchor="start">HR</text>
+<rect x="1120.0" y="63.0" width="18.0" height="13.0" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="1146.0" y="75.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#263238" text-anchor="start">NDCG</text>
+<line x1="105.0" y1="555.0" x2="1235.0" y2="555.0" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="560.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">-2</text>
+<line x1="105.0" y1="493.5" x2="1235.0" y2="493.5" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="498.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">-1</text>
+<line x1="105.0" y1="431.9" x2="1235.0" y2="431.9" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="436.9" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">0</text>
+<line x1="105.0" y1="370.4" x2="1235.0" y2="370.4" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="375.4" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">1</text>
+<line x1="105.0" y1="308.8" x2="1235.0" y2="308.8" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="313.8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">2</text>
+<line x1="105.0" y1="247.3" x2="1235.0" y2="247.3" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="252.3" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">3</text>
+<line x1="105.0" y1="185.8" x2="1235.0" y2="185.8" stroke="#D9E1E6" stroke-width="1.0"/>
+<text x="93.0" y="190.8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">4</text>
+<line x1="105.0" y1="155.0" x2="105.0" y2="555.0" stroke="#263238" stroke-width="1.3"/>
+<line x1="105.0" y1="555.0" x2="1235.0" y2="555.0" stroke="#263238" stroke-width="1.3"/>
+<line x1="105.0" y1="431.9" x2="1235.0" y2="431.9" stroke="#263238" stroke-width="1.7"/>
+<rect x="156.7" y="431.9" width="38.0" height="87.9" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="175.7" y="537.8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#4C78A8" text-anchor="middle">-1.43%</text>
+<rect x="203.7" y="431.9" width="38.0" height="87.9" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="222.7" y="537.8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#D76666" text-anchor="middle">-1.43%</text>
+<text x="199.2" y="585.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">K=1</text>
+<rect x="345.0" y="431.9" width="38.0" height="43.6" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="364.0" y="493.6" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#4C78A8" text-anchor="middle">-0.71%</text>
+<rect x="392.0" y="431.9" width="38.0" height="39.4" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="411.0" y="489.3" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#D76666" text-anchor="middle">-0.64%</text>
+<text x="387.5" y="585.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">K=3</text>
+<rect x="533.3" y="395.1" width="38.0" height="36.8" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="552.3" y="386.1" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#4C78A8" text-anchor="middle">+0.60%</text>
+<rect x="580.3" y="423.7" width="38.0" height="8.2" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="599.3" y="414.7" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#D76666" text-anchor="middle">+0.13%</text>
+<text x="575.8" y="585.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">K=5</text>
+<rect x="721.7" y="315.3" width="38.0" height="116.7" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="740.7" y="306.3" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#4C78A8" text-anchor="middle">+1.90%</text>
+<rect x="768.7" y="376.8" width="38.0" height="55.2" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="787.7" y="367.8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#D76666" text-anchor="middle">+0.90%</text>
+<text x="764.2" y="585.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">K=10</text>
+<rect x="910.0" y="312.1" width="38.0" height="119.8" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="929.0" y="303.1" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#4C78A8" text-anchor="middle">+1.95%</text>
+<rect x="957.0" y="360.5" width="38.0" height="71.4" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="976.0" y="351.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#D76666" text-anchor="middle">+1.16%</text>
+<text x="952.5" y="585.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">K=20</text>
+<rect x="1098.3" y="188.9" width="38.0" height="243.0" rx="2.0" fill="#4C78A8" stroke="none" stroke-width="1.0"/>
+<text x="1117.3" y="179.9" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#4C78A8" text-anchor="middle">+3.95%</text>
+<rect x="1145.3" y="305.9" width="38.0" height="126.0" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
+<text x="1164.3" y="296.9" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#D76666" text-anchor="middle">+2.05%</text>
+<text x="1140.8" y="585.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">K=50</text>
+<text x="37.0" y="355.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238" text-anchor="middle" transform="rotate(-90.0 37.0 355.0)">Relative change (%)</text>
+<text x="660.0" y="625.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#66757F" text-anchor="middle">Largest gain: HR@50 +3.95% (43 additional hits among 4,533 test cases)</text>
+</svg>

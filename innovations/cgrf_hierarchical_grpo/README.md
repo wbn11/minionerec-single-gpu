@@ -1,10 +1,10 @@
 # CGRF-H：置信门控的协同—层级 GRPO 奖励
 
-本目录实现 MiniOneRec 的 CGRF-H（Confidence-Gated Collaborative and Hierarchical Reward）创新实验。它复用 baseline 的 Semantic ID、SFT checkpoint、GRPO 数据、受约束生成和 SID-level 评测，只修改 GRPO 的奖励计算。
+本目录实现 MiniOneRec 的 CGRF-H（Confidence-Gated Collaborative and Hierarchical Reward）创新实验。它复用基线的 Semantic ID、SFT checkpoint、GRPO 数据、受约束生成和 HR/NDCG 评测，只修改 GRPO 的奖励计算。
 
 ## 1. 动机与方法
 
-官方 ranking GRPO 对每个 prompt 生成 16 个 SID 候选。当真实目标不在候选中、错误候选又缺少可区分关系时，一整组奖励可能完全相同；组内标准化后 advantage 为零，这个 prompt 不产生有效策略梯度。
+MiniOneRec 论文曾尝试使用冻结 SASRec 的原始 logit 替代排名奖励，但该协同信号与最终推荐目标存在偏差，实验出现奖励上升而准确率下降的问题。CGRF-H 对协同分数进行组内排名归一化，并根据教师对真实目标的排序可信度，在协同奖励和 SID 层级奖励之间自适应切换。
 
 CGRF-H 在不替换官方奖励的前提下增加稠密项：
 
@@ -14,7 +14,7 @@ R = R_official + λ × [g × R_collaborative + (1 - g) × R_hierarchical]
 
 其中：
 
-- `R_official` 是固定 commit 中的 exact reward 与 ranking reward 之和。
+- `R_official` 是固定 commit 中精确匹配奖励与排名奖励之和。
 - `R_hierarchical` 根据候选 SID 和目标 SID 的公共前缀层数给出 `0 / 0.2 / 0.5 / 1.0`。
 - `R_collaborative` 将冻结 SASRec 对组内候选的分数转换成 `[0, 1]` 排名百分位。
 - `g` 由真实目标在 SASRec 排序中的名次计算。教师越确信真实目标，`g` 越接近 1；否则退回更稳定的 SID 层级奖励。
@@ -34,8 +34,8 @@ scripts/analyze_rewards.py
 scripts/train_cgrf_grpo.py
     └── src/.../cgrf_training.py + reward_fusion.py
             ↓ CGRF-H final_model + training_stats.json
-baseline scripts/evaluate_sft.py
-            ↓ 同口径 sid_metrics.json
+scripts/evaluate_sft.py
+            ↓ 同口径推荐指标 JSON
 scripts/summarize_results.py
             ↓ experiment_summary.json
 ```
@@ -46,15 +46,15 @@ scripts/summarize_results.py
 | `src/.../sasrec_training.py` | Item ID 数据集、训练、验证和早停 |
 | `src/.../reward_fusion.py` | 官方、层级、协同奖励与置信门控 |
 | `src/.../reward_replay.py` | 冻结模型生成候选并离线比较奖励 |
-| `src/.../cgrf_training.py` | 在 baseline GRPO 上接入 CGRF-H 奖励 |
+| `src/.../cgrf_training.py` | 在 MiniOneRec GRPO 上接入 CGRF-H 奖励 |
 | `scripts/train_sasrec.py` | SASRec 命令行入口 |
 | `scripts/analyze_rewards.py` | 离线奖励回放入口 |
 | `scripts/train_cgrf_grpo.py` | CGRF-H 正式训练入口 |
-| `scripts/summarize_results.py` | 聚合 baseline 与创新结果 |
+| `scripts/summarize_results.py` | 聚合基线与创新结果 |
 
 ## 3. 实验流程
 
-所有命令从仓库根目录 `/home/user/wbn/minionerec` 执行，并要求 baseline SFT `final_model` 和正式数据已经存在。
+所有命令从仓库根目录 `/home/user/wbn/minionerec` 执行，并要求基线 SFT `final_model` 和正式数据已经存在。
 
 ### 3.1 训练 SASRec 教师
 
@@ -67,7 +67,7 @@ CUDA_VISIBLE_DEVICES=0 python innovations/cgrf_hierarchical_grpo/scripts/train_s
   --device cuda:0
 ```
 
-输入仅使用真实 Item ID：`history_item_id → item_id`。CSV 中的 Item ID `0` 是正常商品，模型内部统一加一并保留内部 ID `0` 作为 padding。只有训练集更新参数，验证集按 NDCG@10 选择最佳 checkpoint。
+输入仅使用真实 Item ID：`history_item_id → item_id`。CSV 中的 Item ID `0` 是正常商品，模型内部统一加一，并保留内部 ID `0` 作为 padding。只有训练集更新参数，验证集按 NDCG@10 选择最佳 checkpoint。
 
 这里的 `--train-file` 和 `--valid-file` 都是 `artifacts/data/final/amazon18/` 下的最终 CSV，不是 processed 目录中的 `.train.inter` 中间文件。SASRec 只读取 CSV 的 `history_item_id` 和 `item_id` 两列，标题、描述和 SID 不参与教师训练。
 
@@ -80,14 +80,14 @@ CUDA_VISIBLE_DEVICES=0 python innovations/cgrf_hierarchical_grpo/scripts/train_s
 | hidden size | 32 |
 | Transformer layers / heads | 2 / 2 |
 | dropout | 0.3 |
-| train / eval batch | 256 / 512 |
+| train / evaluation batch | 256 / 512 |
 | learning rate | 1e-3 |
 | 最大 epoch / patience | 100 / 10 |
 | seed / workers | 42 / 4 |
 
 #### SID 映射与碰撞组聚合
 
-SASRec 预测的是真实 Item ID，而 Qwen/GRPO 生成的是 SID。程序从 baseline `index.json` 读取 `Item ID → SID`，然后建立完整的反向映射：
+SASRec 预测的是真实 Item ID，而 Qwen/GRPO 生成的是 SID。程序从基线 `index.json` 读取 `Item ID → SID`，然后建立完整的反向映射：
 
 ```text
 SID → [Item ID 1, Item ID 2, ...]
@@ -99,7 +99,7 @@ SID → [Item ID 1, Item ID 2, ...]
 SID_score = logsumexp(item_logits) - log(item_count)
 ```
 
-这等价于 Item 指数分数平均值的对数。它比普通最大值更平滑，又通过减去 `log(item_count)` 消除碰撞组大小造成的天然加分。真实 `target_item_id` 用于检查目标 Item 确实属于目标 SID；目标 SID 的协同分数仍按整个碰撞组聚合，从而保持训练奖励与 SID-level 评测一致。
+这等价于 Item 指数分数平均值的对数。它比普通最大值更平滑，又通过减去 `log(item_count)` 消除碰撞组大小造成的天然加分。真实 `target_item_id` 用于检查目标 Item 确实属于目标 SID；目标 SID 的协同分数仍按整个碰撞组聚合，从而保持训练和评测的候选定义一致。
 
 该设计不能解决同一个 SID 内部的 Item 区分问题。如果系统最终需要输出真实 Item，应在 SID 生成后使用 SASRec 分数或业务排序模型对碰撞组进行二阶段重排。
 
@@ -122,7 +122,7 @@ python innovations/cgrf_hierarchical_grpo/scripts/analyze_rewards.py \
   --device cuda:0
 ```
 
-该阶段冻结 SFT 和 SASRec，不创建 optimizer 或 reference model。它缓存与 GRPO 相同的 16 个受约束候选，并比较不同奖励公式是否满足：数值有限、降低零 advantage、精确目标仍获得最高奖励。
+该阶段冻结 SFT 和 SASRec，不创建 optimizer 或 reference model。程序缓存与 GRPO 相同的 16 个受约束候选，用于比较 `λ=0.1、0.2、0.3` 时奖励的数值稳定性、候选区分能力和精确目标排序。正式训练采用较保守的 `λ=0.1`，以限制新增奖励对原有策略的扰动。
 
 ### 3.3 两步冒烟测试
 
@@ -170,7 +170,7 @@ python -u innovations/cgrf_hierarchical_grpo/scripts/train_cgrf_grpo.py \
   --beta 0.001
 ```
 
-除 `dense_weight=0.1` 和冻结 SASRec 教师外，数据、初始化模型、batch、学习率、生成、KL、scheduler 与 baseline GRPO 相同。正式训练完成 2 epochs、1,650 steps。
+除 `dense_weight=0.1` 和冻结 SASRec 教师外，数据、初始化模型、batch、学习率、生成、KL 和 scheduler 与 MiniOneRec GRPO 相同。正式训练完成 2 个 epoch、1,650 个 step。
 
 ### 3.5 同口径评测
 
@@ -188,45 +188,35 @@ python scripts/evaluate_sft.py \
   --device cuda:0
 ```
 
-主实验读取输出 JSON 的 `metrics` 字段（SID-level），与 baseline 完全一致。`item_metrics` 是额外的碰撞修正 Item-level CCE，不作为本创新主表。
+主实验读取输出 JSON 的 `metrics` 字段，与 MiniOneRec GRPO 使用完全相同的测试集、生成配置和指标实现。
 
 ## 4. 实验结果
 
-### 4.1 SASRec
+### 4.1 SASRec 教师
 
 | 指标 | 结果 |
 | --- | ---: |
-| best epoch / executed epochs | 66 / 76 |
+| 最佳 epoch / 实际 epoch | 66 / 76 |
 | HR@10 | 0.146293 |
 | NDCG@10 | 0.110354 |
 | 训练耗时 | 30.736 秒 |
-| 峰值 allocated 显存 | 0.045 GiB |
+| 峰值显存 | 0.045 GiB |
 
-### 4.2 奖励回放
+### 4.2 奖励配置
 
-2,000 个候选组、每组 16 个不同合法 SID：
+离线阶段固定 2,000 个候选组、每组 16 个合法 SID，用同一批候选比较三个奖励权重。`λ=0.1、0.2、0.3` 均通过数值和排序检查；为减少稠密奖励对基线策略的扰动，正式训练采用其中最小的 `λ=0.1`。该阶段只用于确定训练配置，不作为最终效果结论。
 
-| 指标 | Baseline | CGRF-H λ=0.1 |
+### 4.3 正式训练与推荐指标
+
+| 项目 | MiniOneRec GRPO | CGRF-H |
 | --- | ---: | ---: |
-| 真实目标进入候选率 | 29.6% | 29.6% |
-| 零 reward 组率 | 70.4% | 1.9% |
-| 零 advantage 组率 | 70.4% | 2.1% |
-| 平均 reward std | 0.07872 | 0.09326 |
-| 精确目标保持最高奖励率 | 100% | 100% |
-
-零 advantage 率绝对下降 68.3 个百分点，相对减少 97.02%。教师门控均值为 0.492，中位数为 0.342；真实目标的教师平均排名为 4.164，中位数为 3。
-
-### 4.3 正式训练与最终推荐指标
-
-| 项目 | Baseline GRPO | CGRF-H |
-| --- | ---: | ---: |
-| epochs / steps | 2 / 1,650 | 2 / 1,650 |
+| epoch / step | 2 / 1,650 | 2 / 1,650 |
 | 训练耗时 | 49,640.639 秒 | 49,744.952 秒 |
-| peak allocated | 10.88 GiB | 10.88 GiB |
-| peak reserved | 12.65 GiB | 12.65 GiB |
+| 峰值已分配显存 | 10.88 GiB | 10.88 GiB |
+| 峰值保留显存 | 12.65 GiB | 12.65 GiB |
 | 最终验证 KL | 0.164816 | 0.844738 |
 
-| 指标 | Baseline GRPO | CGRF-H | 相对变化 |
+| 指标 | MiniOneRec GRPO | CGRF-H | 相对变化 |
 | --- | ---: | ---: | ---: |
 | HR@1 | **0.061769** | 0.060887 | -1.429% |
 | NDCG@1 | **0.061769** | 0.060887 | -1.429% |
@@ -241,7 +231,7 @@ python scripts/evaluate_sft.py \
 | HR@50 | 0.240238 | **0.249724** | +3.949% |
 | NDCG@50 | 0.118380 | **0.120805** | +2.048% |
 
-CGRF-H 的收益主要体现在 K≥5，且随 K 增大。HR@10、HR@20、HR@50 分别比 baseline 多命中 12、16、43 条测试样本；HR@1 和 HR@3 分别少命中 4、3 条。当前实现改善了候选覆盖，但更高 KL 和轻微 Top-1/Top-3 回落说明 λ 与 β 仍有优化空间。
+CGRF-H 的收益主要体现在 K≥5，且随 K 增大。HR@10、HR@20、HR@50 分别比 MiniOneRec GRPO 多命中 12、16、43 条测试样本；HR@1 和 HR@3 分别少命中 4、3 条。当前实现改善了候选覆盖，但更高 KL 和轻微 Top-1/Top-3 回落说明 λ 与 β 仍有优化空间。
 
 ## 5. 结果汇总与边界
 
