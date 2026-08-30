@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create one compact, reproducible summary of baseline and CGRF-H results."""
+"""Create one compact, reproducible summary of baseline and CGRF results."""
 
 from __future__ import annotations
 
@@ -92,7 +92,7 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
     sample_count = int(cgrf_metrics_file["generation"]["sample_count"])
     replay = reward_replay_file["analysis"]["overall"]
     replay_baseline = replay["baseline"]
-    replay_cgrf = replay["cgrf_h"]["0.1"]
+    replay_cgrf = replay["cgrf"]["0.1"]
     baseline_zero_advantage = replay_baseline["zero_advantage_group_rate"]
     cgrf_zero_advantage = replay_cgrf["zero_advantage_group_rate"]
 
@@ -115,7 +115,7 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
 
     return {
         "experiment": {
-            "name": "MiniOneRec single-A6000 reproduction with CGRF-H",
+            "name": "MiniOneRec single-A6000 reproduction with CGRF",
             "dataset": "Amazon18 Industrial_and_Scientific",
             "upstream_commit": "0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed",
             "embedding_model": "Qwen3-Embedding-4B",
@@ -190,7 +190,7 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
                 "target_in_candidates_rate"
             ],
             "baseline_zero_advantage_rate": baseline_zero_advantage,
-            "cgrf_h_zero_advantage_rate": cgrf_zero_advantage,
+            "cgrf_zero_advantage_rate": cgrf_zero_advantage,
             "absolute_reduction_percentage_points": (
                 baseline_zero_advantage - cgrf_zero_advantage
             )
@@ -228,7 +228,7 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
                 "final_validation": grpo_final_eval,
                 "parameters": grpo_training["training_parameters"],
             },
-            "cgrf_h": {
+            "cgrf": {
                 "global_step": cgrf_training["result"]["global_step"],
                 "epoch": cgrf_training["result"]["epoch"],
                 "training_loss": cgrf_training["result"]["training_loss"],
@@ -243,7 +243,7 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
                 "teacher": cgrf_training["teacher"],
                 "parameters": cgrf_training["training_parameters"],
             },
-            "cgrf_h_vs_baseline_grpo": {
+            "cgrf_vs_baseline_grpo": {
                 "runtime_overhead_seconds": cgrf_runtime - grpo_runtime,
                 "runtime_overhead_percent": (
                     (cgrf_runtime - grpo_runtime) / grpo_runtime * 100.0
@@ -258,13 +258,13 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
         "sid_metrics": {
             "sft": sft_metrics,
             "baseline_grpo": grpo_metrics,
-            "cgrf_h": cgrf_metrics,
-            "cgrf_h_vs_baseline_grpo": _metric_comparison(
+            "cgrf": cgrf_metrics,
+            "cgrf_vs_baseline_grpo": _metric_comparison(
                 grpo_metrics,
                 cgrf_metrics,
                 sample_count,
             ),
-            "cgrf_h_vs_sft": _metric_comparison(
+            "cgrf_vs_sft": _metric_comparison(
                 sft_metrics,
                 cgrf_metrics,
                 sample_count,
@@ -324,7 +324,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--cgrf-metrics",
         type=Path,
         default=EXPERIMENT_ROOT
-        / "results/evaluation/cgrf_h_lambda_01/sid_metrics.json",
+        / "results/evaluation/cgrf_lambda_01/sid_metrics.json",
     )
     parser.add_argument(
         "--sft-training",
@@ -342,7 +342,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--cgrf-training",
         type=Path,
         default=EXPERIMENT_ROOT
-        / "results/grpo/cgrf_h_lambda_01/training_stats.json",
+        / "results/grpo/cgrf_lambda_01/training_stats.json",
     )
     parser.add_argument(
         "--sasrec-training",

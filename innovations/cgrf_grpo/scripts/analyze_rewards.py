@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate immutable candidates and compare baseline with CGRF-H rewards."""
+"""Generate immutable candidates and compare baseline with CGRF rewards."""
 
 # pylint: disable=wrong-import-position,import-error
 
@@ -19,7 +19,7 @@ for source_root in (EXPERIMENT_SOURCE, BASELINE_SOURCE):
     if str(source_root) not in sys.path:
         sys.path.insert(0, str(source_root))
 
-from cgrf_hierarchical_grpo.reward_replay import (  # noqa: E402
+from cgrf_grpo.reward_replay import (  # noqa: E402
     analyze_candidate_groups,
     build_replay_records,
     generate_candidate_groups,

@@ -1,4 +1,4 @@
-"""CGRF-H experiment components."""
+"""CGRF experiment components."""
 
 from .reward_fusion import GroupRewardComponents, compute_group_reward_components
 from .sasrec import SASRec, SASRecConfig, load_sasrec_checkpoint

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train the frozen Item-ID SASRec teacher for CGRF-H."""
+"""Train the frozen Item-ID SASRec teacher for CGRF."""
 
 # pylint: disable=wrong-import-position,import-error
 
@@ -16,7 +16,7 @@ SOURCE_ROOT = EXPERIMENT_ROOT / "src"
 if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
-from cgrf_hierarchical_grpo.sasrec_training import (  # noqa: E402
+from cgrf_grpo.sasrec_training import (  # noqa: E402
     SASRecTrainingConfig,
     train_sasrec,
 )

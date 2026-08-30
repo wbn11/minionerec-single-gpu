@@ -1,12 +1,12 @@
-# CGRF-H：置信门控的协同—层级 GRPO 奖励
+# CGRF：置信门控的协同—层级 GRPO 奖励
 
-本目录实现 MiniOneRec 的 CGRF-H（Confidence-Gated Collaborative and Hierarchical Reward）创新实验。它复用基线的 Semantic ID、SFT checkpoint、GRPO 数据、受约束生成和 HR/NDCG 评测，只修改 GRPO 的奖励计算。
+本目录实现 MiniOneRec 的 CGRF（Confidence-Gated Reward Fusion，置信门控奖励融合）创新实验。`Confidence-Gated` 表示根据 SASRec 对真实目标的排序置信度控制门控，`Reward Fusion` 表示融合 Item-ID 协同奖励与 SID 层级奖励。实验复用基线的 Semantic ID、SFT checkpoint、GRPO 数据、受约束生成和 HR/NDCG 评测，只修改 GRPO 的奖励计算。
 
 ## 1. 动机与方法
 
-MiniOneRec 论文曾尝试使用冻结 SASRec 的原始 logit 替代排名奖励，但该协同信号与最终推荐目标存在偏差，实验出现奖励上升而准确率下降的问题。CGRF-H 对协同分数进行组内排名归一化，并根据教师对真实目标的排序可信度，在协同奖励和 SID 层级奖励之间自适应切换。
+MiniOneRec 论文曾尝试使用冻结 SASRec 的原始 logit 替代排名奖励，但该协同信号与最终推荐目标存在偏差，实验出现奖励上升而准确率下降的问题。CGRF 对协同分数进行组内排名归一化，并根据教师对真实目标的排序可信度，在协同奖励和 SID 层级奖励之间自适应切换。
 
-CGRF-H 在不替换官方奖励的前提下增加稠密项：
+CGRF 在不替换官方奖励的前提下增加稠密项：
 
 ```text
 R = R_official + λ × [g × R_collaborative + (1 - g) × R_hierarchical]
@@ -33,7 +33,7 @@ scripts/analyze_rewards.py
             ↓ reward_analysis.json
 scripts/train_cgrf_grpo.py
     └── src/.../cgrf_training.py + reward_fusion.py
-            ↓ CGRF-H final_model + training_stats.json
+            ↓ CGRF final_model + training_stats.json
 scripts/evaluate_sft.py
             ↓ 同口径推荐指标 JSON
 scripts/summarize_results.py
@@ -46,10 +46,10 @@ scripts/summarize_results.py
 | `src/.../sasrec_training.py` | Item ID 数据集、训练、验证和早停 |
 | `src/.../reward_fusion.py` | 官方、层级、协同奖励与置信门控 |
 | `src/.../reward_replay.py` | 冻结模型生成候选并离线比较奖励 |
-| `src/.../cgrf_training.py` | 在 MiniOneRec GRPO 上接入 CGRF-H 奖励 |
+| `src/.../cgrf_training.py` | 在 MiniOneRec GRPO 上接入 CGRF 奖励 |
 | `scripts/train_sasrec.py` | SASRec 命令行入口 |
 | `scripts/analyze_rewards.py` | 离线奖励回放入口 |
-| `scripts/train_cgrf_grpo.py` | CGRF-H 正式训练入口 |
+| `scripts/train_cgrf_grpo.py` | CGRF 正式训练入口 |
 | `scripts/summarize_results.py` | 聚合基线与创新结果 |
 
 ## 3. 实验流程
@@ -59,11 +59,11 @@ scripts/summarize_results.py
 ### 3.1 训练 SASRec 教师
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python innovations/cgrf_hierarchical_grpo/scripts/train_sasrec.py \
+CUDA_VISIBLE_DEVICES=0 python innovations/cgrf_grpo/scripts/train_sasrec.py \
   --train-file artifacts/data/final/amazon18/train/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --valid-file artifacts/data/final/amazon18/valid/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --num-items 3686 \
-  --output-dir innovations/cgrf_hierarchical_grpo/results/sasrec \
+  --output-dir innovations/cgrf_grpo/results/sasrec \
   --device cuda:0
 ```
 
@@ -107,15 +107,15 @@ SID_score = logsumexp(item_logits) - log(item_count)
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
-python innovations/cgrf_hierarchical_grpo/scripts/analyze_rewards.py \
+python innovations/cgrf_grpo/scripts/analyze_rewards.py \
   --model-path results/sft/Industrial_and_Scientific/final_model \
-  --sasrec-checkpoint innovations/cgrf_hierarchical_grpo/results/sasrec/sasrec_model.pth \
+  --sasrec-checkpoint innovations/cgrf_grpo/results/sasrec/sasrec_model.pth \
   --train-file artifacts/data/final/amazon18/train/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --valid-file artifacts/data/final/amazon18/valid/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --item-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.item.json \
   --index-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.index.json \
   --info-file artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt \
-  --output-dir innovations/cgrf_hierarchical_grpo/results/reward_replay \
+  --output-dir innovations/cgrf_grpo/results/reward_replay \
   --sample 2000 \
   --num-generations 16 \
   --lambdas 0.1 0.2 0.3 \
@@ -127,11 +127,11 @@ python innovations/cgrf_hierarchical_grpo/scripts/analyze_rewards.py \
 ### 3.3 两步冒烟测试
 
 ```bash
-CGRF_SMOKE_DIR=$(mktemp -d /tmp/minionerec-cgrf-h-smoke.XXXXXX)
+CGRF_SMOKE_DIR=$(mktemp -d /tmp/minionerec-cgrf-smoke.XXXXXX)
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
-python -u innovations/cgrf_hierarchical_grpo/scripts/train_cgrf_grpo.py \
+python -u innovations/cgrf_grpo/scripts/train_cgrf_grpo.py \
   --model-path results/sft/Industrial_and_Scientific/final_model \
-  --sasrec-checkpoint innovations/cgrf_hierarchical_grpo/results/sasrec/sasrec_model.pth \
+  --sasrec-checkpoint innovations/cgrf_grpo/results/sasrec/sasrec_model.pth \
   --train-file artifacts/data/final/amazon18/train/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --valid-file artifacts/data/final/amazon18/valid/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --item-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.item.json \
@@ -144,19 +144,19 @@ python -u innovations/cgrf_hierarchical_grpo/scripts/train_cgrf_grpo.py \
 
 冒烟测试只执行两个 optimizer step，不验证、不保留中间 checkpoint，输出位于 `/tmp`。
 
-### 3.4 正式 CGRF-H GRPO
+### 3.4 正式 CGRF GRPO
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
-python -u innovations/cgrf_hierarchical_grpo/scripts/train_cgrf_grpo.py \
+python -u innovations/cgrf_grpo/scripts/train_cgrf_grpo.py \
   --model-path results/sft/Industrial_and_Scientific/final_model \
-  --sasrec-checkpoint innovations/cgrf_hierarchical_grpo/results/sasrec/sasrec_model.pth \
+  --sasrec-checkpoint innovations/cgrf_grpo/results/sasrec/sasrec_model.pth \
   --train-file artifacts/data/final/amazon18/train/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --valid-file artifacts/data/final/amazon18/valid/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --item-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.item.json \
   --index-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.index.json \
   --info-file artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt \
-  --output-dir innovations/cgrf_hierarchical_grpo/results/grpo/cgrf_h_lambda_01 \
+  --output-dir innovations/cgrf_grpo/results/grpo/cgrf_lambda_01 \
   --dense-weight 0.1 \
   --micro-batch-size 16 \
   --eval-batch-size 16 \
@@ -177,10 +177,10 @@ python -u innovations/cgrf_hierarchical_grpo/scripts/train_cgrf_grpo.py \
 ```bash
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
 python scripts/evaluate_sft.py \
-  --model-path innovations/cgrf_hierarchical_grpo/results/grpo/cgrf_h_lambda_01/final_model \
+  --model-path innovations/cgrf_grpo/results/grpo/cgrf_lambda_01/final_model \
   --test-file artifacts/data/final/amazon18/test/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --info-file artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt \
-  --output-file innovations/cgrf_hierarchical_grpo/results/evaluation/cgrf_h_lambda_01/sid_metrics.json \
+  --output-file innovations/cgrf_grpo/results/evaluation/cgrf_lambda_01/sid_metrics.json \
   --batch-size 8 \
   --num-beams 50 \
   --max-new-tokens 256 \
@@ -208,7 +208,7 @@ python scripts/evaluate_sft.py \
 
 ### 4.3 正式训练与推荐指标
 
-| 项目 | MiniOneRec GRPO | CGRF-H |
+| 项目 | MiniOneRec GRPO | CGRF |
 | --- | ---: | ---: |
 | epoch / step | 2 / 1,650 | 2 / 1,650 |
 | 训练耗时 | 49,640.639 秒 | 49,744.952 秒 |
@@ -218,7 +218,7 @@ python scripts/evaluate_sft.py \
 
 **Hit Rate（HR）**
 
-| 指标 | MiniOneRec GRPO | CGRF-H | 相对变化 |
+| 指标 | MiniOneRec GRPO | CGRF | 相对变化 |
 | --- | ---: | ---: | ---: |
 | HR@1 | **0.061769** | 0.060887 | -1.429% |
 | HR@3 | **0.093316** | 0.092654 | -0.709% |
@@ -229,7 +229,7 @@ python scripts/evaluate_sft.py \
 
 **Normalized Discounted Cumulative Gain（NDCG）**
 
-| 指标 | MiniOneRec GRPO | CGRF-H | 相对变化 |
+| 指标 | MiniOneRec GRPO | CGRF | 相对变化 |
 | --- | ---: | ---: | ---: |
 | NDCG@1 | **0.061769** | 0.060887 | -1.429% |
 | NDCG@3 | **0.079940** | 0.079428 | -0.641% |
@@ -238,20 +238,20 @@ python scripts/evaluate_sft.py \
 | NDCG@20 | 0.106690 | **0.107928** | +1.160% |
 | NDCG@50 | 0.118380 | **0.120805** | +2.048% |
 
-CGRF-H 的收益主要体现在 K≥5，且随 K 增大。HR@10、HR@20、HR@50 分别比 MiniOneRec GRPO 多命中 12、16、43 条测试样本；HR@1 和 HR@3 分别少命中 4、3 条。当前实现改善了候选覆盖，但更高 KL 和轻微 Top-1/Top-3 回落说明 λ 与 β 仍有优化空间。
+CGRF 的收益主要体现在 K≥5，且随 K 增大。HR@10、HR@20、HR@50 分别比 MiniOneRec GRPO 多命中 12、16、43 条测试样本；HR@1 和 HR@3 分别少命中 4、3 条。当前实现改善了候选覆盖，但更高 KL 和轻微 Top-1/Top-3 回落说明 λ 与 β 仍有优化空间。
 
 ## 5. 结果汇总与边界
 
 原始模型、日志和 `results/` 不提交 Git。将本地原始 JSON 汇总为可审查文件：
 
 ```bash
-python innovations/cgrf_hierarchical_grpo/scripts/summarize_results.py
+python innovations/cgrf_grpo/scripts/summarize_results.py
 ```
 
 输出：
 
 ```text
-innovations/cgrf_hierarchical_grpo/experiment_summary.json
+innovations/cgrf_grpo/experiment_summary.json
 ```
 
 当前结论来自一个数据集、一个随机种子的单次正式训练，没有显著性检验。λ=0.2 和 0.3 只做过离线回放，未进行完整下游训练；因此本实验支持“λ=0.1 在当前固定配置下有效”，不支持“λ=0.1 是全局最优”。

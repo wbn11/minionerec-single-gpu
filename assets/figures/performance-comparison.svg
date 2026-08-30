@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img">
 <title>Recommendation performance comparison</title>
-<desc>Grouped bars compare SFT, MiniOneRec GRPO, and CGRF-H across HR and NDCG cutoffs.</desc>
+<desc>Grouped bars compare SFT, MiniOneRec GRPO, and CGRF across HR and NDCG cutoffs.</desc>
 <defs>
 <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
 <path d="M0,0 L0,6 L9,3 z" fill="#66757F"/>
@@ -18,7 +18,7 @@
 <rect x="1015.0" y="63.0" width="18.0" height="13.0" rx="2.0" fill="#E6A04B" stroke="none" stroke-width="1.0"/>
 <text x="1041.0" y="75.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#263238" text-anchor="start">MiniOneRec GRPO</text>
 <rect x="1185.0" y="63.0" width="18.0" height="13.0" rx="2.0" fill="#D76666" stroke="none" stroke-width="1.0"/>
-<text x="1211.0" y="75.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#263238" text-anchor="start">CGRF-H</text>
+<text x="1211.0" y="75.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#263238" text-anchor="start">CGRF</text>
 <text x="92.0" y="132.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#263238" text-anchor="start">Hit Rate</text>
 <line x1="92.0" y1="600.0" x2="667.0" y2="600.0" stroke="#D9E1E6" stroke-width="1.0"/>
 <text x="80.0" y="605.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#66757F" text-anchor="end">0.00</text>
@@ -113,5 +113,5 @@
 <text x="1297.1" y="627.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#263238" text-anchor="middle">50</text>
 <text x="1057.5" y="658.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238" text-anchor="middle">Cutoff K</text>
 <text x="708.0" y="380.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238" text-anchor="middle" transform="rotate(-90.0 708.0 380.0)">Score</text>
-<text x="720.0" y="690.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#66757F" text-anchor="middle">CGRF-H improves the candidate range at K ≥ 5 while slightly trading off HR/NDCG at K = 1 and 3.</text>
+<text x="720.0" y="690.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#66757F" text-anchor="middle">CGRF improves the candidate range at K ≥ 5 while slightly trading off HR/NDCG at K = 1 and 3.</text>
 </svg>

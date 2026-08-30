@@ -1,4 +1,4 @@
-"""Generate fixed SFT candidates and replay baseline and CGRF-H rewards."""
+"""Generate fixed SFT candidates and replay baseline and CGRF rewards."""
 
 from __future__ import annotations
 
@@ -683,7 +683,7 @@ def _analyze_subset(
             len(set(row.group.candidate_sids)) for row in analyzed
         ),
         "baseline": _reward_summary(analyzed, dense_weight=None),
-        "cgrf_h": {
+        "cgrf": {
             str(dense_weight): _reward_summary(
                 analyzed, dense_weight=dense_weight
             )

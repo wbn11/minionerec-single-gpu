@@ -13,7 +13,7 @@ from typing import Sequence
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUMMARY = (
     REPOSITORY_ROOT
-    / "innovations/cgrf_hierarchical_grpo/experiment_summary.json"
+    / "innovations/cgrf_grpo/experiment_summary.json"
 )
 DEFAULT_OUTPUT_DIR = REPOSITORY_ROOT / "assets/figures"
 
@@ -263,7 +263,7 @@ def build_performance_figure(summary: dict) -> SVG:
         1440,
         720,
         "Recommendation performance comparison",
-        "Grouped bars compare SFT, MiniOneRec GRPO, and CGRF-H across HR and NDCG cutoffs.",
+        "Grouped bars compare SFT, MiniOneRec GRPO, and CGRF across HR and NDCG cutoffs.",
     )
     _figure_header(
         canvas,
@@ -273,7 +273,7 @@ def build_performance_figure(summary: dict) -> SVG:
     series = [
         ("SFT", COLORS["blue_light"], summary["sid_metrics"]["sft"]),
         ("MiniOneRec GRPO", COLORS["orange"], summary["sid_metrics"]["baseline_grpo"]),
-        ("CGRF-H", COLORS["red"], summary["sid_metrics"]["cgrf_h"]),
+        ("CGRF", COLORS["red"], summary["sid_metrics"]["cgrf"]),
     ]
     _legend(
         canvas,
@@ -359,7 +359,7 @@ def build_performance_figure(summary: dict) -> SVG:
     canvas.text(
         720,
         690,
-        "CGRF-H improves the candidate range at K ≥ 5 while slightly trading off HR/NDCG at K = 1 and 3.",
+        "CGRF improves the candidate range at K ≥ 5 while slightly trading off HR/NDCG at K = 1 and 3.",
         size=14,
         fill=COLORS["muted"],
         anchor="middle",
@@ -371,15 +371,15 @@ def build_relative_gain_figure(summary: dict) -> SVG:
     canvas = SVG(
         1320,
         660,
-        "CGRF-H relative gain over MiniOneRec GRPO",
+        "CGRF relative gain over MiniOneRec GRPO",
         "Diverging bars show relative percentage changes for HR and NDCG at six cutoffs.",
     )
     _figure_header(
         canvas,
-        "CGRF-H Relative Change vs. MiniOneRec GRPO",
+        "CGRF Relative Change vs. MiniOneRec GRPO",
         "Positive values indicate improvement; negative values indicate a trade-off",
     )
-    comparison = summary["sid_metrics"]["cgrf_h_vs_baseline_grpo"]
+    comparison = summary["sid_metrics"]["cgrf_vs_baseline_grpo"]
     cutoffs = [1, 3, 5, 10, 20, 50]
     entries = [("HR", COLORS["blue"]), ("NDCG", COLORS["red"])]
     _legend(canvas, entries, x=995, y=76, item_width=125)
@@ -499,12 +499,12 @@ def build_system_figure() -> SVG:
     canvas = SVG(
         1600,
         930,
-        "MiniOneRec reproduction and CGRF-H system",
-        "Three-stage architecture covers semantic ID construction, supervised alignment, and MiniOneRec or CGRF-H reinforcement learning.",
+        "MiniOneRec reproduction and CGRF system",
+        "Three-stage architecture covers semantic ID construction, supervised alignment, and MiniOneRec or CGRF reinforcement learning.",
     )
     _figure_header(
         canvas,
-        "Single-A6000 MiniOneRec Reproduction with CGRF-H",
+        "Single-A6000 MiniOneRec Reproduction with CGRF",
         "Paper-inspired end-to-end view · shared Semantic IDs and SFT initialization · training-only collaborative teacher",
     )
 
@@ -546,7 +546,7 @@ def build_system_figure() -> SVG:
         dash="9 6",
     )
     canvas.rect(1000, 612, 164, 26, fill=COLORS["stage_orange"], radius=4)
-    canvas.text(1010, 631, "CGRF-H (Ours)", size=15, weight=700, fill=COLORS["red"])
+    canvas.text(1010, 631, "CGRF (Ours)", size=15, weight=700, fill=COLORS["red"])
 
     _node(canvas, 735, 651, 220, 70, ["Hierarchical reward", "SID prefix: 0/0.2/0.5/1"], fill="#F2F6FC", stroke=COLORS["blue"], title_size=14)
     _node(canvas, 735, 735, 220, 70, ["SASRec teacher", "Item-ID collaborative rank"], fill=COLORS["stage_green"], stroke=COLORS["green"], title_size=14)

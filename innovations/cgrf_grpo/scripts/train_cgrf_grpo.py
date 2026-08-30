@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train CGRF-H GRPO on one local CUDA GPU."""
+"""Train CGRF GRPO on one local CUDA GPU."""
 
 # pylint: disable=wrong-import-position,import-error,no-name-in-module
 
@@ -24,9 +24,9 @@ for source_root in (EXPERIMENT_SOURCE_ROOT, BASELINE_SOURCE_ROOT):
     if str(source_root) not in sys.path:
         sys.path.insert(0, str(source_root))
 
-from cgrf_hierarchical_grpo.cgrf_training import (  # noqa: E402
-    CGRFHTrainingConfig,
-    build_cgrf_h_components,
+from cgrf_grpo.cgrf_training import (  # noqa: E402
+    CGRFTrainingConfig,
+    build_cgrf_components,
 )
 from minionerec.training.grpo_training import (  # noqa: E402
     GRPOTrainingConfig,
@@ -34,11 +34,11 @@ from minionerec.training.grpo_training import (  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build the independent CGRF-H training command parser."""
+    """Build the independent CGRF training command parser."""
 
     parser = argparse.ArgumentParser(
         description=(
-            "Full-parameter BF16 CGRF-H GRPO. Baseline generation, KL, "
+            "Full-parameter BF16 CGRF GRPO. Baseline generation, KL, "
             "optimizer, and data settings remain unchanged."
         )
     )
@@ -142,7 +142,7 @@ def _memory_summary() -> dict[str, float]:
     }
 
 
-def _build_config(arguments: argparse.Namespace) -> CGRFHTrainingConfig:
+def _build_config(arguments: argparse.Namespace) -> CGRFTrainingConfig:
     grpo = GRPOTrainingConfig(
         model_path=arguments.model_path,
         train_file=arguments.train_file,
@@ -169,7 +169,7 @@ def _build_config(arguments: argparse.Namespace) -> CGRFHTrainingConfig:
         save_checkpoints=not arguments.smoke_test,
         max_steps=2 if arguments.smoke_test else -1,
     )
-    return CGRFHTrainingConfig(
+    return CGRFTrainingConfig(
         grpo=grpo,
         sasrec_checkpoint=arguments.sasrec_checkpoint,
         dense_weight=arguments.dense_weight,
@@ -177,13 +177,13 @@ def _build_config(arguments: argparse.Namespace) -> CGRFHTrainingConfig:
 
 
 def _training_parameters(
-    config: CGRFHTrainingConfig,
+    config: CGRFTrainingConfig,
     smoke_test: bool,
 ) -> dict[str, Any]:
     grpo = config.grpo
     return {
         "mode": "smoke" if smoke_test else "formal",
-        "reward_type": "cgrf_h",
+        "reward_type": "cgrf",
         "dense_weight": config.dense_weight,
         "formula": (
             "official + lambda * "
@@ -242,7 +242,7 @@ def _write_json(path: Path, value: dict[str, Any]) -> None:
 
 
 def main() -> int:
-    """Run CGRF-H GRPO and save its model and statistics independently."""
+    """Run CGRF GRPO and save its model and statistics independently."""
 
     parser = build_parser()
     arguments = parser.parse_args()
@@ -256,7 +256,7 @@ def main() -> int:
         torch.cuda.reset_peak_memory_stats(torch.device("cuda:0"))
         config = _build_config(arguments)
         started = time.perf_counter()
-        components = build_cgrf_h_components(config)
+        components = build_cgrf_components(config)
         parameters = _training_parameters(config, arguments.smoke_test)
         preflight = {
             "mode": "smoke" if arguments.smoke_test else "formal",

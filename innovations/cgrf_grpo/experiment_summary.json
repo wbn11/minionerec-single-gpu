@@ -1,6 +1,6 @@
 {
   "experiment": {
-    "name": "MiniOneRec single-A6000 reproduction with CGRF-H",
+    "name": "MiniOneRec single-A6000 reproduction with CGRF",
     "dataset": "Amazon18 Industrial_and_Scientific",
     "upstream_commit": "0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed",
     "embedding_model": "Qwen3-Embedding-4B",
@@ -180,7 +180,7 @@
     "parameters": {
       "train_file": "artifacts/data/final/amazon18/train/Industrial_and_Scientific_5_1996-10-2018-11.csv",
       "valid_file": "artifacts/data/final/amazon18/valid/Industrial_and_Scientific_5_1996-10-2018-11.csv",
-      "output_dir": "innovations/cgrf_hierarchical_grpo/results/sasrec",
+      "output_dir": "innovations/cgrf_grpo/results/sasrec",
       "num_items": 3686,
       "max_sequence_length": 10,
       "hidden_size": 32,
@@ -215,7 +215,7 @@
     "candidates_per_group": 16,
     "target_in_candidates_rate": 0.296,
     "baseline_zero_advantage_rate": 0.704,
-    "cgrf_h_zero_advantage_rate": 0.021,
+    "cgrf_zero_advantage_rate": 0.021,
     "absolute_reduction_percentage_points": 68.3,
     "relative_reduction_percent": 97.01704545454545,
     "exact_target_top_reward_rate": 1.0,
@@ -306,7 +306,7 @@
         "save_checkpoints": true
       }
     },
-    "cgrf_h": {
+    "cgrf": {
       "global_step": 1650,
       "epoch": 2.0,
       "training_loss": 0.012250218229456397,
@@ -338,7 +338,7 @@
         "step": 1650
       },
       "teacher": {
-        "checkpoint": "innovations/cgrf_hierarchical_grpo/results/sasrec/sasrec_model.pth",
+        "checkpoint": "innovations/cgrf_grpo/results/sasrec/sasrec_model.pth",
         "best_epoch": 66,
         "best_validation": {
           "loss": 8.535800270558665,
@@ -356,7 +356,7 @@
       },
       "parameters": {
         "mode": "formal",
-        "reward_type": "cgrf_h",
+        "reward_type": "cgrf",
         "dense_weight": 0.1,
         "formula": "official + lambda * (gate * collaborative_rank + (1 - gate) * hierarchical)",
         "micro_batch_size": 16,
@@ -386,7 +386,7 @@
         "save_checkpoints": true
       }
     },
-    "cgrf_h_vs_baseline_grpo": {
+    "cgrf_vs_baseline_grpo": {
       "runtime_overhead_seconds": 104.31299999999464,
       "runtime_overhead_percent": 0.2101362957878013,
       "peak_allocated_gib_difference": 0.0,
@@ -422,7 +422,7 @@
       "HR@50": 0.2402382528127068,
       "NDCG@50": 0.11838027372948663
     },
-    "cgrf_h": {
+    "cgrf": {
       "HR@1": 0.06088682991396426,
       "NDCG@1": 0.06088682991396426,
       "HR@3": 0.09265387160820648,
@@ -436,7 +436,7 @@
       "HR@50": 0.24972424442973748,
       "NDCG@50": 0.12080476984896256
     },
-    "cgrf_h_vs_baseline_grpo": {
+    "cgrf_vs_baseline_grpo": {
       "HR@1": {
         "absolute": -0.0008824178248400608,
         "absolute_percentage_points": -0.08824178248400608,
@@ -510,7 +510,7 @@
         "relative_percent": 2.0480575378767893
       }
     },
-    "cgrf_h_vs_sft": {
+    "cgrf_vs_sft": {
       "HR@1": {
         "absolute": 0.001544231193470108,
         "absolute_percentage_points": 0.1544231193470108,

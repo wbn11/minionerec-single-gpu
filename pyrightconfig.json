@@ -2,11 +2,11 @@
   "include": [
     "src",
     "scripts",
-    "innovations/cgrf_hierarchical_grpo"
+    "innovations/cgrf_grpo"
   ],
   "extraPaths": [
     "src",
-    "innovations/cgrf_hierarchical_grpo/src"
+    "innovations/cgrf_grpo/src"
   ],
   "pythonVersion": "3.11"
 }

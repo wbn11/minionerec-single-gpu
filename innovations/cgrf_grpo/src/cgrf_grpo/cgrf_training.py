@@ -1,4 +1,4 @@
-"""Independent CGRF-H GRPO training built on the baseline trainer."""
+"""Independent CGRF GRPO training built on the baseline trainer."""
 
 from __future__ import annotations
 
@@ -45,8 +45,8 @@ from .sasrec import load_sasrec_checkpoint
 
 
 @dataclass(frozen=True)
-class CGRFHTrainingConfig:
-    """Baseline GRPO configuration plus CGRF-H-only inputs."""
+class CGRFTrainingConfig:
+    """Baseline GRPO configuration plus CGRF-only inputs."""
 
     grpo: baseline_grpo.GRPOTrainingConfig
     sasrec_checkpoint: Path
@@ -54,8 +54,8 @@ class CGRFHTrainingConfig:
 
 
 @dataclass(frozen=True)
-class CGRFHComponents:
-    """Objects prepared for CGRF-H training without starting optimization."""
+class CGRFComponents:
+    """Objects prepared for CGRF training without starting optimization."""
 
     model: Any
     reference_model: Any
@@ -67,7 +67,7 @@ class CGRFHComponents:
     model_load_count: int
 
 
-class CGRFHTrainer(baseline_grpo.SingleGPUReReTrainer):
+class CGRFTrainer(baseline_grpo.SingleGPUReReTrainer):
     """Baseline single-GPU trainer with confidence-gated dense rewards."""
 
     def __init__(
@@ -117,7 +117,7 @@ class CGRFHTrainer(baseline_grpo.SingleGPUReReTrainer):
             try:
                 metadata = self.prompt_metadata[prompt]
             except KeyError as error:
-                raise KeyError("GRPO prompt is missing CGRF-H metadata") from error
+                raise KeyError("GRPO prompt is missing CGRF metadata") from error
 
             group = CandidateGroup(
                 source_index=metadata.source_index,
@@ -276,7 +276,7 @@ class CGRFHTrainer(baseline_grpo.SingleGPUReReTrainer):
         }
 
 
-def _validate_experiment_config(config: CGRFHTrainingConfig) -> None:
+def _validate_experiment_config(config: CGRFTrainingConfig) -> None:
     baseline_grpo._validate_config(config.grpo)
     if not config.sasrec_checkpoint.is_file():
         raise FileNotFoundError(config.sasrec_checkpoint)
@@ -284,8 +284,8 @@ def _validate_experiment_config(config: CGRFHTrainingConfig) -> None:
         raise ValueError("dense_weight cannot be negative")
 
 
-def build_cgrf_h_components(config: CGRFHTrainingConfig) -> CGRFHComponents:
-    """Build CGRF-H while preserving every non-reward baseline component."""
+def build_cgrf_components(config: CGRFTrainingConfig) -> CGRFComponents:
+    """Build CGRF while preserving every non-reward baseline component."""
 
     _validate_experiment_config(config)
     base = config.grpo
@@ -309,7 +309,7 @@ def build_cgrf_h_components(config: CGRFHTrainingConfig) -> CGRFHComponents:
         - prompt_metadata.keys()
     )
     if missing_metadata:
-        raise ValueError("CGRF-H metadata does not cover every GRPO prompt")
+        raise ValueError("CGRF metadata does not cover every GRPO prompt")
     collaborative_target_mismatches = [
         prompt
         for prompt, metadata in prompt_metadata.items()
@@ -322,7 +322,7 @@ def build_cgrf_h_components(config: CGRFHTrainingConfig) -> CGRFHComponents:
     ]
     if collaborative_target_mismatches:
         raise ValueError(
-            "CGRF-H collaborative metadata does not match baseline targets"
+            "CGRF collaborative metadata does not match baseline targets"
         )
 
     policy_model, reference_model, tokenizer = (
@@ -352,7 +352,7 @@ def build_cgrf_h_components(config: CGRFHTrainingConfig) -> CGRFHComponents:
         sid_to_item_ids=sid_to_item_ids,
         device=device,
     )
-    trainer = CGRFHTrainer(
+    trainer = CGRFTrainer(
         model=policy_model,
         reference_model=reference_model,
         tokenizer=tokenizer,
@@ -363,7 +363,7 @@ def build_cgrf_h_components(config: CGRFHTrainingConfig) -> CGRFHComponents:
         collaborative_scorer=collaborative_scorer,
         dense_weight=config.dense_weight,
     )
-    return CGRFHComponents(
+    return CGRFComponents(
         model=trainer.model,
         reference_model=trainer.reference_model,
         tokenizer=tokenizer,
