@@ -51,6 +51,7 @@ class CGRFTrainingConfig:
     grpo: baseline_grpo.GRPOTrainingConfig
     sasrec_checkpoint: Path
     dense_weight: float = 0.1
+    informative_dense_weight: float | None = None
 
 
 @dataclass(frozen=True)
@@ -82,12 +83,22 @@ class CGRFTrainer(baseline_grpo.SingleGPUReReTrainer):
         prompt_metadata: dict[str, ReplayRecord],
         collaborative_scorer: CollaborativeScorer,
         dense_weight: float,
+        informative_dense_weight: float | None,
     ) -> None:
         if dense_weight < 0.0:
             raise ValueError("dense_weight cannot be negative")
+        if (
+            informative_dense_weight is not None
+            and not 0.0 <= informative_dense_weight <= dense_weight
+        ):
+            raise ValueError(
+                "informative_dense_weight must be between zero and "
+                "dense_weight"
+            )
         self.prompt_metadata = prompt_metadata
         self.collaborative_scorer = collaborative_scorer
         self.dense_weight = dense_weight
+        self.informative_dense_weight = informative_dense_weight
         super().__init__(
             model=model,
             reference_model=reference_model,
@@ -161,7 +172,10 @@ class CGRFTrainer(baseline_grpo.SingleGPUReReTrainer):
             fused - official
             for group in components
             for fused, official in zip(
-                group.fused(self.dense_weight),
+                group.fused(
+                    self.dense_weight,
+                    self.informative_dense_weight,
+                ),
                 group.official,
             )
         ]
@@ -194,6 +208,10 @@ class CGRFTrainer(baseline_grpo.SingleGPUReReTrainer):
         self._grpo_metrics["zero_advantage_group_rate"].append(
             sum(value <= 1e-12 for value in group_sample_stds)
             / len(group_sample_stds)
+        )
+        self._grpo_metrics["official_informative_group_rate"].append(
+            sum(group.has_informative_official_reward() for group in components)
+            / len(components)
         )
         if gates:
             self._grpo_metrics["teacher_gate"].append(sum(gates) / len(gates))
@@ -244,7 +262,10 @@ class CGRFTrainer(baseline_grpo.SingleGPUReReTrainer):
         total = tuple(
             value
             for group in components
-            for value in group.fused(self.dense_weight)
+            for value in group.fused(
+                self.dense_weight,
+                self.informative_dense_weight,
+            )
         )
         reward_tensor = torch.tensor(total, dtype=torch.float32)
         advantages, group_means, group_sample_stds = group_normalized_advantages(
@@ -282,6 +303,15 @@ def _validate_experiment_config(config: CGRFTrainingConfig) -> None:
         raise FileNotFoundError(config.sasrec_checkpoint)
     if config.dense_weight < 0.0:
         raise ValueError("dense_weight cannot be negative")
+    if (
+        config.informative_dense_weight is not None
+        and not 0.0
+        <= config.informative_dense_weight
+        <= config.dense_weight
+    ):
+        raise ValueError(
+            "informative_dense_weight must be between zero and dense_weight"
+        )
 
 
 def build_cgrf_components(config: CGRFTrainingConfig) -> CGRFComponents:
@@ -362,6 +392,7 @@ def build_cgrf_components(config: CGRFTrainingConfig) -> CGRFComponents:
         prompt_metadata=prompt_metadata,
         collaborative_scorer=collaborative_scorer,
         dense_weight=config.dense_weight,
+        informative_dense_weight=config.informative_dense_weight,
     )
     return CGRFComponents(
         model=trainer.model,

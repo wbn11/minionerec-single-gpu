@@ -77,19 +77,33 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
     sft_metrics_file = _load_json(arguments.sft_metrics)
     grpo_metrics_file = _load_json(arguments.grpo_metrics)
     cgrf_metrics_file = _load_json(arguments.cgrf_metrics)
+    sa_cgrf_metrics_file = _load_json(arguments.sa_cgrf_metrics)
     sft_training = _load_json(arguments.sft_training)
     grpo_training = _load_json(arguments.grpo_training)
     cgrf_training = _load_json(arguments.cgrf_training)
+    sa_cgrf_training = _load_json(arguments.sa_cgrf_training)
     sasrec_training = _load_json(arguments.sasrec_training)
     reward_replay_file = _load_json(arguments.reward_replay)
 
     sft_metrics = sft_metrics_file["metrics"]
     grpo_metrics = grpo_metrics_file["metrics"]
     cgrf_metrics = cgrf_metrics_file["metrics"]
-    for metrics in (sft_metrics, grpo_metrics, cgrf_metrics):
+    sa_cgrf_metrics = sa_cgrf_metrics_file["metrics"]
+    for metrics in (
+        sft_metrics,
+        grpo_metrics,
+        cgrf_metrics,
+        sa_cgrf_metrics,
+    ):
         _finite_metrics(metrics)
 
-    sample_count = int(cgrf_metrics_file["generation"]["sample_count"])
+    sample_counts = {
+        int(result["generation"]["sample_count"])
+        for result in (cgrf_metrics_file, sa_cgrf_metrics_file)
+    }
+    if len(sample_counts) != 1:
+        raise ValueError("CGRF variants use different evaluation sample counts")
+    sample_count = sample_counts.pop()
     replay = reward_replay_file["analysis"]["overall"]
     replay_baseline = replay["baseline"]
     replay_cgrf = replay["cgrf"]["0.1"]
@@ -102,6 +116,12 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
         if "reward/dense" in row
     ]
     cgrf_final_eval = _last_log_with_key(cgrf_training, "eval_loss")
+    sa_cgrf_train_logs = [
+        row
+        for row in sa_cgrf_training["result"]["log_history"]
+        if "reward/dense" in row
+    ]
+    sa_cgrf_final_eval = _last_log_with_key(sa_cgrf_training, "eval_loss")
     grpo_final_eval = _last_log_with_key(grpo_training, "eval_loss")
     selected_rqvae_record = next(
         row
@@ -110,12 +130,14 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
     )
     grpo_runtime = float(grpo_training["elapsed_seconds"])
     cgrf_runtime = float(cgrf_training["elapsed_seconds"])
+    sa_cgrf_runtime = float(sa_cgrf_training["elapsed_seconds"])
     grpo_kl = float(grpo_final_eval["eval_kl"])
     cgrf_kl = float(cgrf_final_eval["eval_kl"])
+    sa_cgrf_kl = float(sa_cgrf_final_eval["eval_kl"])
 
     return {
         "experiment": {
-            "name": "MiniOneRec single-A6000 reproduction with CGRF",
+            "name": "MiniOneRec single-A6000 reproduction with SA-CGRF",
             "dataset": "Amazon18 Industrial_and_Scientific",
             "upstream_commit": "0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed",
             "embedding_model": "Qwen3-Embedding-4B",
@@ -128,7 +150,7 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
             "train_samples": data_statistics["counts"]["train"],
             "validation_samples": data_statistics["counts"]["valid"],
             "test_samples": data_statistics["counts"]["test"],
-            "primary_evaluation": "SID-level constrained Beam-50 HR/NDCG",
+            "primary_evaluation": "constrained Beam-50 HR/NDCG",
         },
         "data_processing": {
             "processing": data_statistics["processing"],
@@ -243,6 +265,24 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
                 "teacher": cgrf_training["teacher"],
                 "parameters": cgrf_training["training_parameters"],
             },
+            "sa_cgrf": {
+                "global_step": sa_cgrf_training["result"]["global_step"],
+                "epoch": sa_cgrf_training["result"]["epoch"],
+                "training_loss": sa_cgrf_training["result"][
+                    "training_loss"
+                ],
+                "runtime_seconds": sa_cgrf_runtime,
+                "peak_allocated_gib": sa_cgrf_training["cuda"][
+                    "peak_allocated_gib"
+                ],
+                "mean_training_zero_advantage_group_rate": statistics.fmean(
+                    row["zero_advantage_group_rate"]
+                    for row in sa_cgrf_train_logs
+                ),
+                "final_validation": sa_cgrf_final_eval,
+                "teacher": sa_cgrf_training["teacher"],
+                "parameters": sa_cgrf_training["training_parameters"],
+            },
             "cgrf_vs_baseline_grpo": {
                 "runtime_overhead_seconds": cgrf_runtime - grpo_runtime,
                 "runtime_overhead_percent": (
@@ -254,11 +294,23 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
                 - grpo_training["cuda"]["peak_allocated_gib"],
                 "final_validation_kl_ratio": cgrf_kl / grpo_kl,
             },
+            "sa_cgrf_vs_baseline_grpo": {
+                "runtime_overhead_seconds": sa_cgrf_runtime - grpo_runtime,
+                "runtime_overhead_percent": (
+                    (sa_cgrf_runtime - grpo_runtime) / grpo_runtime * 100.0
+                ),
+                "peak_allocated_gib_difference": sa_cgrf_training["cuda"][
+                    "peak_allocated_gib"
+                ]
+                - grpo_training["cuda"]["peak_allocated_gib"],
+                "final_validation_kl_ratio": sa_cgrf_kl / grpo_kl,
+            },
         },
         "sid_metrics": {
             "sft": sft_metrics,
             "baseline_grpo": grpo_metrics,
             "cgrf": cgrf_metrics,
+            "sa_cgrf": sa_cgrf_metrics,
             "cgrf_vs_baseline_grpo": _metric_comparison(
                 grpo_metrics,
                 cgrf_metrics,
@@ -269,8 +321,28 @@ def build_summary(arguments: argparse.Namespace) -> dict[str, Any]:
                 cgrf_metrics,
                 sample_count,
             ),
+            "sa_cgrf_vs_baseline_grpo": _metric_comparison(
+                grpo_metrics,
+                sa_cgrf_metrics,
+                sample_count,
+            ),
+            "sa_cgrf_vs_cgrf": _metric_comparison(
+                cgrf_metrics,
+                sa_cgrf_metrics,
+                sample_count,
+            ),
+            "sa_cgrf_vs_sft": _metric_comparison(
+                sft_metrics,
+                sa_cgrf_metrics,
+                sample_count,
+            ),
         },
-        "supplementary_item_metrics": cgrf_metrics_file.get("item_metrics"),
+        "supplementary_item_metrics": {
+            "sft": sft_metrics_file.get("item_metrics"),
+            "baseline_grpo": grpo_metrics_file.get("item_metrics"),
+            "cgrf": cgrf_metrics_file.get("item_metrics"),
+            "sa_cgrf": sa_cgrf_metrics_file.get("item_metrics"),
+        },
         "scope": {
             "completed_datasets": ["Industrial_and_Scientific"],
             "independent_training_runs_per_method": 1,
@@ -327,6 +399,12 @@ def build_parser() -> argparse.ArgumentParser:
         / "results/evaluation/cgrf_lambda_01/sid_metrics.json",
     )
     parser.add_argument(
+        "--sa-cgrf-metrics",
+        type=Path,
+        default=EXPERIMENT_ROOT
+        / "results/evaluation/cgrf_sparse_aware/sid_metrics.json",
+    )
+    parser.add_argument(
         "--sft-training",
         type=Path,
         default=REPOSITORY_ROOT
@@ -343,6 +421,12 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=EXPERIMENT_ROOT
         / "results/grpo/cgrf_lambda_01/training_stats.json",
+    )
+    parser.add_argument(
+        "--sa-cgrf-training",
+        type=Path,
+        default=EXPERIMENT_ROOT
+        / "results/grpo/cgrf_sparse_aware/training_stats.json",
     )
     parser.add_argument(
         "--sasrec-training",

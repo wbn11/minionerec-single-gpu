@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="930" viewBox="0 0 1600 930" role="img">
-<title>MiniOneRec reproduction and CGRF system</title>
-<desc>Three-stage architecture covers semantic ID construction, supervised alignment, and MiniOneRec or CGRF reinforcement learning.</desc>
+<title>MiniOneRec reproduction and SA-CGRF system</title>
+<desc>Three-stage architecture covers semantic ID construction, supervised alignment, and MiniOneRec or SA-CGRF reinforcement learning.</desc>
 <defs>
 <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
 <path d="M0,0 L0,6 L9,3 z" fill="#66757F"/>
@@ -10,7 +10,7 @@
 </filter>
 </defs>
 <rect width="100%" height="100%" fill="#FFFFFF"/>
-<text x="54.0" y="54.0" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#263238" text-anchor="start">Single-A6000 MiniOneRec Reproduction with CGRF</text>
+<text x="54.0" y="54.0" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#263238" text-anchor="start">Single-A6000 MiniOneRec Reproduction with SA-CGRF</text>
 <text x="54.0" y="84.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#66757F" text-anchor="start">Paper-inspired end-to-end view · shared Semantic IDs and SFT initialization · training-only collaborative teacher</text>
 <line x1="54.0" y1="101.0" x2="1546.0" y2="101.0" stroke="#D9E1E6" stroke-width="1.2"/>
 <rect x="42.0" y="122.0" width="1516.0" height="205.0" rx="16.0" fill="#EEF5FB" stroke="none" stroke-width="1.0"/>
@@ -61,7 +61,7 @@
 <text x="845.0" y="575.9" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#263238" text-anchor="middle"><tspan x="845.0" dy="0.0">Official reward</tspan><tspan x="845.0" dy="18.8">exact + ranking</tspan></text>
 <rect x="710.0" y="625.0" width="565.0" height="190.0" rx="14.0" fill="none" stroke="#D76666" stroke-width="2.0" stroke-dasharray="9 6"/>
 <rect x="1000.0" y="612.0" width="164.0" height="26.0" rx="4.0" fill="#FFF4E8" stroke="none" stroke-width="1.0"/>
-<text x="1010.0" y="631.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#D76666" text-anchor="start">CGRF (Ours)</text>
+<text x="1010.0" y="631.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#D76666" text-anchor="start">SA-CGRF (Ours)</text>
 <rect x="735.0" y="651.0" width="220.0" height="70.0" rx="10.0" fill="#F2F6FC" stroke="#4C78A8" stroke-width="1.5"/>
 <text x="845.0" y="682.1" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238" text-anchor="middle"><tspan x="845.0" dy="0.0">Hierarchical reward</tspan><tspan x="845.0" dy="17.5">SID prefix: 0/0.2/0.5/1</tspan></text>
 <rect x="735.0" y="735.0" width="220.0" height="70.0" rx="10.0" fill="#EDF7F1" stroke="#55A678" stroke-width="1.5"/>
@@ -70,7 +70,7 @@
 <line x1="680.0" y1="686.0" x2="725.0" y2="686.0" stroke="#66757F" stroke-width="1.7" marker-end="url(#arrow)"/>
 <polyline points="680.0,703.0 705.0,703.0 705.0,770.0 725.0,770.0" fill="none" stroke="#66757F" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="1015.0" y="651.0" width="235.0" height="70.0" rx="10.0" fill="#FDE7E7" stroke="#D76666" stroke-width="1.5"/>
-<text x="1132.5" y="673.4" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238" text-anchor="middle"><tspan x="1132.5" dy="0.0">Confidence gate g</tspan><tspan x="1132.5" dy="17.5">R = Rofficial + λ·Rdense</tspan><tspan x="1132.5" dy="17.5">λ = 0.1</tspan></text>
+<text x="1132.5" y="673.4" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238" text-anchor="middle"><tspan x="1132.5" dy="0.0">Confidence gate g</tspan><tspan x="1132.5" dy="17.5">R = Rofficial + λ(group)·Rdense</tspan><tspan x="1132.5" dy="17.5">λs = 0.10 · λi = 0.02</tspan></text>
 <line x1="955.0" y1="686.0" x2="1005.0" y2="686.0" stroke="#66757F" stroke-width="1.7" marker-end="url(#arrow)"/>
 <polyline points="955.0,770.0 985.0,770.0 985.0,704.0 1005.0,704.0" fill="none" stroke="#66757F" stroke-width="1.7" marker-end="url(#arrow)"/>
 <polyline points="955.0,580.0 985.0,580.0 985.0,668.0 1005.0,668.0" fill="none" stroke="#66757F" stroke-width="1.7" marker-end="url(#arrow)"/>

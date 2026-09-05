@@ -1,38 +1,38 @@
 # MiniOneRec 生成式推荐与 CGRF 奖励优化
 
-本项目基于 MiniOneRec 官方固定版本 [`0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed`](https://github.com/AkaliKong/MiniOneRec/tree/0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed)，在单张 NVIDIA RTX A6000 上实现从数据处理、Semantic ID（SID）构建、监督微调（SFT）、GRPO 到 Top-K 评测的完整生成式推荐流程。在此基础上，设计 CGRF（Confidence-Gated Reward Fusion），通过置信门控融合 SASRec 协同信号与 SID 层级语义，优化 GRPO 的奖励质量。
+本项目基于 MiniOneRec 官方固定版本 [`0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed`](https://github.com/AkaliKong/MiniOneRec/tree/0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed)，在单张 NVIDIA RTX A6000 上实现从数据处理、Semantic ID（SID）构建、监督微调（SFT）、GRPO 到 Top-K 评测的完整生成式推荐流程。在此基础上，设计 CGRF（Confidence-Gated Reward Fusion），通过置信门控融合 SASRec 协同信号与 SID 层级语义；进一步提出 SA-CGRF（Sparsity-Aware CGRF），依据基线奖励是否有效自适应控制稠密奖励强度。
 
 ## 1. 核心结果
 
-所有模型均使用相同的数据划分、SFT 初始化和评测配置。测试集包含 4,533 条样本，采用受约束 beam search 生成 50 个候选。
+所有模型均使用相同的数据划分、SFT 初始化和评测配置。测试集包含 4,533 条样本，采用受约束 Beam Search 生成 50 个候选。CGRF 表示固定稠密权重版本，SA-CGRF 是加入稀疏感知权重后的最终版本。
 
 **Hit Rate（HR）**
 
-| 指标 | SFT | MiniOneRec GRPO | CGRF | 相对 GRPO 变化 |
-| --- | ---: | ---: | ---: | ---: |
-| HR@1 | 0.059343 | **0.061769** | 0.060887 | -1.429% |
-| HR@3 | 0.086698 | **0.093316** | 0.092654 | -0.709% |
-| HR@5 | 0.104787 | 0.110743 | **0.111405** | **+0.598%** |
-| HR@10 | 0.137216 | 0.139643 | **0.142290** | **+1.896%** |
-| HR@20 | 0.179351 | 0.181337 | **0.184867** | **+1.946%** |
-| HR@50 | 0.237591 | 0.240238 | **0.249724** | **+3.949%** |
+| 指标 | SFT | MiniOneRec GRPO | CGRF | SA-CGRF | SA-CGRF 相对 GRPO |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| HR@1 | 0.059343 | **0.061769** | 0.060887 | 0.060887 | -1.429% |
+| HR@3 | 0.086698 | **0.093316** | 0.092654 | 0.092874 | -0.473% |
+| HR@5 | 0.104787 | 0.110743 | 0.111405 | **0.111846** | **+0.996%** |
+| HR@10 | 0.137216 | 0.139643 | 0.142290 | **0.142731** | **+2.212%** |
+| HR@20 | 0.179351 | 0.181337 | **0.184867** | 0.184646 | **+1.825%** |
+| HR@50 | 0.237591 | 0.240238 | 0.249724 | **0.251710** | **+4.775%** |
 
 **Normalized Discounted Cumulative Gain（NDCG）**
 
-| 指标 | SFT | MiniOneRec GRPO | CGRF | 相对 GRPO 变化 |
-| --- | ---: | ---: | ---: | ---: |
-| NDCG@1 | 0.059343 | **0.061769** | 0.060887 | -1.429% |
-| NDCG@3 | 0.075042 | **0.079940** | 0.079428 | -0.641% |
-| NDCG@5 | 0.082456 | 0.087088 | **0.087204** | **+0.133%** |
-| NDCG@10 | 0.092869 | 0.096283 | **0.097147** | **+0.897%** |
-| NDCG@20 | 0.103357 | 0.106690 | **0.107928** | **+1.160%** |
-| NDCG@50 | 0.114912 | 0.118380 | **0.120805** | **+2.048%** |
+| 指标 | SFT | MiniOneRec GRPO | CGRF | SA-CGRF | SA-CGRF 相对 GRPO |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| NDCG@1 | 0.059343 | **0.061769** | 0.060887 | 0.060887 | -1.429% |
+| NDCG@3 | 0.075042 | **0.079940** | 0.079428 | 0.079538 | -0.503% |
+| NDCG@5 | 0.082456 | 0.087088 | 0.087204 | **0.087390** | **+0.347%** |
+| NDCG@10 | 0.092869 | 0.096283 | 0.097147 | **0.097323** | **+1.080%** |
+| NDCG@20 | 0.103357 | 0.106690 | 0.107928 | **0.107943** | **+1.174%** |
+| NDCG@50 | 0.114912 | 0.118380 | 0.120805 | **0.121207** | **+2.388%** |
 
-![SFT、MiniOneRec GRPO 与 CGRF 推荐指标对比](assets/figures/performance-comparison.svg)
+![SFT、MiniOneRec GRPO 与 SA-CGRF 推荐指标对比](assets/figures/performance-comparison.svg)
 
-![CGRF 相对 MiniOneRec GRPO 的指标变化](assets/figures/cgrf-relative-gain.svg)
+![SA-CGRF 相对 MiniOneRec GRPO 的指标变化](assets/figures/cgrf-relative-gain.svg)
 
-CGRF 的收益主要体现在较大的候选范围：HR@10、HR@20 和 HR@50 分别比 MiniOneRec GRPO 多命中 12、16 和 43 条测试样本，其中 HR@50、NDCG@50 相对提升 3.95% 和 2.05%。HR@1 和 HR@3 略有下降，说明当前奖励更有利于扩大高质量候选覆盖，Top-1 排序仍有进一步调优空间。
+SA-CGRF 的收益主要体现在较大的候选范围：HR@10、HR@20 和 HR@50 分别比 MiniOneRec GRPO 多命中 14、15 和 52 条测试样本，HR@50、NDCG@50 相对提升 4.78% 和 2.39%。与固定权重 CGRF 相比，SA-CGRF 在 HR@1 不变的情况下将 HR@50 再提高 9 次命中，并取得更高的 NDCG@50。
 
 > 当前结果来自 `Industrial_and_Scientific` 数据集、单个随机种子的一次正式训练，未进行显著性检验。
 
@@ -51,14 +51,14 @@ Semantic ID
     ↓ Qwen2.5-1.5B-Instruct 全参数 BF16 SFT
 SFT 推荐模型
     ├── 精确匹配奖励 + 排名奖励 ─────────→ MiniOneRec GRPO
-    └── SASRec 教师 + CGRF 奖励 ─────→ CGRF
+    └── SASRec 教师 + 稀疏感知 CGRF 奖励 ─→ SA-CGRF
                                                 ↓
                                       统一 Beam-50 评测
 ```
 
-![MiniOneRec 与 CGRF 系统结构](assets/figures/minionerec-system.svg)
+![MiniOneRec 与 SA-CGRF 系统结构](assets/figures/minionerec-system.svg)
 
-系统图按照 [MiniOneRec 论文 Figure 2](https://arxiv.org/abs/2510.24431) 的阶段划分绘制。红色虚线框表示本项目新增的 CGRF 奖励模块；SASRec 只在强化学习阶段提供奖励，最终推理仍由微调后的 Qwen 模型独立完成，因此不会增加推理时延和部署参数量。
+系统图按照 [MiniOneRec 论文 Figure 2](https://arxiv.org/abs/2510.24431) 的阶段划分绘制。红色虚线框表示本项目新增的 CGRF/SA-CGRF 奖励模块；SASRec 只在强化学习阶段提供奖励，最终推理仍由微调后的 Qwen 模型独立完成，因此不会增加推理时延和部署参数量。
 
 ### 2.1 MiniOneRec 基线
 
@@ -66,9 +66,9 @@ SFT 推荐模型
 
 1. **SID 构建**：使用 Qwen3-Embedding-4B 编码商品标题和描述，通过 RQ-VAE 将连续语义向量量化为三层 SID。
 2. **SFT**：扩展 Qwen2.5-1.5B-Instruct 词表，联合训练下一 SID 预测、SID 与标题对齐、SID 历史到下一标题三类任务。
-3. **GRPO**：每个 prompt 通过受约束 beam search 生成 16 个合法候选，使用精确匹配奖励与排名奖励计算组内相对优势。
+3. **GRPO**：每个 prompt 通过受约束 Beam Search 生成 16 个合法候选，使用精确匹配奖励与排名奖励计算组内相对优势。
 
-### 2.2 CGRF 奖励
+### 2.2 CGRF 与 SA-CGRF 奖励
 
 CGRF 是 **Confidence-Gated Reward Fusion** 的缩写：`Confidence-Gated` 表示根据 SASRec 对真实目标的排序置信度控制门控，`Reward Fusion` 表示融合 Item-ID 协同奖励与 SID 层级奖励。
 
@@ -82,7 +82,16 @@ R = R_base + λ × [g × R_collaborative + (1 - g) × R_hierarchical]
 - `R_collaborative`：将冻结 SASRec 对 16 个候选的分数转换为 `[0, 1]` 组内排名百分位，避免原始 logit 尺度波动直接影响 GRPO。
 - `R_hierarchical`：候选 SID 与目标 SID 共享 0、1、2、3 层前缀时，分别赋予 `0、0.2、0.5、1.0`。
 - `g`：由真实目标在 SASRec 排序中的位置计算。教师越可靠，越侧重协同奖励；否则回退到 SID 层级奖励。
-- `λ`：稠密奖励权重，正式实验设置为 `0.1`。
+- `λ`：稠密奖励权重；固定权重 CGRF 设置为 `0.1`。
+
+固定权重会在基线奖励已经能够区分候选时继续施加同等强度的稠密信号。SA-CGRF 在 CGRF 上增加一层稀疏感知控制：
+
+```text
+λ(group) = 0.10  当组内 R_base 无差异
+λ(group) = 0.02  当组内 R_base 已能区分候选
+```
+
+前一种情况保留完整稠密监督，后一种情况让 CGRF 退化为轻量辅助，减少对有效精确匹配与排名奖励的干扰。除该组级权重外，SA-CGRF 的模型、数据、优化器和训练配置均与固定权重 CGRF 相同。
 
 SASRec 以 `history_item_id → item_id` 训练，Qwen 则生成 SID。程序通过 `index.json` 建立 `SID → [Item ID, ...]` 反向映射。若一个 SID 对应多个商品，使用以下方式聚合协同分数：
 
@@ -163,7 +172,7 @@ minionerec/
 │   ├── rewards/                     # MiniOneRec 排名奖励
 │   └── evaluation/                  # HR/NDCG 评测
 ├── innovations/
-│   └── cgrf_grpo/      # SASRec、奖励融合与 CGRF 训练
+│   └── cgrf_grpo/      # SASRec、CGRF/SA-CGRF 奖励与训练
 ├── assets/figures/                  # 系统图和实验图
 ├── requirements-a6000.txt
 └── README.md
@@ -182,7 +191,7 @@ minionerec/
 | 统一评测 | `scripts/evaluate_sft.py` | 最终模型、测试集 | HR/NDCG JSON |
 | SASRec 教师 | `innovations/.../train_sasrec.py` | Item ID 序列 | SASRec checkpoint |
 | 奖励回放 | `innovations/.../analyze_rewards.py` | SFT、SASRec、固定候选 | 奖励分析 JSON |
-| CGRF GRPO | `innovations/.../train_cgrf_grpo.py` | SFT、SASRec、GRPO 数据 | `final_model/` |
+| CGRF/SA-CGRF | `innovations/.../train_cgrf_grpo.py` | SFT、SASRec、GRPO 数据 | `final_model/` |
 
 `scripts/` 负责参数解析和流程入口，核心实现位于 `src/minionerec/`；创新模块复用同一套数据、生成和评测代码，只替换 GRPO 的奖励构造。
 
@@ -302,7 +311,7 @@ python -u scripts/train_grpo.py \
 
 ### 5.7 评测
 
-SFT、MiniOneRec GRPO 与 CGRF 使用同一个评测入口，只需替换模型和输出路径：
+SFT、MiniOneRec GRPO、CGRF 与 SA-CGRF 使用同一个评测入口，只需替换模型和输出路径：
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
@@ -318,7 +327,7 @@ python scripts/evaluate_sft.py \
   --device cuda:0
 ```
 
-CGRF 的教师训练、奖励回放和正式训练命令见 [`innovations/cgrf_grpo/README.md`](innovations/cgrf_grpo/README.md)。
+CGRF/SA-CGRF 的教师训练、奖励回放和正式训练命令见 [`innovations/cgrf_grpo/README.md`](innovations/cgrf_grpo/README.md)。
 
 ## 6. 实验配置与资源
 
@@ -346,7 +355,8 @@ CGRF 的教师训练、奖励回放和正式训练命令见 [`innovations/cgrf_g
 | SFT | 全参数 BF16；micro batch 4；梯度累积 32；有效 batch 128；学习率 `3e-4` |
 | GRPO | 16 个候选；micro batch 16；梯度累积 64；2 轮；学习率 `1e-5`；`β=1e-3` |
 | SASRec | 最大序列 10；hidden size 32；2 层；2 heads；dropout 0.3；学习率 `1e-3` |
-| CGRF | `λ=0.1`；其余配置与 MiniOneRec GRPO 一致 |
+| CGRF | 固定 `λ=0.1`；其余配置与 MiniOneRec GRPO 一致 |
+| SA-CGRF | 基线奖励无差异时 `λ=0.1`，可区分时 `λ=0.02` |
 | 评测 | 4,533 条样本；受约束 Beam-50；batch 8 |
 
 ### 6.3 训练资源
@@ -358,19 +368,20 @@ CGRF 的教师训练、奖励回放和正式训练命令见 [`innovations/cgrf_g
 | MiniOneRec GRPO | 1,650 steps；2 轮 | 13.79 小时 | 10.88 GiB |
 | SASRec | 最佳 epoch 66；NDCG@10 0.110354 | 30.7 秒 | 0.045 GiB |
 | CGRF GRPO | 1,650 steps；2 轮 | 13.82 小时 | 10.88 GiB |
+| SA-CGRF GRPO | 1,650 steps；2 轮 | 13.83 小时 | 10.88 GiB |
 
-CGRF GRPO 与基线的训练耗时和显存基本一致；SASRec 参数量为 143,776，且不参与最终推理。
+CGRF、SA-CGRF 与基线的训练耗时和显存基本一致；SASRec 参数量为 143,776，且不参与最终推理。
 
 ## 7. 实验范围
 
 - 本项目完成 `Industrial_and_Scientific` 上的单卡完整流程，没有复现论文的全部数据集和模型规模。
 - SFT 配置上限为 10 轮，验证早停后回载约 4.5 轮时的最佳权重；GRPO 从该模型继续训练 2 轮。
 - 正式对比目前只有一个随机种子，结果用于验证当前配置下的方法有效性，不声明统计显著。
-- `λ=0.2` 和 `0.3` 仅用于离线奖励分析，只有 `λ=0.1` 完成了下游训练，因此不声称其为全局最优值。
+- 固定权重 CGRF 与 SA-CGRF 均只运行一个随机种子；`0.10/0.02` 是当前配置下验证的组级权重，不声称为全局最优。
 
 ## 8. 参考资料
 
 - [MiniOneRec 论文](https://arxiv.org/abs/2510.24431)
 - [MiniOneRec 固定上游 commit](https://github.com/AkaliKong/MiniOneRec/tree/0c64b955ecb8e3d7a9ae9f1fa88cf938f129b0ed)
-- [CGRF 实现与实验命令](innovations/cgrf_grpo/README.md)
+- [CGRF/SA-CGRF 实现与实验命令](innovations/cgrf_grpo/README.md)
 - [MiniOneRec License](LICENSE-MiniOneRec.txt)

@@ -1,12 +1,12 @@
-# CGRF：置信门控的协同—层级 GRPO 奖励
+# CGRF 与 SA-CGRF：置信门控的协同—层级 GRPO 奖励
 
-本目录实现 MiniOneRec 的 CGRF（Confidence-Gated Reward Fusion，置信门控奖励融合）创新实验。`Confidence-Gated` 表示根据 SASRec 对真实目标的排序置信度控制门控，`Reward Fusion` 表示融合 Item-ID 协同奖励与 SID 层级奖励。实验复用基线的 Semantic ID、SFT checkpoint、GRPO 数据、受约束生成和 HR/NDCG 评测，只修改 GRPO 的奖励计算。
+本目录实现 MiniOneRec 的 CGRF（Confidence-Gated Reward Fusion，置信门控奖励融合）及其最终增强版本 SA-CGRF（Sparsity-Aware CGRF）。CGRF 根据 SASRec 对真实目标的排序置信度，在 Item-ID 协同奖励与 SID 层级奖励之间进行门控；SA-CGRF 进一步依据基线奖励是否有效调整稠密奖励强度。实验复用相同的 Semantic ID、SFT checkpoint、GRPO 数据、受约束生成和 HR/NDCG 评测，只修改奖励计算。
 
 ## 1. 动机与方法
 
 MiniOneRec 论文曾尝试使用冻结 SASRec 的原始 logit 替代排名奖励，但该协同信号与最终推荐目标存在偏差，实验出现奖励上升而准确率下降的问题。CGRF 对协同分数进行组内排名归一化，并根据教师对真实目标的排序可信度，在协同奖励和 SID 层级奖励之间自适应切换。
 
-CGRF 在不替换官方奖励的前提下增加稠密项：
+CGRF 在不替换基线奖励的前提下增加稠密项：
 
 ```text
 R = R_official + λ × [g × R_collaborative + (1 - g) × R_hierarchical]
@@ -18,7 +18,16 @@ R = R_official + λ × [g × R_collaborative + (1 - g) × R_hierarchical]
 - `R_hierarchical` 根据候选 SID 和目标 SID 的公共前缀层数给出 `0 / 0.2 / 0.5 / 1.0`。
 - `R_collaborative` 将冻结 SASRec 对组内候选的分数转换成 `[0, 1]` 排名百分位。
 - `g` 由真实目标在 SASRec 排序中的名次计算。教师越确信真实目标，`g` 越接近 1；否则退回更稳定的 SID 层级奖励。
-- `λ` 控制稠密奖励强度。本次离线回放比较 `0.1 / 0.2 / 0.3`，正式训练采用 `0.1`。
+- `λ` 控制稠密奖励强度。固定权重 CGRF 的正式训练采用 `0.1`。
+
+固定权重可能在 `R_official` 已经能够区分候选时引入额外扰动。SA-CGRF 使用组级稀疏感知权重：
+
+```text
+λ(group) = 0.10  当组内 R_official 无差异
+λ(group) = 0.02  当组内 R_official 已能区分候选
+```
+
+因此，官方奖励失效的组仍获得完整稠密监督，官方奖励有效的组只加入轻量辅助信号。两种方法共用相同的置信门控、SASRec 教师和训练配置。
 
 SASRec 只在训练阶段提供奖励，不会加入最终 Qwen 模型，也不会增加评测和线上推理开销。
 
@@ -33,7 +42,7 @@ scripts/analyze_rewards.py
             ↓ reward_analysis.json
 scripts/train_cgrf_grpo.py
     └── src/.../cgrf_training.py + reward_fusion.py
-            ↓ CGRF final_model + training_stats.json
+            ↓ CGRF/SA-CGRF final_model + training_stats.json
 scripts/evaluate_sft.py
             ↓ 同口径推荐指标 JSON
 scripts/summarize_results.py
@@ -44,12 +53,12 @@ scripts/summarize_results.py
 | --- | --- |
 | `src/.../sasrec.py` | 轻量单向 Transformer 序列推荐模型 |
 | `src/.../sasrec_training.py` | Item ID 数据集、训练、验证和早停 |
-| `src/.../reward_fusion.py` | 官方、层级、协同奖励与置信门控 |
+| `src/.../reward_fusion.py` | 基线、层级、协同奖励、置信门控与稀疏感知权重 |
 | `src/.../reward_replay.py` | 冻结模型生成候选并离线比较奖励 |
-| `src/.../cgrf_training.py` | 在 MiniOneRec GRPO 上接入 CGRF 奖励 |
+| `src/.../cgrf_training.py` | 在 MiniOneRec GRPO 上接入 CGRF/SA-CGRF 奖励 |
 | `scripts/train_sasrec.py` | SASRec 命令行入口 |
 | `scripts/analyze_rewards.py` | 离线奖励回放入口 |
-| `scripts/train_cgrf_grpo.py` | CGRF 正式训练入口 |
+| `scripts/train_cgrf_grpo.py` | CGRF/SA-CGRF 正式训练入口 |
 | `scripts/summarize_results.py` | 聚合基线与创新结果 |
 
 ## 3. 实验流程
@@ -139,12 +148,13 @@ python -u innovations/cgrf_grpo/scripts/train_cgrf_grpo.py \
   --info-file artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt \
   --output-dir "$CGRF_SMOKE_DIR" \
   --dense-weight 0.1 \
+  --informative-dense-weight 0.02 \
   --smoke-test
 ```
 
 冒烟测试只执行两个 optimizer step，不验证、不保留中间 checkpoint，输出位于 `/tmp`。
 
-### 3.4 正式 CGRF GRPO
+### 3.4 正式 SA-CGRF GRPO
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
@@ -156,8 +166,9 @@ python -u innovations/cgrf_grpo/scripts/train_cgrf_grpo.py \
   --item-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.item.json \
   --index-file artifacts/data/processed/amazon18/Industrial_and_Scientific/Industrial_and_Scientific.index.json \
   --info-file artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt \
-  --output-dir innovations/cgrf_grpo/results/grpo/cgrf_lambda_01 \
+  --output-dir innovations/cgrf_grpo/results/grpo/cgrf_sparse_aware \
   --dense-weight 0.1 \
+  --informative-dense-weight 0.02 \
   --micro-batch-size 16 \
   --eval-batch-size 16 \
   --gradient-accumulation-steps 64 \
@@ -170,17 +181,17 @@ python -u innovations/cgrf_grpo/scripts/train_cgrf_grpo.py \
   --beta 0.001
 ```
 
-除 `dense_weight=0.1` 和冻结 SASRec 教师外，数据、初始化模型、batch、学习率、生成、KL 和 scheduler 与 MiniOneRec GRPO 相同。正式训练完成 2 个 epoch、1,650 个 step。
+不传 `--informative-dense-weight` 时，程序保持固定权重 CGRF 行为；传入 `0.02` 后启用 SA-CGRF。除奖励权重规则和冻结 SASRec 教师外，数据、初始化模型、batch、学习率、生成、KL 和 scheduler 与 MiniOneRec GRPO 相同。正式训练完成 2 个 epoch、1,650 个 step。
 
 ### 3.5 同口径评测
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
 python scripts/evaluate_sft.py \
-  --model-path innovations/cgrf_grpo/results/grpo/cgrf_lambda_01/final_model \
+  --model-path innovations/cgrf_grpo/results/grpo/cgrf_sparse_aware/final_model \
   --test-file artifacts/data/final/amazon18/test/Industrial_and_Scientific_5_1996-10-2018-11.csv \
   --info-file artifacts/data/final/amazon18/info/Industrial_and_Scientific_5_1996-10-2018-11.txt \
-  --output-file innovations/cgrf_grpo/results/evaluation/cgrf_lambda_01/sid_metrics.json \
+  --output-file innovations/cgrf_grpo/results/evaluation/cgrf_sparse_aware/sid_metrics.json \
   --batch-size 8 \
   --num-beams 50 \
   --max-new-tokens 256 \
@@ -204,41 +215,41 @@ python scripts/evaluate_sft.py \
 
 ### 4.2 奖励配置
 
-离线阶段固定 2,000 个候选组、每组 16 个合法 SID，用同一批候选比较三个奖励权重。`λ=0.1、0.2、0.3` 均通过数值和排序检查；为减少稠密奖励对基线策略的扰动，正式训练采用其中最小的 `λ=0.1`。该阶段只用于确定训练配置，不作为最终效果结论。
+离线阶段固定 2,000 个候选组、每组 16 个合法 SID，用同一批候选比较三个奖励权重。`λ=0.1、0.2、0.3` 均通过数值和排序检查；固定权重 CGRF 采用其中最小的 `λ=0.1`。SA-CGRF 在此基础上将基线奖励已有效的组降至 `λ=0.02`，仅保留轻量辅助。该阶段只用于确定训练配置，不作为最终效果结论。
 
 ### 4.3 正式训练与推荐指标
 
-| 项目 | MiniOneRec GRPO | CGRF |
-| --- | ---: | ---: |
-| epoch / step | 2 / 1,650 | 2 / 1,650 |
-| 训练耗时 | 49,640.639 秒 | 49,744.952 秒 |
-| 峰值已分配显存 | 10.88 GiB | 10.88 GiB |
-| 峰值保留显存 | 12.65 GiB | 12.65 GiB |
-| 最终验证 KL | 0.164816 | 0.844738 |
+| 项目 | MiniOneRec GRPO | CGRF | SA-CGRF |
+| --- | ---: | ---: | ---: |
+| epoch / step | 2 / 1,650 | 2 / 1,650 | 2 / 1,650 |
+| 训练耗时 | 49,640.639 秒 | 49,744.952 秒 | 49,803.433 秒 |
+| 峰值已分配显存 | 10.88 GiB | 10.88 GiB | 10.88 GiB |
+| 峰值保留显存 | 12.65 GiB | 12.65 GiB | 12.65 GiB |
+| 最终验证 KL | 0.164816 | 0.844738 | 0.875107 |
 
 **Hit Rate（HR）**
 
-| 指标 | MiniOneRec GRPO | CGRF | 相对变化 |
-| --- | ---: | ---: | ---: |
-| HR@1 | **0.061769** | 0.060887 | -1.429% |
-| HR@3 | **0.093316** | 0.092654 | -0.709% |
-| HR@5 | 0.110743 | **0.111405** | +0.598% |
-| HR@10 | 0.139643 | **0.142290** | +1.896% |
-| HR@20 | 0.181337 | **0.184867** | +1.946% |
-| HR@50 | 0.240238 | **0.249724** | +3.949% |
+| 指标 | MiniOneRec GRPO | CGRF | SA-CGRF | SA-CGRF 相对 GRPO |
+| --- | ---: | ---: | ---: | ---: |
+| HR@1 | **0.061769** | 0.060887 | 0.060887 | -1.429% |
+| HR@3 | **0.093316** | 0.092654 | 0.092874 | -0.473% |
+| HR@5 | 0.110743 | 0.111405 | **0.111846** | +0.996% |
+| HR@10 | 0.139643 | 0.142290 | **0.142731** | +2.212% |
+| HR@20 | 0.181337 | **0.184867** | 0.184646 | +1.825% |
+| HR@50 | 0.240238 | 0.249724 | **0.251710** | +4.775% |
 
 **Normalized Discounted Cumulative Gain（NDCG）**
 
-| 指标 | MiniOneRec GRPO | CGRF | 相对变化 |
-| --- | ---: | ---: | ---: |
-| NDCG@1 | **0.061769** | 0.060887 | -1.429% |
-| NDCG@3 | **0.079940** | 0.079428 | -0.641% |
-| NDCG@5 | 0.087088 | **0.087204** | +0.133% |
-| NDCG@10 | 0.096283 | **0.097147** | +0.897% |
-| NDCG@20 | 0.106690 | **0.107928** | +1.160% |
-| NDCG@50 | 0.118380 | **0.120805** | +2.048% |
+| 指标 | MiniOneRec GRPO | CGRF | SA-CGRF | SA-CGRF 相对 GRPO |
+| --- | ---: | ---: | ---: | ---: |
+| NDCG@1 | **0.061769** | 0.060887 | 0.060887 | -1.429% |
+| NDCG@3 | **0.079940** | 0.079428 | 0.079538 | -0.503% |
+| NDCG@5 | 0.087088 | 0.087204 | **0.087390** | +0.347% |
+| NDCG@10 | 0.096283 | 0.097147 | **0.097323** | +1.080% |
+| NDCG@20 | 0.106690 | 0.107928 | **0.107943** | +1.174% |
+| NDCG@50 | 0.118380 | 0.120805 | **0.121207** | +2.388% |
 
-CGRF 的收益主要体现在 K≥5，且随 K 增大。HR@10、HR@20、HR@50 分别比 MiniOneRec GRPO 多命中 12、16、43 条测试样本；HR@1 和 HR@3 分别少命中 4、3 条。当前实现改善了候选覆盖，但更高 KL 和轻微 Top-1/Top-3 回落说明 λ 与 β 仍有优化空间。
+SA-CGRF 的收益主要体现在 K≥5。HR@10、HR@20、HR@50 分别比 MiniOneRec GRPO 多命中 14、15、52 条测试样本；相较固定权重 CGRF，HR@50 再增加 9 次命中，NDCG@50 相对提高 0.33%。HR@1 和 HR@3 仍略低于基线，说明该方法主要提升候选覆盖，而不是最前位置排序。
 
 ## 5. 结果汇总与边界
 
@@ -254,4 +265,4 @@ python innovations/cgrf_grpo/scripts/summarize_results.py
 innovations/cgrf_grpo/experiment_summary.json
 ```
 
-当前结论来自一个数据集、一个随机种子的单次正式训练，没有显著性检验。λ=0.2 和 0.3 只做过离线回放，未进行完整下游训练；因此本实验支持“λ=0.1 在当前固定配置下有效”，不支持“λ=0.1 是全局最优”。
+当前结论来自一个数据集、一个随机种子的单次正式训练，没有显著性检验。固定权重 CGRF 与 SA-CGRF 各完成一次正式训练；实验支持组级 `0.10/0.02` 权重在当前配置下优于固定 `0.1`，但不声称其为全局最优。

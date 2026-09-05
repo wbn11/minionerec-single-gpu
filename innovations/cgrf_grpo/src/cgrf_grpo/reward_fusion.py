@@ -33,14 +33,40 @@ class GroupRewardComponents:
             for exact, ranking in zip(self.exact, self.ranking)
         )
 
-    def fused(self, dense_weight: float) -> tuple[float, ...]:
-        """Add gated dense supervision without replacing official reward."""
+    def has_informative_official_reward(
+        self, tolerance: float = 1e-12
+    ) -> bool:
+        """Return whether the official reward distinguishes group candidates."""
+
+        official = self.official
+        return max(official) - min(official) > tolerance
+
+    def fused(
+        self,
+        dense_weight: float,
+        informative_dense_weight: float | None = None,
+    ) -> tuple[float, ...]:
+        """Fuse dense supervision with optional official-aware attenuation."""
 
         if dense_weight < 0.0:
             raise ValueError("dense_weight cannot be negative")
+        if (
+            informative_dense_weight is not None
+            and not 0.0 <= informative_dense_weight <= dense_weight
+        ):
+            raise ValueError(
+                "informative_dense_weight must be between zero and "
+                "dense_weight"
+            )
+        effective_dense_weight = dense_weight
+        if (
+            informative_dense_weight is not None
+            and self.has_informative_official_reward()
+        ):
+            effective_dense_weight = informative_dense_weight
         return tuple(
             official
-            + dense_weight
+            + effective_dense_weight
             * (
                 self.gate * collaborative
                 + (1.0 - self.gate) * hierarchical
@@ -186,4 +212,3 @@ def compute_group_reward_components(
         gate=gate,
         target_collaborative_rank=target_rank,
     )
-

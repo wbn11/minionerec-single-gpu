@@ -51,6 +51,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--info-file", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--dense-weight", type=float, default=0.1)
+    parser.add_argument(
+        "--informative-dense-weight",
+        type=float,
+        help=(
+            "Optional smaller dense-reward weight for groups where the "
+            "official reward already distinguishes candidates"
+        ),
+    )
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--micro-batch-size", type=int, default=16)
     parser.add_argument("--eval-batch-size", type=int, default=16)
@@ -173,6 +181,7 @@ def _build_config(arguments: argparse.Namespace) -> CGRFTrainingConfig:
         grpo=grpo,
         sasrec_checkpoint=arguments.sasrec_checkpoint,
         dense_weight=arguments.dense_weight,
+        informative_dense_weight=arguments.informative_dense_weight,
     )
 
 
@@ -184,10 +193,16 @@ def _training_parameters(
     return {
         "mode": "smoke" if smoke_test else "formal",
         "reward_type": "cgrf",
+        "reward_mode": (
+            "uniform"
+            if config.informative_dense_weight is None
+            else "official_aware"
+        ),
         "dense_weight": config.dense_weight,
+        "informative_dense_weight": config.informative_dense_weight,
         "formula": (
-            "official + lambda * "
-            "(gate * collaborative_rank + (1 - gate) * hierarchical)"
+            "official + lambda(group) * (gate * collaborative_rank + "
+            "(1 - gate) * hierarchical)"
         ),
         "micro_batch_size": grpo.micro_batch_size,
         "eval_batch_size": grpo.eval_batch_size,
